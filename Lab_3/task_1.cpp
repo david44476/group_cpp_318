@@ -25,6 +25,6 @@ void  Letter_Game(int total_cards, int location)
     // обьявляем переменню для расчёта вероятности
    float probability = static_cast<float> (total_cards) / static_cast<float> (location);
    std::cout << "Вероятность что при случайном расположении букв в ряд  получится слово «МАМА» = " << probability << " % "
-                  << " или " << (total_cards / total_cards) << '/' <<(location /total_cards) << '\n';
+                  << " или " << (total_cards / total_cards) << '/' << (location /total_cards) << '\n';
 }
 

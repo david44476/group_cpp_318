@@ -28,6 +28,7 @@ HEADERS += \
     task_2.h \
     task_3.h \
     task_4.h \
-    task_7.h \
+    task_6.h\
     task_5.h \
-    task_6.h
+    task_7.h
+
