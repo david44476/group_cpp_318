@@ -1,7 +1,7 @@
 #include<iostream>
 
 // функция преобразования типов даных
-void Initialization(int x, float y, double z, unsigned short k)
+void Initialization (int x, float y, double z, unsigned short k)
 {
     // преобразование типов с помощью static_cast
     std::cout << "преобразование типов с помощью static_cast\n";

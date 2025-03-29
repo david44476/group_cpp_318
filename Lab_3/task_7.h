@@ -1,4 +1,4 @@
 #ifndef TASK_7_H
 #define TASK_7_H
-auto Elevator (short) -> short;
+void Elevator ();
 #endif // TASK_7_H
