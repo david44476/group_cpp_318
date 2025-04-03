@@ -32,7 +32,6 @@ unsigned short Fun_Min (unsigned short param, unsigned short setpoint)
 // функция для вычесления порогового значения по максимуму
 int Fun_Max (int param, int setpoint, int porog)
 {
-    param < setpoint ? setpoint : param;  // вычесление максимума
 
     if ((param >= porog) || (setpoint >= porog)) // условие сравнивания с пороговым значением
     {
@@ -44,8 +43,6 @@ int Fun_Max (int param, int setpoint, int porog)
 // функция для вычесления порогового значения по минимуму
 int Fun_Min (int param, int setpoint, int porog)
 {
-    param > setpoint ? setpoint : param;  // вычесление минимума
-
     if ((param <= porog) || (setpoint <= porog)) // условие сравнивания с пороговым значением
     {
         std::cout << "параметры ниже порогового " << porog << '\n'; // вывод в терминал результата

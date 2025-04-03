@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     task_4.cpp \
     task_5.cpp \
     task_6.cpp \
-    task_7.cpp
+    task_7.cpp \
+    functions.cpp
 
 HEADERS += \
     task_1.h \
@@ -30,5 +31,6 @@ HEADERS += \
     task_4.h \
     task_6.h\
     task_5.h \
-    task_7.h
+    task_7.h \
+    type_checking.h
 

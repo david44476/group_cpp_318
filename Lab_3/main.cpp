@@ -12,12 +12,11 @@
 
 /* подключаем библиотеку для ввода/вывода */
 #include<iostream>
-//#include"task_selection.h"
 
 // main - главная функция с которой начинается исполнение программы
 int main ()
 {
-#define Unit 4
+#define Unit 0
 
 #if Unit == 1
 
@@ -87,9 +86,13 @@ int main ()
 
     //Запрос пользователя ввести числа
     std::cout << "Ведите три целых числа через пробел и нажмите ввод\n";
-    int param, setpoint,   porog;
+    short param, setpoint, porog;
 
-    std::cin >> param >> setpoint >> porog;
+    param = Type_Thecking (param);
+    setpoint = Type_Thecking (param);
+    porog = Type_Thecking (param);
+
+    //std::cin >> param >> setpoint >> porog;
 
     Fun_Max (param, setpoint); // вызов функции для вычесления максимума
 
@@ -113,7 +116,7 @@ int main ()
 
     // обьявляем переменные
     int x {4};
-    float y {1.6};
+    float y {1.6f};
     double z {33.8};
     unsigned short k {20};
 
@@ -126,8 +129,6 @@ int main ()
 #include"task_7.h"
 
     std::cout << "\t Задание 7" << std::endl;
-
-
 
     // вызов функции
     Elevator ();
