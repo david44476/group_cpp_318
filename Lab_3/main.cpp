@@ -16,7 +16,7 @@
 // main - главная функция с которой начинается исполнение программы
 int main ()
 {
-#define Unit 0
+#define Unit 6
 
 #if Unit == 1
 
@@ -81,18 +81,19 @@ int main ()
 
     // подключаем заголовочный фаил к пятому заданию
 #include"task_5.h"
+#include"type_checking.h"
 
     std::cout << "\t Задание 5" << std::endl;
 
     //Запрос пользователя ввести числа
     std::cout << "Ведите три целых числа через пробел и нажмите ввод\n";
-    short param, setpoint, porog;
+    short param {}, setpoint {}, porog {};
 
+    // проверка на корректность ввода
     param = Type_Thecking (param);
     setpoint = Type_Thecking (param);
     porog = Type_Thecking (param);
 
-    //std::cin >> param >> setpoint >> porog;
 
     Fun_Max (param, setpoint); // вызов функции для вычесления максимума
 
@@ -120,8 +121,9 @@ int main ()
     double z {33.8};
     unsigned short k {20};
 
-    // вызов функции преобразования типов даных
+    // вызов функции преобразование типов с помощью static_cast
     Initialization (x, y, z, k);
+
 
 #elif Unit == 7
 

@@ -35,3 +35,18 @@ auto Type_Thecking (char) -> char
     }
     return choice;
 }
+// функция на корректность ввода
+auto Type_Thecking (short a) -> short
+{
+    while (true)
+    {
+        if ( ! (std::cin >> a)) // условия для проверки
+        {
+            std::cout << "Вы ввели не верные даные!\n Попробуйте ещё раз! : ";
+            std::cin.clear (); // обнуляем флаги состояния ошибки потока
+            std::cin.ignore (std::numeric_limits<short>::max (), '\n'); // функция для игнорирования (или отбрасывания) определенного количества символов из буфера ввода
+        }
+        else break;
+    }
+    return a;
+}

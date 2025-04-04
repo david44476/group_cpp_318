@@ -1,8 +1,8 @@
 #include<iostream>
 
-int iVal {77}; // глобальная переменная
+static int iVal {77}; // глобальная переменная
 
-void Initialization () //фнкция для инициализации разными способами
+auto Initialization () -> void//фнкция для инициализации разными способами
 {
   int iVal {66}; // локальная переменная
 

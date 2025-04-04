@@ -9,53 +9,54 @@ void Initialization (int x, float y, double z, unsigned short k)
     int i = x + static_cast<int> (y)  * static_cast<int> (z + k);
     std::cout<< "i = " << i << '\t' <<  '\n';
     
-    k = x - static_cast<int> (y / z);
+    k = static_cast<unsigned short>(x) - static_cast<unsigned short> (y) / static_cast<unsigned short>(z);
     std::cout << "k = " << k <<  '\n';
     
-    z = x * static_cast<int> (y + z / x);
+    z = static_cast<double>(x) * static_cast<double> (y) + z / static_cast<double>(x);
     std::cout << "z = " << z << '\n';
     
-    unsigned int ui = x / static_cast<int> (y + k);
+    unsigned int ui = static_cast<unsigned int>(x) / static_cast<unsigned int>(y) + static_cast<unsigned int>(k);
     std::cout << "ui = " << ui << '\n';
     
-    short s = x % (x /static_cast<int> (y));
+    short s = static_cast<short>(x) % static_cast<short>(x) /static_cast<short> (y);
     std::cout << "s = " << (s) << '\n';
-    
-    
+
+
     // преобразование типов с помощью С-style cast
     std::cout << "преобразование типов с помощью С-style cast\n";
     
-    i = x + (int) (y)  * (int) (z + k);
+    i = x + (int) y * (int) z + (int) k;
     std::cout<< "i = " << i << '\t' <<  '\n';
     
-    k = x - (int) (y / z);
+    k = (unsigned short) (x) - (unsigned short) (y) / (unsigned short) (z);
     std::cout << "k = " << k <<  '\n';
     
-    z = x * (int) (y + z / x);
+    z = (double) (x) * (double) (y) + (double) (z) / (double) (x);
     std::cout << "z = " << z << '\n';
     
-    ui = x / (int) (y + k);
+    ui = (unsigned int) (x) / (unsigned int) (y) + (unsigned int) (k);
     std::cout << "ui = " << ui << '\n';
     
-    s = x % (int) (x / y);
+    s = (short) (x) % (short) (x) / (short) (y);
     std::cout << "s = " << s << '\n';
+
     
     // преобразование типов с помощью не явной инициализацией
     std::cout << "преобразование типов с помощью не явной инициализацией\n";
 
-    int i1 = (x + y) * z + k;
-    std::cout<< "i1 = " << i1 << '\t' <<  '\n';
+    i = (x + y) * z + k;
+    std::cout<< "i = " << i << '\t' <<  '\n';
     
-    int  k1 = x - y / z;
-    std::cout << "k1 = " << k1 <<  '\n';
+    k = x - y / z;
+    std::cout << "k = " << k <<  '\n';
     
-    int z1 = x * y + z / x;
-    std::cout << "z1 = " << z1 << '\n';
+    z = x * y + z / x;
+    std::cout << "z = " << z << '\n';
     
-    int ui1 = x / y + k;
-    std::cout << "ui1 = " << ui1 << '\n';
+    ui = x / y + k;
+    std::cout << "ui = " << ui << '\n';
     
-    int s1 = x % (int) (x / y);
-    std::cout << "s1 = " << s1 << '\n';
+    s = x % (int) (x / y);
+    std::cout << "s = " << s << '\n';
 
 }

@@ -1,4 +1,4 @@
 #ifndef TASK_6_H
 #define TASK_6_H
-void Initialization (int, float, double, unsigned short); // функция преобразования типов даных
+auto Initialization (int x, float y, double z, unsigned short k) -> void; // функция преобразования типов даных
 #endif // TASK_6_H
