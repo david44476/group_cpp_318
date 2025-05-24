@@ -11,7 +11,7 @@
 */
 
 #include<iostream>
-#include"functions.h"
+#include"type_thecking.h"
 
 // создаём перечесление заданий
 enum class ProgrEnum {Task_1, Task_2, Task_3, Tak_4, Task_5, Task_6, Task_7, Task_8, Task_9};
@@ -24,6 +24,7 @@ int main() {
     // условие для выбора задания № 1
     if (progrEnum == ProgrEnum::Task_1)
     {
+#include "task_1.h"
         constexpr short Size {10};  // создаём переменную для длины массива
         short MyArray [Size];  // создаём массив
 
@@ -37,6 +38,7 @@ int main() {
     // условие для выбора задания № 2
     if (progrEnum == ProgrEnum::Task_2)
     {
+#include"task_2.h"
         std::cout << "\t Задание 2.a)" << '\n' << "Вывод единичной матрици" << '\n';
         Task_2a ();
 
