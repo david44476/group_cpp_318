@@ -1,14 +1,14 @@
 #include<iostream>
 #include<limits>
 
-// Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð° ÐºÐ¾Ñ€ÐµÐºÑ‚Ð½Ð¾ÑÑ‚ÑŒ Ð²Ð²Ð¾Ð´Ð°
+// ¯à®¢¥àª  ­  ª®à¥ªâ­®áâì ¢¢®¤ 
 auto Type_Thecking (short a, short min, short max) -> short
 {
     while (true)
     {
         if (! (std::cin >> a) || a < min || a > max || a == ' ')
         {
-            std::cout << "Ð’Ñ‹ Ð²Ð²ÐµÐ»Ð¸ Ð½Ðµ Ð²ÐµÑ€Ð½Ñ‹Ðµ Ð´Ð°Ð½Ñ‹Ðµ!" << '\n' << "ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÐµÑ‰Ñ‘: ";
+            std::cout << "‚ë ¢¢¥«¨ ­¥ ¢¥à­ë¥ ¤ ­ë¥!" << '\n' << "®¯à®¡ã©â¥ ¥éñ: ";
             std::cin.clear ();
             std::cin.ignore (std::numeric_limits<short>::max(), '\n');
         }
@@ -18,7 +18,7 @@ auto Type_Thecking (short a, short min, short max) -> short
 }
 
 
-// Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð° ÐºÐ¾Ñ€ÐµÐºÑ‚Ð½Ð¾ÑÑ‚ÑŒ Ð²Ð²Ð¾Ð´Ð°
+// ¯à®¢¥àª  ­  ª®à¥ªâ­®áâì ¢¢®¤ 
 auto Type_Thecking (char c) -> char
 {
     while (true)
@@ -26,7 +26,7 @@ auto Type_Thecking (char c) -> char
         std::cin >> c;
         if ( ! (c == 'Y' || c == 'y' || c == 'N' || c == 'n') || c == ' ')
         {
-            std::cout << "Ð’Ñ‹ Ð²Ð²ÐµÐ»Ð¸ Ð½Ðµ Ð²ÐµÑ€Ð½Ñ‹Ð¹ ÑÐ¸Ð¼Ð²Ð¾Ð»!" << '\n' << "ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÐµÑ‰Ñ‘: ";
+            std::cout << "‚ë ¢¢¥«¨ ­¥ ¢¥à­ë© á¨¬¢®«!" << '\n' << "®¯à®¡ã©â¥ ¥éñ: ";
             std::cin.clear ();
             std::cin.ignore (std::numeric_limits<char>::max(), '\n');
         }
@@ -36,14 +36,14 @@ auto Type_Thecking (char c) -> char
 }
 
 
-// Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð° ÐºÐ¾Ñ€ÐµÐºÑ‚Ð½Ð¾ÑÑ‚ÑŒ Ð²Ð²Ð¾Ð´Ð°
+// ¯à®¢¥àª  ­  ª®à¥ªâ­®áâì ¢¢®¤ 
 auto Type_Thecking (short a) -> short
 {
     while (true)
     {
         if (! (std::cin >> a))
         {
-            std::cout << "Ð’Ñ‹ Ð²Ð²ÐµÐ»Ð¸ Ð½Ðµ Ð²ÐµÑ€Ð½Ñ‹Ðµ Ð´Ð°Ð½Ñ‹Ðµ!" << '\n' << "ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÐµÑ‰Ñ‘: ";
+            std::cout << "‚ë ¢¢¥«¨ ­¥ ¢¥à­ë¥ ¤ ­ë¥!" << '\n' << "®¯à®¡ã©â¥ ¥éñ: ";
             std::cin.clear ();
             std::cin.ignore (std::numeric_limits<short>::max(), '\n');
         }

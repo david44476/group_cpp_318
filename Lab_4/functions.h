@@ -1,8 +1,10 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
-auto Type_Thecking (short a, short min, short max) -> short;  // Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð° ÐºÐ¾Ñ€ÐµÐºÑ‚Ð½Ð¾ÑÑ‚ÑŒ Ð²Ð²Ð¾Ð´Ð°
-auto Type_Thecking (short c) -> short;  // Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð° ÐºÐ¾Ñ€ÐµÐºÑ‚Ð½Ð¾ÑÑ‚ÑŒ Ð²Ð²Ð¾Ð´Ð°
-auto Type_Thecking (char a) -> char;  // Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð° ÐºÐ¾Ñ€ÐµÐºÑ‚Ð½Ð¾ÑÑ‚ÑŒ Ð²Ð²Ð¾Ð´Ð°
-auto MersWhir (short MyArray[ ], const short size) -> void;  // Ñ„ÑƒÐ½ÐºÑƒÐ¸Ñ Ð´Ð»Ñ Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ Ð¼Ð°ÑÑÐ¸Ð²Ð° Ð’Ð¸Ñ…Ñ€ÐµÐ¼ ÐœÐµÑ€ÑÐµÐ½Ð°
+auto Type_Thecking (short a, short min, short max) -> short;  // ¯à®¢¥àª  ­  ª®à¥ªâ­®áâì ¢¢®¤ 
+auto Type_Thecking (short a) -> short;  // ¯à®¢¥àª  ­  ª®à¥ªâ­®áâì ¢¢®¤ 
+auto Type_Thecking (char c) -> char;  // ¯à®¢¥àª  ­  ª®à¥ªâ­®áâì ¢¢®¤ 
+auto MersWhir (short MyArray[ ], const short size) -> void;  // äã­ªã¨ï ¤«ï § ¯®«­¥­¨ï ¬ áá¨¢  ‚¨åà¥¬ Œ¥àá¥­ 
 auto MyGen (short MyArray[ ], const short size) -> void;
+auto Task_2a () -> void;
+auto Task_2b () -> void;
 #endif // FUNCTIONS_H
