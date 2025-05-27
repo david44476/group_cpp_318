@@ -133,22 +133,26 @@ int main() {
 ```cpp
 // исправленный код
 #include <iostream>
+#include <iostream>
 int main() {
- char cvalue;
- int ivalue;
- short *ps = nullptr;
- char *pc = nullptr;
- void *pv {(int*)(&cvalue)};
- void *pv_1 {(char*)(&ivalue)};
- std::cout << "pv -> int " << *static_cast<int*>(pv) << std::endl;
- int *pi = {(int*)(pv_1)};
- std::cout << "pi = " << *pi << std::endl;
+    char cvalue{'A'};
+    int ivalue{65};
+    short *ps = nullptr;
+    char *pc = nullptr;
+    void *pv {(int*)(&cvalue)};
+    void *pv_1 {(char*)(&ivalue)};
+    std::cout << "pv -> int " << static_cast<int*>(pv)  << std::endl;
+    int *pi = {(int*)(pv_1)};
+    std::cout << "pi = " << *static_cast<char*>(pv_1) << std::endl;
+
+    return 0;
+}
 
  return 0;
 }
 /* вывод программы
- pv -> int 512
- pi = 65535
+pv -> int 0x61fe8b
+pi = A
 */
 ```
 
