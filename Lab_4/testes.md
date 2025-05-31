@@ -353,7 +353,7 @@ int main() {
 const int size = 5;
 void Func(int *ptr, int size) {
  for (int i = 0; i < size; ++i)
- std::cout << &ptr[i] << '\n'; // вывод элементов масива в цикле
+ std::cout << &ptr[i] << '\n'; // вывод адресов элементов масива в цикле
  *ptr = 5; // первому элементу массива присваиваем значение 5
  std::cout << '\n';
  for (int i = 0; i < size; ++i)
