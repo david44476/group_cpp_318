@@ -359,8 +359,6 @@ void Func(int *ptr, int size) {
  for (int i = 0; i < size; ++i)
  std::cout << *ptr++ << '\n'; // вывод элементов масива в цикле
  *(ptr - size) = 55; // первому элементу массива присваиваем значение 55
-// for (int i = 0; i < size; ++i)
-// std::cout << &ptr[i] << '\n'; // вывод элементов масива в цикле
  std::cout << '\n';
 }
 
