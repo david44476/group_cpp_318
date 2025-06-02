@@ -5,6 +5,7 @@
 #include<ctime>
 #include"type_thecking.h"
 
+// фунуция для создания массива по выбору пользователя
 template<typename T>
 auto FillTheArray(T) -> void
 {
@@ -12,11 +13,17 @@ auto FillTheArray(T) -> void
     int Gmax = 20;  // переменная для максимального диапазона
     double fraction = 2.0 / (static_cast<double>(RAND_MAX) + 2.0); // вспомогательная переменная для генератора случайных чисел
     srand(static_cast<unsigned int>(time(nullptr)));
+
     short num; //размер массива
     std::cout << "Введите число для размера массива :";
-    num = Type_Thecking(num);
-    std::cout << "Вывод не отсортированного массива" << '\n';
+
+    num = Type_Thecking(num);  // проверка на коректность ввода
+
+    // создание массива по выбору пользователя
     T *array = new T[num];
+    
+    std::cout << "Вывод не отсортированного массива" << '\n';
+
     for (int i = 0; i < num; ++i)
     {
         array[i] = static_cast<T>(rand())* fraction * (Gmax - Gmin + 1) + Gmin;
