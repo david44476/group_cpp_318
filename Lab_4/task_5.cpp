@@ -24,7 +24,8 @@ auto MyArray() -> void
               << "тип double нажмите 5 :";
 
     short choice;
-    choice = Type_Thecking(choice, min, max);  // проверка на коректность ввода
+    short (* PtrType_Thecking)(short a, short min, short max) = Type_Thecking;  // указатель на функцию
+    choice = PtrType_Thecking(choice, min, max);  // проверка на коректность ввода
 
     switch (choice)
     {
