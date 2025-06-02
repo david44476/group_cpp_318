@@ -1,6 +1,8 @@
 #include <iostream>
-#include"type_thecking.h"
-#include"fill_the_array.h"
+#include"type_thecking.h"  // подключаем заголовочнй файл с функцией для прверки коректности ввода
+#include"fill_the_array.h"  // // подключаем заголовочнй файл с функцией для создания массива
+
+// создаём перечесление типов даных
 enum MyArray
 {
     MayArray_Char = 1,
@@ -10,36 +12,47 @@ enum MyArray
     MayArray_Double,
 };
 
+// функция создания массива по выбору пользователя
 auto MyArray() -> void
 {
+    // переменые для проверки на коректность ввода
+    short min = static_cast<short>(MayArray_Char);
+    short max = static_cast<short>(MayArray_Double);
+
     std::cout << "Выберите какого типа даных хотите создать массив" << '\n'
               << "Тип char нажмите 1, тип short нажмите 2, тип int нажмите 3, тип float нажмите 4,"
               << "тип double нажмите 5 :";
+
     short choice;
-    choice = Type_Thecking(choice);
+    choice = Type_Thecking(choice, min, max);  // проверка на коректность ввода
 
     switch (choice)
     {
+        // создание массива типа char
     case MayArray_Char :
         char cvalue;
         FillTheArray(cvalue);
         break;
 
+        // создание массива типа short
     case MayArray_Short :
         short svalue;
         FillTheArray(svalue);
         break;
 
+        // создание массива типа int
     case MayArray_Int :
         int ivalue;
         FillTheArray(ivalue);
         break;
 
+        // создание массива типа float
     case MayArray_Float :
         float fvalue;
         FillTheArray(fvalue);
         break;
 
+        // создание массива типа double
     case MayArray_Double :
         double dvalue;
         FillTheArray(dvalue);
