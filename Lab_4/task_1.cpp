@@ -26,8 +26,8 @@ auto MersWhir (short MyArray[ ], const short size) -> void
 
 auto MyGen (short MyArray[ ], const short size) -> void
 {
-    short min = *MyArray;  // переменная для минимального значения
-    short max = *MyArray;  // переменная для максимального значения
+    short min = 0;  // переменная для минимального значения
+    short max = 0;  // переменная для максимального значения
     short Gmin = -20;  // переменная для минимального диапазона
     short Gmax = 20;  // переменная для максимального диапазона
     double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0); // вспомогательная переменная для генератора случайных чисел
