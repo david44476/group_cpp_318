@@ -103,6 +103,6 @@ int main() {
     else if (progrEnum == ProgrEnum::Task_5)
     {
 #include"task_5.h"
-        MyArray();  // вызов функции
+        CreateArray();  // вызов функции для создания массива по выбору пользователя
     }
 }

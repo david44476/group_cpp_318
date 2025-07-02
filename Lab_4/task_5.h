@@ -9,7 +9,9 @@ enum Type
     Type_Float,
     Type_Double,
 };
-auto MyArray() -> void;  // функция создания массива по выбору пользователя
-auto randNumGen() -> void*;
-auto PrintArray(void *array, short size) -> void;
+auto Type_Thecking (short a, short min, short max) -> short;
+auto CreateArray() -> void;  // функция создания массива по выбору пользователя
+auto RandNumGen(void *xpArray, const size_t& size) -> void;
+auto PrintArray(void *xpArray, const size_t& size) -> void;
+auto InsertionSort(void *xpArray, const size_t& size) -> void;
 #endif // TASK_5_H
