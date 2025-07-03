@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include<ctime>
 #include <cstdlib>
 #include"task_5.h"
@@ -19,7 +19,10 @@ auto CreateArray() -> void {
               << "тип double нажмите 5 :";
     choice = Type_Thecking(choice, min, max);  // проверка на коректность ввода
 
-
+    using pFunc = void(*)(void*, const size_t&);
+    pFunc pRandNumGen= RandNumGen;
+    pFunc pPrintArray = PrintArray;
+    pFunc pInsertionSort = InsertionSort;
     short sizeMin{1};
     short sizeMax{100};
 
@@ -33,11 +36,11 @@ auto CreateArray() -> void {
         arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
         short Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
-        RandNumGen(Array, arraySize);
-        PrintArray(Array, arraySize);
-        InsertionSort(Array, arraySize);
+        pRandNumGen(Array, arraySize);
+        pPrintArray(Array, arraySize);
+        pInsertionSort(Array, arraySize);
         std::cout << "\vВывод отсортированного массива" << '\n';
-        PrintArray(Array, arraySize);
+        pPrintArray(Array, arraySize);
     }
         break;
 
