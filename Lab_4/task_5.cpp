@@ -20,11 +20,11 @@ auto CreateArray() -> void {
     choice = Type_Thecking(choice, min, max);  // проверка на коректность ввода
 
     using pFunc = void(*)(void*, const size_t&);
-    pFunc pRandNumGen= RandNumGen;
-    pFunc pPrintArray = PrintArray;
-    pFunc pInsertionSort = InsertionSort;
-    short sizeMin{1};
-    short sizeMax{100};
+    pFunc pRandNumGen= RandNumGen; // указатель на функцию генерации случайных чисел
+    pFunc pPrintArray = PrintArray;  // указатель на функцию вывода массива
+    pFunc pInsertionSort = InsertionSort;  // указатель на функцию сортировки массива
+    short sizeMin{1};  // переменная для проверки ввода длины массива
+    short sizeMax{100};  // переменная для проверки ввода длины массива
 
     switch (choice){
 
@@ -34,7 +34,7 @@ auto CreateArray() -> void {
         // Вводим размер массива с проверками корректности
         std::cout << "Введите число для длины массива от 1 до 25 : " << '\n';
         arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
-        short Array[max_length];
+        char Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
         pRandNumGen(Array, arraySize);
         pPrintArray(Array, arraySize);
@@ -64,7 +64,7 @@ auto CreateArray() -> void {
         // Вводим размер массива с проверками корректности
         std::cout << "Введите число для длины массива от 1 до 100 : " << '\n';
         arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
-        short Array[max_length];
+        int Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
         RandNumGen(Array, arraySize);
         PrintArray(Array, arraySize);
@@ -79,7 +79,7 @@ auto CreateArray() -> void {
         // Вводим размер массива с проверками корректности
         std::cout << "Введите число для длины массива от 1 до 100 : "<< '\n';
         arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
-        short Array[max_length];
+        float Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
         RandNumGen(Array, arraySize);
         PrintArray(Array, arraySize);
@@ -94,7 +94,7 @@ auto CreateArray() -> void {
         // Вводим размер массива с проверками корректности
         std::cout << "Введите число для длины массива от 1 до 100 : " << '\n';
         arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
-        short Array[max_length];
+        double Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
         RandNumGen(Array, arraySize);
         PrintArray(Array, arraySize);
