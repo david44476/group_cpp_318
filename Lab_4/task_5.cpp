@@ -19,16 +19,17 @@ auto CreateArray() -> void {
               << "тип double нажмите 5 :";
     choice = Type_Thecking(choice, min, max);  // проверка на коректность ввода
 
-    // Вводим размер массива с проверками корректности
-    std::cout << "Введите число для длины массива от 1 до 100 : ";
+
     constexpr short sizeMin{1};
     constexpr short sizeMax{100};
-    arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
 
-    std::cout <<  arraySize << '\n';
     switch (choice){
+
+    // создание массива типа char
     case Type_Char :{
-        // создание массива типа char
+        // Вводим размер массива с проверками корректности
+        std::cout << "Введите число для длины массива от 1 до 25 : " << '\n';
+        arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
         short Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
         RandNumGen(Array, arraySize);
@@ -41,6 +42,9 @@ auto CreateArray() -> void {
 
         // создание массива типа short
     case Type_Short :{
+        // Вводим размер массива с проверками корректности
+        std::cout << "Введите число для длины массива от 1 до 100 : " << '\n';
+        arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
         short Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
         RandNumGen(Array, arraySize);
@@ -53,6 +57,9 @@ auto CreateArray() -> void {
 
         // создание массива типа int
     case Type_Int :{
+        // Вводим размер массива с проверками корректности
+        std::cout << "Введите число для длины массива от 1 до 100 : " << '\n';
+        arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
         short Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
         RandNumGen(Array, arraySize);
@@ -65,6 +72,9 @@ auto CreateArray() -> void {
 
         // создание массива типа float
     case Type_Float :{
+        // Вводим размер массива с проверками корректности
+        std::cout << "Введите число для длины массива от 1 до 100 : "<< '\n';
+        arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
         short Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
         RandNumGen(Array, arraySize);
@@ -77,6 +87,9 @@ auto CreateArray() -> void {
 
         // создание массива типа double
     case Type_Double :{
+        // Вводим размер массива с проверками корректности
+        std::cout << "Введите число для длины массива от 1 до 100 : " << '\n';
+        arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
         short Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
         RandNumGen(Array, arraySize);
@@ -96,21 +109,30 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
     double fraction{1.0 / (static_cast<double>(RAND_MAX) + 1.0)};
     short min{1};
     short max{100};
+    bool alreadyThere;
 
 
     switch (choice) {
     case Type_Char :{
 
-        srand(static_cast<unsigned int>(time(nullptr)));
-        double fraction{1.0 / (static_cast<double>(RAND_MAX) + 1.0)};
         short min{65};
         short max{90};
         // Равномерное распределение случайного числа в диапазоне от min до max
         for (size_t i{0}; i < size; ++i) {
             char *pdata =  static_cast<char*>(xpArray);
             // Равномерное распределение случайного числа в диапазоне от min до max
-            for (size_t i{0}; i < size; ++i) {
-                pdata[i] = static_cast<char>((rand() * fraction * (max - min + 1) + min));
+            for (size_t i{0}; i < size;) {
+                alreadyThere = false;
+                char newRandNum = static_cast<char>((rand() * fraction * (max - min + 1) + min));
+                for (size_t k{0}; k < i; ++k){
+                    if (pdata[k] == newRandNum){
+                        alreadyThere = true;
+                    }
+                }
+                if (!alreadyThere){
+                    pdata[i] = newRandNum;
+                    ++i;
+                }
             }
         }
     }
@@ -123,8 +145,18 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
         for (size_t i{0}; i < size; ++i) {
             short *pdata =  static_cast<short*>(xpArray);
             // Равномерное распределение случайного числа в диапазоне от min до max
-            for (size_t i{0}; i < size; ++i) {
-                pdata[i] = static_cast<short>((rand() * fraction * (max - min + 1) + min));
+            for (size_t i{0}; i < size;) {
+                alreadyThere = false;
+                short newRandNum = static_cast<short>((rand() * fraction * (max - min + 1) + min));
+                for (size_t k{0}; k < i; ++k){
+                    if (pdata[k] == newRandNum){
+                        alreadyThere = true;
+                    }
+                }
+                if (!alreadyThere){
+                    pdata[i] = newRandNum;
+                    ++i;
+                }
             }
         }
     }
@@ -135,8 +167,18 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
         for (size_t i{0}; i < size; ++i) {
             int *pdata =  static_cast<int*>(xpArray);
             // Равномерное распределение случайного числа в диапазоне от min до max
-            for (size_t i{0}; i < size; ++i) {
-                pdata[i] = static_cast<int>((rand() * fraction * (max - min + 1) + min));
+            for (size_t i{0}; i < size;) {
+                alreadyThere = false;
+                int newRandNum = static_cast<int>((rand() * fraction * (max - min + 1) + min));
+                for (size_t k{0}; k < i; ++k){
+                    if (pdata[k] == newRandNum){
+                        alreadyThere = true;
+                    }
+                }
+                if (!alreadyThere){
+                    pdata[i] = newRandNum;
+                    ++i;
+                }
             }
         }
     }
@@ -147,8 +189,18 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
         for (size_t i{0}; i < size; ++i) {
             float *pdata =  static_cast<float*>(xpArray);
             // Равномерное распределение случайного числа в диапазоне от min до max
-            for (size_t i{0}; i < size; ++i) {
-                pdata[i] = static_cast<float>((rand() * fraction * (max - min + 1) + min));
+            for (size_t i{0}; i < size;) {
+                alreadyThere = false;
+                float newRandNum = static_cast<float>((rand() * fraction * (max - min + 1) + min));
+                for (size_t k{0}; k < i; ++k){
+                    if (pdata[k] == newRandNum){
+                        alreadyThere = true;
+                    }
+                }
+                if (!alreadyThere){
+                    pdata[i] = newRandNum;
+                    ++i;
+                }
             }
         }
     }
@@ -159,8 +211,18 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
         for (size_t i{0}; i < size; ++i) {
             double *pdata =  static_cast<double*>(xpArray);
             // Равномерное распределение случайного числа в диапазоне от min до max
-            for (size_t i{0}; i < size; ++i) {
-                pdata[i] = static_cast<double>((rand() * fraction * (max - min + 1) + min));
+            for (size_t i{0}; i < size;) {
+                alreadyThere = false;
+                double newRandNum = static_cast<double>((rand() * fraction * (max - min + 1) + min));
+                for (size_t k{0}; k < i; ++k){
+                    if (pdata[k] == newRandNum){
+                        alreadyThere = true;
+                    }
+                }
+                if (!alreadyThere){
+                    pdata[i] = newRandNum;
+                    ++i;
+                }
             }
         }
     }
@@ -213,59 +275,62 @@ auto PrintArray(void *xpArray, const size_t& size) -> void {
     }
 }
 
+
+// функция для сортировки массива
 auto InsertionSort(void *xpArray, const size_t& size) -> void
 {
+    short sizeArray = static_cast<short>(size);
     switch (choice) {
     case Type_Char:{
-        for(size_t i = 1; i < size; i++)
+        for(short i = 1; i < sizeArray; i++)
         {
             char *pdata =  static_cast<char*>(xpArray);
-            size_t j = i - 1;
+            short j = i - 1;
             while(j >= 0 && pdata[j] > pdata[j + 1])
             {
                 std::swap(pdata[j], pdata[j + 1]);
                 j--;
             }
-             pdata[i] = *(static_cast<char*>(xpArray) + i);
+            pdata[i] = *(static_cast<char*>(xpArray) + i);
         }
     }
         break;
 
     case Type_Short:{
-        for(size_t i = 1; i < size; i++)
+        for(short i = 1; i < sizeArray; i++)
         {
             short *pdata =  static_cast<short*>(xpArray);
-            size_t j = i - 1;
+            short j = i - 1;
             while(j >= 0 && pdata[j] > pdata[j + 1])
             {
                 std::swap(pdata[j], pdata[j + 1]);
                 j--;
             }
-             pdata[i] = *(static_cast<short*>(xpArray) + i);
+            pdata[i] = *(static_cast<short*>(xpArray) + i);
         }
     }
         break;
 
     case Type_Int:{
-        for(size_t i = 1; i < size; i++)
+        for(short i = 1; i < sizeArray; i++)
         {
             int *pdata =  static_cast<int*>(xpArray);
-            size_t j = i - 1;
+            short j = i - 1;
             while(j >= 0 && pdata[j] > pdata[j + 1])
             {
                 std::swap(pdata[j], pdata[j + 1]);
                 j--;
             }
-             pdata[i] = *(static_cast<int*>(xpArray) + i);
+            pdata[i] = *(static_cast<int*>(xpArray) + i);
         }
     }
         break;
 
     case Type_Float:{
-        for(size_t i = 1; i < size; i++)
+        for(short i = 1; i < sizeArray; i++)
         {
             float *pdata =  static_cast<float*>(xpArray);
-            size_t j = i - 1;
+            short j = i - 1;
             while(j >= 0 && pdata[j] > pdata[j + 1])
             {
                 std::swap(pdata[j], pdata[j + 1]);
@@ -277,10 +342,10 @@ auto InsertionSort(void *xpArray, const size_t& size) -> void
         break;
 
     case Type_Double:{
-        for(size_t i = 1; i < size; i++)
+        for(short i = 1; i < sizeArray; i++)
         {
             double *pdata =  static_cast<double*>(xpArray);
-            size_t j = i - 1;
+            short j = i - 1;
             while(j >= 0 && pdata[j] > pdata[j + 1])
             {
                 std::swap(pdata[j], pdata[j + 1]);
