@@ -20,13 +20,14 @@ auto CreateArray() -> void {
     choice = Type_Thecking(choice, min, max);  // проверка на коректность ввода
 
 
-    constexpr short sizeMin{1};
-    constexpr short sizeMax{100};
+    short sizeMin{1};
+    short sizeMax{100};
 
     switch (choice){
 
     // создание массива типа char
     case Type_Char :{
+        short sizeMax{25};
         // Вводим размер массива с проверками корректности
         std::cout << "Введите число для длины массива от 1 до 25 : " << '\n';
         arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
