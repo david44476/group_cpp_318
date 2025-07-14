@@ -106,7 +106,7 @@ int main() {
     else if (progrEnum == ProgrEnum::Task_6) {
 #include"task_6.h"
         // функции для демонстрации использование операторов & (адрес) и * (значение по адресу)
-        //Task_6a();
+        Task_6a();
         Task_6b();
     }
 
