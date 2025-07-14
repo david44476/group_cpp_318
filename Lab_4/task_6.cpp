@@ -2,7 +2,6 @@
 #include"task_6.h"
 #include <iomanip>
 #include"type_thecking.h"
-#include <vector>
 
 // функция для задания 6а
 auto Task_6a() -> void{
@@ -97,16 +96,23 @@ auto RanNumGen(void *xpArray, const size_t& size) -> void {
 auto PrinArray(void *xpArray, const size_t& size) -> void {
     short *Array = static_cast<short*>(xpArray);
 
-    std::vector<std::string> column = {"элемент" , "значение", "адрес"};
-    std::vector<short> array = {*Array};
-
-    for (auto& i : column) {
-        std::cout << '\n' << i << ' ';
-        for (size_t j{0}; j < size; ++j) {
-            std::cout << Array + j << ' ';
-        }
-        std::cout << '\n';
+    std::cout << "элемент ";
+    for (size_t i{0}; i < size; ++i) {
+        std:: cout << '\t' << '[' << i << ']' << '\t';
     }
+    std::cout << '\n' << '\v';
+
+    std::cout << "значение =  ";
+    for (size_t i{0}; i < size; ++i) {
+        std:: cout << '\t' << Array[i] << ' ' << '\t';
+    }
+    std::cout << '\n' << '\v';
+
+    std::cout << "адрес ";
+    for (size_t i{0}; i < size; ++i) {
+        std:: cout << '\t' << &Array[i] << ' ';
+    }
+    std::cout << '\n' << '\v';
 
     for (size_t i{0}; i < size; ++i) {
         std::cout << "ptr [" << i << ']' << " адрес " << &Array[i] << " значение = " << Array[i] << "\t\t"
