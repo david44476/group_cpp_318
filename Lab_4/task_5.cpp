@@ -200,7 +200,7 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
                 float newRandNum = static_cast<float>((rand() * fraction * (max - min + 1) + min));
                  // цикл для заполнения массива уникальными значениями
                 for (size_t k{0}; k < i; ++k) {
-                    if (pdata[k] == newRandNum) {
+                    if (std::abs(pdata[k] - newRandNum) <= 1) {
                         alreadyThere = true;
                     }
                 }
@@ -223,7 +223,7 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
                 double newRandNum = static_cast<double>((rand() * fraction * (max - min + 1) + min));
                  // цикл для заполнения массива уникальными значениями
                 for (size_t k{0}; k < i; ++k) {
-                    if (pdata[k] == newRandNum) {
+                    if (std::abs(pdata[k] - newRandNum) <= 0.001) {
                         alreadyThere = true;
                     }
                 }
