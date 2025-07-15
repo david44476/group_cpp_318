@@ -90,7 +90,7 @@ int main() {
         Fibonacci();
 
         std::cout << "\t Задание 4.c)" << '\n';
-        std::cout << "Введите целое число ";
+        std::cout << "Введите целое число: ";
         b = Type_Thecking (b);  //проверка на коректность ввода
         Pyramid(b);
     }
