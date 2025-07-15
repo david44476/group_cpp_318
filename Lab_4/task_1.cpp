@@ -2,8 +2,8 @@
 #include <random>
 
 auto MersWhir (short MyArray[ ], const short size) -> void {
-    short min = *MyArray;  // переменная для минимального значения
-    short max = *MyArray;  // переменная для максимального значения
+    short min{0};  // переменная для минимального значения
+    short max{0};  // переменная для максимального значения
 
     // генерируем случайные числа
     std::random_device rd;
