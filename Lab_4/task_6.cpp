@@ -116,6 +116,6 @@ auto PrinArray(void *xpArray, const size_t& size) -> void {
 
     for (size_t i{0}; i < size; ++i) {
         std::cout << "ptr [" << i << ']' << " адрес " << &Array[i] << " значение = " << Array[i] << "\t\t"
-                  << "*ptr [" << i << ']' << " адрес " << &*(Array + i) << " значение = " << *(Array + i) << '\n';
+                  << "*ptr [" << i << ']' << " адрес " << Array + i << " значение = " << *(Array + i) << '\n';
     }
 }
