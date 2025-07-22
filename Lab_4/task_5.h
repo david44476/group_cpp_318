@@ -11,7 +11,7 @@ enum Type
 };
 
 auto CreateArray() -> void;  // функция создания массива по выбору пользователя
-auto RandNumGen(void *xpArray, const size_t& size) -> void;  // функция для генерации случайных чисел
-auto PrintArray(void *xpArray, const size_t& size) -> void;  // функция для вывода массива
-auto InsertionSort(void *xpArray, const size_t& size) -> void;  // функция для сортировки массива
+auto RandNumGen(void *xpArray, const short& size) -> void;  // функция для генерации случайных чисел
+auto PrintArray(void *xpArray, const short& size) -> void;  // функция для вывода массива
+auto InsertionSort(void *xpArray, const short& size) -> void;  // функция для сортировки массива
 #endif // TASK_5_H
