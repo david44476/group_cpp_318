@@ -47,16 +47,16 @@ auto Task_6a() -> void{
 // функция для задания 6b
 auto Task_6b() -> void{
 std::cout << "\v\t Задание 6b)" << '\n';
-    using pFunc = void(*)(void*, const size_t&);
-    pFunc pRanNumGen= RanNumGen; // указатель на функцию генерации случайных чисел
-    pFunc pPrinArray = PrinArray;  // указатель на функцию вывода массива
+    using pFunc = void(*)(void*, const short&);
+    constexpr pFunc pRanNumGen= RanNumGen; // указатель на функцию генерации случайных чисел
+    constexpr pFunc pPrinArray = PrinArray;  // указатель на функцию вывода массива
     constexpr short max_length{10};  // максимальное количиство считываемых символов
-    static size_t arraySize; // переменная для длины массива по выбору пользователя
+    static short arraySize; // переменная для длины массива по выбору пользователя
     short sizeMin{1};  // переменная для проверки ввода длины массива
     short sizeMax{10};  // переменная для проверки ввода длины массива
     // Вводим размер массива с проверками корректности
     std::cout << "\vВведите число для длины массива от 1 до 10 : ";
-    arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
+    arraySize = Type_Thecking(arraySize, sizeMin, sizeMax);
 
     short array[max_length];
     pRanNumGen(array, arraySize);
@@ -64,7 +64,7 @@ std::cout << "\v\t Задание 6b)" << '\n';
 }
 
 // функция для генерации случайных чисел
-auto RanNumGen(void *xpArray, const size_t& size) -> void {
+auto RanNumGen(void *xpArray, const short& size) -> void {
 
     srand(static_cast<unsigned int>(time(nullptr)));
     double fraction{1.0 / (static_cast<double>(RAND_MAX) + 1.0)};
@@ -72,14 +72,14 @@ auto RanNumGen(void *xpArray, const size_t& size) -> void {
     short max{100};
     bool alreadyThere;
     // Равномерное распределение случайного числа в диапазоне от min до max
-    for (size_t i{0}; i < size; ++i) {
+    for (auto i{0}; i < size; ++i) {
         short *pdata =  static_cast<short*>(xpArray);
         // Равномерное распределение случайного числа в диапазоне от min до max
-        for (size_t i{0}; i < size;) {
+        for (auto i{0}; i < size;) {
             alreadyThere = false;
             short newRandNum = static_cast<short>((rand() * fraction * (max - min + 1) + min));
             // цикл для заполнения массива уникальными значениями
-            for (size_t k{0}; k < i; ++k) {
+            for (auto k{0}; k < i; ++k) {
                 if (pdata[k] == newRandNum) {
                     alreadyThere = true;
                 }
@@ -93,28 +93,28 @@ auto RanNumGen(void *xpArray, const size_t& size) -> void {
 }
 
 // функция для вывода массива
-auto PrinArray(void *xpArray, const size_t& size) -> void {
+auto PrinArray(void *xpArray, const short& size) -> void {
     short *Array = static_cast<short*>(xpArray);
 
     std::cout << "элемент ";
-    for (size_t i{0}; i < size; ++i) {
+    for (auto i{0}; i < size; ++i) {
         std:: cout << '\t' << '[' << i << ']' << '\t';
     }
     std::cout << '\n' << '\v';
 
     std::cout << "значение =  ";
-    for (size_t i{0}; i < size; ++i) {
+    for (auto i{0}; i < size; ++i) {
         std:: cout << '\t' << Array[i] << ' ' << '\t';
     }
     std::cout << '\n' << '\v';
 
     std::cout << "адрес ";
-    for (size_t i{0}; i < size; ++i) {
+    for (auto i{0}; i < size; ++i) {
         std:: cout << '\t' << &Array[i] << ' ';
     }
     std::cout << '\n' << '\v';
 
-    for (size_t i{0}; i < size; ++i) {
+    for (auto i{0}; i < size; ++i) {
         std::cout << "ptr [" << i << ']' << " адрес " << &Array[i] << " значение = " << Array[i] << "\t\t"
                   << "*ptr [" << i << ']' << " адрес " << Array + i << " значение = " << *(Array + i) << '\n';
     }
