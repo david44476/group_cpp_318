@@ -287,10 +287,9 @@ auto PrintArray(void *xpArray, const short& size) -> void {
 
 // функция для сортировки массива
 auto InsertionSort(void *xpArray, const short& size) -> void {
-    short sizeArray = static_cast<short>(size);
     switch (choice) {
     case Type_Char: {
-        for(short i = 1; i < sizeArray; i++)
+        for(short i = 1; i < size; i++)
         {
             char *pdata =  static_cast<char*>(xpArray);
             short j = i - 1;
@@ -305,7 +304,7 @@ auto InsertionSort(void *xpArray, const short& size) -> void {
         break;
 
     case Type_Short: {
-        for(short i = 1; i < sizeArray; i++)
+        for(short i = 1; i < size; i++)
         {
             short *pdata =  static_cast<short*>(xpArray);
             short j = i - 1;
@@ -320,7 +319,7 @@ auto InsertionSort(void *xpArray, const short& size) -> void {
         break;
 
     case Type_Int: {
-        for(short i = 1; i < sizeArray; i++)
+        for(short i = 1; i < size; i++)
         {
             int *pdata =  static_cast<int*>(xpArray);
             short j = i - 1;
@@ -335,7 +334,7 @@ auto InsertionSort(void *xpArray, const short& size) -> void {
         break;
 
     case Type_Float: {
-        for(short i = 1; i < sizeArray; i++)
+        for(short i = 1; i < size; i++)
         {
             float *pdata =  static_cast<float*>(xpArray);
             short j = i - 1;
@@ -350,7 +349,7 @@ auto InsertionSort(void *xpArray, const short& size) -> void {
         break;
 
     case Type_Double: {
-        for(short i = 1; i < sizeArray; i++)
+        for(short i = 1; i < size; i++)
         {
             double *pdata =  static_cast<double*>(xpArray);
             short j = i - 1;
