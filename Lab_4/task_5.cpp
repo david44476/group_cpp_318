@@ -4,7 +4,7 @@
 #include"task_5.h"
 #include"type_thecking.h"
 static short choice; // переменная выбора типа данных для созданния массива
-static size_t arraySize; // переменная для длины массива по выбору пользователя
+static short arraySize; // переменная для длины массива по выбору пользователя
 constexpr int max_length {100}; // максимальное количиство считываемых символов
 
 // функция создания массива по выбору пользователя
@@ -20,10 +20,10 @@ auto CreateArray() -> void {
               << "тип double нажмите 5 :";
     choice = Type_Thecking(choice, min, max);  // проверка на коректность ввода
 
-    using pFunc = void(*)(void*, const size_t&);
-    pFunc pRandNumGen= RandNumGen; // указатель на функцию генерации случайных чисел
-    pFunc pPrintArray = PrintArray;  // указатель на функцию вывода массива
-    pFunc pInsertionSort = InsertionSort;  // указатель на функцию сортировки массива
+    using pFunc = void(*)(void*, const short&);
+    constexpr pFunc pRandNumGen= RandNumGen; // указатель на функцию генерации случайных чисел
+    constexpr pFunc pPrintArray = PrintArray;  // указатель на функцию вывода массива
+    constexpr pFunc pInsertionSort = InsertionSort;  // указатель на функцию сортировки массива
     short sizeMin{1};  // переменная для проверки ввода длины массива
     short sizeMax{100};  // переменная для проверки ввода длины массива
 
@@ -34,7 +34,7 @@ auto CreateArray() -> void {
         short sizeMax{25};
         // Вводим размер массива с проверками корректности
         std::cout << "Введите число для длины массива от 1 до 25 : ";
-        arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
+        arraySize = Type_Thecking(arraySize, sizeMin, sizeMax);
         char Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
         pRandNumGen(Array, arraySize);
@@ -49,14 +49,14 @@ auto CreateArray() -> void {
     case Type_Short : {
         // Вводим размер массива с проверками корректности
         std::cout << "Введите число для длины массива от 1 до 100 : ";
-        arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
+        arraySize = Type_Thecking(arraySize, sizeMin, sizeMax);
         short Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
-        RandNumGen(Array, arraySize);
-        PrintArray(Array, arraySize);
-        InsertionSort(Array, arraySize);
+        pRandNumGen(Array, arraySize);
+        pPrintArray(Array, arraySize);
+        pInsertionSort(Array, arraySize);
         std::cout << "\vВывод отсортированного массива" << '\n';
-        PrintArray(Array, arraySize);
+        pPrintArray(Array, arraySize);
     }
         break;
 
@@ -64,14 +64,14 @@ auto CreateArray() -> void {
     case Type_Int : {
         // Вводим размер массива с проверками корректности
         std::cout << "Введите число для длины массива от 1 до 100 : ";
-        arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
+        arraySize = Type_Thecking(arraySize, sizeMin, sizeMax);
         int Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
-        RandNumGen(Array, arraySize);
-        PrintArray(Array, arraySize);
-        InsertionSort(Array, arraySize);
+        pRandNumGen(Array, arraySize);
+        pPrintArray(Array, arraySize);
+        pInsertionSort(Array, arraySize);
         std::cout << "\vВывод отсортированного массива" << '\n';
-        PrintArray(Array, arraySize);
+        pPrintArray(Array, arraySize);
     }
         break;
 
@@ -79,14 +79,14 @@ auto CreateArray() -> void {
     case Type_Float : {
         // Вводим размер массива с проверками корректности
         std::cout << "Введите число для длины массива от 1 до 100 : ";
-        arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
+        arraySize = Type_Thecking(arraySize, sizeMin, sizeMax);
         float Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
-        RandNumGen(Array, arraySize);
-        PrintArray(Array, arraySize);
-        InsertionSort(Array, arraySize);
+        pRandNumGen(Array, arraySize);
+        pPrintArray(Array, arraySize);
+        pInsertionSort(Array, arraySize);
         std::cout << "\vВывод отсортированного массива" << '\n';
-        PrintArray(Array, arraySize);
+        pPrintArray(Array, arraySize);
     }
         break;
 
@@ -94,21 +94,21 @@ auto CreateArray() -> void {
     case Type_Double : {
         // Вводим размер массива с проверками корректности
         std::cout << "Введите число для длины массива от 1 до 100 : ";
-        arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
+        arraySize = Type_Thecking(arraySize, sizeMin, sizeMax);
         double Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
-        RandNumGen(Array, arraySize);
-        PrintArray(Array, arraySize);
-        InsertionSort(Array, arraySize);
+        pRandNumGen(Array, arraySize);
+        pPrintArray(Array, arraySize);
+        pInsertionSort(Array, arraySize);
         std::cout << "\vВывод отсортированного массива" << '\n';
-        PrintArray(Array, arraySize);
+        pPrintArray(Array, arraySize);
     }
         break;
     }
 }
 
 // функция для генерации случайных чисел
-auto RandNumGen(void *xpArray, const size_t& size) -> void {
+auto RandNumGen(void *xpArray, const short& size) -> void {
 
     srand(static_cast<unsigned int>(time(nullptr)));
     double fraction{1.0 / (static_cast<double>(RAND_MAX) + 1.0)};
@@ -123,14 +123,14 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
         short min{65};
         short max{90};
         // Равномерное распределение случайного числа в диапазоне от min до max
-        for (size_t i{0}; i < size; ++i) {
+        for (auto i{0}; i < size; ++i) {
             char *pdata =  static_cast<char*>(xpArray);
             // Равномерное распределение случайного числа в диапазоне от min до max
-            for (size_t i{0}; i < size;) {
+            for (auto i{0}; i < size;) {
                 alreadyThere = false;
                 char newRandNum = static_cast<char>((rand() * fraction * (max - min + 1) + min));
                  // цикл для заполнения массива уникальными значениями
-                for (size_t k{0}; k < i; ++k) {
+                for (auto k{0}; k < i; ++k) {
                     if (pdata[k] == newRandNum) {
                         alreadyThere = true;
                     }
@@ -146,14 +146,14 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
 
     case Type_Short : {
         // Равномерное распределение случайного числа в диапазоне от min до max
-        for (size_t i{0}; i < size; ++i) {
+        for (auto i{0}; i < size; ++i) {
             short *pdata =  static_cast<short*>(xpArray);
             // Равномерное распределение случайного числа в диапазоне от min до max
-            for (size_t i{0}; i < size;) {
+            for (auto i{0}; i < size;) {
                 alreadyThere = false;
                 short newRandNum = static_cast<short>((rand() * fraction * (max - min + 1) + min));
                  // цикл для заполнения массива уникальными значениями
-                for (size_t k{0}; k < i; ++k) {
+                for (auto k{0}; k < i; ++k) {
                     if (pdata[k] == newRandNum) {
                         alreadyThere = true;
                     }
@@ -169,14 +169,14 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
 
     case Type_Int : {
         // Равномерное распределение случайного числа в диапазоне от min до max
-        for (size_t i{0}; i < size; ++i) {
+        for (auto i{0}; i < size; ++i) {
             int *pdata =  static_cast<int*>(xpArray);
             // Равномерное распределение случайного числа в диапазоне от min до max
-            for (size_t i{0}; i < size;) {
+            for (auto i{0}; i < size;) {
                 alreadyThere = false;
                 int newRandNum = static_cast<int>((rand() * fraction * (max - min + 1) + min));
                  // цикл для заполнения массива уникальными значениями
-                for (size_t k{0}; k < i; ++k) {
+                for (auto k{0}; k < i; ++k) {
                     if (pdata[k] == newRandNum) {
                         alreadyThere = true;
                     }
@@ -192,14 +192,14 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
 
     case Type_Float : {
         // Равномерное распределение случайного числа в диапазоне от min до max
-        for (size_t i{0}; i < size; ++i) {
+        for (auto i{0}; i < size; ++i) {
             float *pdata =  static_cast<float*>(xpArray);
             // Равномерное распределение случайного числа в диапазоне от min до max
-            for (size_t i{0}; i < size;) {
+            for (auto i{0}; i < size;) {
                 alreadyThere = false;
                 float newRandNum = static_cast<float>((rand() * fraction * (max - min + 1) + min));
                  // цикл для заполнения массива уникальными значениями
-                for (size_t k{0}; k < i; ++k) {
+                for (auto k{0}; k < i; ++k) {
                     if (std::abs(pdata[k] - newRandNum) <= 1) {
                         alreadyThere = true;
                     }
@@ -215,14 +215,14 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
 
     case Type_Double : {
         // Равномерное распределение случайного числа в диапазоне от min до max
-        for (size_t i{0}; i < size; ++i) {
+        for (auto i{0}; i < size; ++i) {
             double *pdata =  static_cast<double*>(xpArray);
             // Равномерное распределение случайного числа в диапазоне от min до max
-            for (size_t i{0}; i < size;) {
+            for (auto i{0}; i < size;) {
                 alreadyThere = false;
                 double newRandNum = static_cast<double>((rand() * fraction * (max - min + 1) + min));
                  // цикл для заполнения массива уникальными значениями
-                for (size_t k{0}; k < i; ++k) {
+                for (auto k{0}; k < i; ++k) {
                     if (std::abs(pdata[k] - newRandNum) <= 0.001) {
                         alreadyThere = true;
                     }
@@ -240,11 +240,11 @@ auto RandNumGen(void *xpArray, const size_t& size) -> void {
 
 
 // функция вывода массива типон данных по выбору пользователя
-auto PrintArray(void *xpArray, const size_t& size) -> void {
+auto PrintArray(void *xpArray, const short& size) -> void {
     switch (choice) {
     // заполнение массива типа short
     case Type_Char : {
-        for (size_t i{0}; i < size; ++i) {
+        for (auto i{0}; i < size; ++i) {
             std::cout << "элемент [" << i << ']'  << " значение " << *(static_cast<char*>(xpArray) +i) << '\n';
         }
     }
@@ -252,7 +252,7 @@ auto PrintArray(void *xpArray, const size_t& size) -> void {
 
         // заполнение массива типа short
     case Type_Short : {
-        for (size_t i{0}; i < size; ++i) {
+        for (auto i{0}; i < size; ++i) {
             std::cout << "элемент [" << i << ']'  << " значение " << *(static_cast<short*>(xpArray) +i) << '\n';
         }
     }
@@ -260,7 +260,7 @@ auto PrintArray(void *xpArray, const size_t& size) -> void {
 
         // заполнение массива типа int
     case Type_Int : {
-        for (size_t i{0}; i < size; ++i) {
+        for (auto i{0}; i < size; ++i) {
             std::cout << "элемент [" << i << ']'  << " значение " << *(static_cast<int*>(xpArray) +i) << '\n';
         }
     }
@@ -268,7 +268,7 @@ auto PrintArray(void *xpArray, const size_t& size) -> void {
 
         // заполнение массива типа float
     case Type_Float : {
-        for (size_t i{0}; i < size; ++i) {
+        for (auto i{0}; i < size; ++i) {
             std::cout << "элемент [" << i << ']'  << " значение " << *(static_cast<float*>(xpArray) +i) << '\n';
         }
     }
@@ -276,7 +276,7 @@ auto PrintArray(void *xpArray, const size_t& size) -> void {
 
         // заполнение массива типа double
     case Type_Double : {
-        for (size_t i{0}; i < size; ++i) {
+        for (auto i{0}; i < size; ++i) {
             std::cout << "элемент [" << i << ']'  << " значение " << *(static_cast<double*>(xpArray) +i) << '\n';
         }
     }
@@ -286,7 +286,7 @@ auto PrintArray(void *xpArray, const size_t& size) -> void {
 
 
 // функция для сортировки массива
-auto InsertionSort(void *xpArray, const size_t& size) -> void {
+auto InsertionSort(void *xpArray, const short& size) -> void {
     short sizeArray = static_cast<short>(size);
     switch (choice) {
     case Type_Char: {
