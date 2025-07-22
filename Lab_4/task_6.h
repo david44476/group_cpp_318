@@ -3,6 +3,6 @@
 #include<iostream>
 auto Task_6a() -> void;
 auto Task_6b() -> void;
-auto RanNumGen(void *xpArray, const size_t& size) -> void;  // функция для генерации случайных чисел
-auto PrinArray(void *xpArray, const size_t& size) -> void;  // функция для вывода массива
+auto RanNumGen(void *xpArray, const short& size) -> void;  // функция для генерации случайных чисел
+auto PrinArray(void *xpArray, const short& size) -> void;  // функция для вывода массива
 #endif // TASK_6_H
