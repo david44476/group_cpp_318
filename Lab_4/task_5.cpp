@@ -93,7 +93,7 @@ auto CreateArray() -> void {
         // создание массива типа double
     case Type_Double : {
         // Вводим размер массива с проверками корректности
-        std::cout << "Введите число для длины массива от 1 до 100 : " << '\n';
+        std::cout << "Введите число для длины массива от 1 до 100 : ";
         arraySize = static_cast<size_t>(Type_Thecking(arraySize, sizeMin, sizeMax));
         double Array[max_length];
         std::cout << "\vВывод не отсортированного массива" << '\n';
