@@ -20,10 +20,10 @@ auto Faza() -> void {
 }
 
 auto swap(char(&ref_array)[size]) -> void {
-    for (auto i{0}, j{1}; i < size - 1; ++i, ++j) {
+    for (auto i{0}, j{1}; i < size - 2; ++i, ++j) {
         char s = ref_array[i];
-        ref_array[i] = ref_array[i];
-        ref_array[i] = s;
+        ref_array[i] = ref_array[j];
+        ref_array[j] = s;
     }
 }
 
