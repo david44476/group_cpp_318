@@ -43,7 +43,6 @@ static bit_t shift; // переменная для битового сдвига
 auto LogicalFunctions() -> void {
     std::cout << "Введите  целочисленное значение для переменных pixel от 0 до 255 : ";
     pixel = Type_Thecking(pixel);
-    std::cout << "это пиксель" << pixel << '\n';
     std::cout << "Введите  целочисленное значение для переменных shift : ";
     shift = Type_Thecking(shift);
     std::cout << "Веберите логическую операцию : \n"
