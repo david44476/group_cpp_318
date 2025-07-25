@@ -1,75 +1,103 @@
 #include<iostream>
-#include <bitset>
-#include"task_8.h"
+#include <functional>
 #include"type_thecking.h"
 
 // создаём псевдоним типа для unsigned int
 using bit_t = unsigned int;
 
-// уеказатель на функцию
-static bool (*FunсPtr)( bit_t, const bit_t);
+// создаём псевдоним типа для unsigned char
+using uchar_t = unsigned char;
 
-// деклорация функциии
-auto RGB (bool (*FunсPtr)(bit_t, const bit_t), bit_t, bit_t ) -> void;
-
-const bit_t redBits = 0xFF000000;
-const bit_t greenBits = 0x00FF0000;
-const bit_t blueBits = 0x0000FF00;
-const bit_t alphaBits = 0x000000FF;
-
-// протатип функции для проверки ввода
-auto Type_Thecking (bit_t a) -> bit_t;
+// создаём псевдоним типа на указатель функции
+using binary_op = bool(*)(bit_t, bit_t);
 
 // функция для логического И (&)
-auto andOperatin(bit_t var1, bit_t var2) -> bool {
+auto AndOperatin(bit_t var1, bit_t var2) -> bool {
     return var1 & var2;
 }
 
 // функция для логического ИЛИ (|)
-auto orOperatin(bit_t var1, bit_t var2) -> bool {
+auto OrOperatin(bit_t var1, bit_t var2) -> bool {
     return var1 | var2;
 }
 
 // функция для логического ИСКЛЮЧАЮЩЕГО ИЛИ (^)
-auto xorOperatin(bit_t var1, bit_t var2) -> bool {
+auto XorOperatin(bit_t var1, bit_t var2) -> bool {
     return var1 ^ var2;
 }
 
+// переменные для ввода пользователем
+static bit_t a;
+static bit_t b;
 
-
-static bit_t pixel; // переменная для диапазона от 0 до 255
-static bit_t shift; // переменная для битового сдвига
+auto Select(const uchar_t& choice, bit_t&, bit_t&) -> bool;
 
 auto LogicalFunctions() -> void {
-    std::cout << "Введите  целочисленное значение для переменных pixel от 0 до 255 : ";
-    pixel = Type_Thecking(pixel);
-    std::cout << "Введите  целочисленное значение для переменных shift : ";
-    shift = Type_Thecking(shift);
+    bool stop = false;
+    do {
+    std::cout << "Введите  целочисленное значение для переменной a и нажмите ввод : ";
+    a = Type_Thecking(a);
+    std::cout << "Введите  целочисленное значение для переменной b и нажмите ввод : ";
+    b = Type_Thecking(b);
     std::cout << "Веберите логическую операцию : \n"
-                 "1 - И\n"
-                 "2 - ИЛИ\n"
-                 "3 - ИСКЛЮЧАЮЩЕЕ ИЛИ\n";
-    bit_t choice = Type_Thecking(choice);
+                 "& - И (&)\n"
+                 "| - ИЛИ (|)\n"
+                 "^ - ИСКЛЮЧАЮЩЕЕ ИЛИ (^)\n и нажми ввод : ";
 
-# define SELECT_OF_OPERATION 1
-#if SELECT_OF_OPERATION == 1
-    RGB(andOperatin(pixel, redBits));
-#elif SELECT_OF_OPERATION == 2
-#else
-#endif
+    uchar_t choice = Choice_Type_Thecking(choice);
+
+    #define FUNCTION_POINTER 1
+    std::cout << "результат операции " << a << ' ' << choice << ' ' << b << " = " << Select(choice, a, b) << '\n';
+
+    // запрос пользователю на выбор действия
+    std:: cout << "Хотите продолжить введите 'Y, а если хотите прекратить 'N' и нажмите ввод: \n";
+
+    char choice2 {};
+
+    // проверка на корректность ввода
+    choice2 = Type_Thecking (choice2);
+
+    // условие для действия по выбору пользователя
+    if (choice2 == 'Y' || choice2 == 'y') stop = false;
+
+    else if (choice2 == 'N' || choice2 == 'n') stop = true;
+}
+while( ! stop); // выход из праграммы по выбору пользователя
 }
 
-auto RGB (bool (*FunсPtr)(bit_t, const bit_t), bit_t, bit_t ) -> void {
-    /* Используем побитовое И для изоляции красных пикселей, а затем сдвигаем значение вправо
-     в диапазон от 0 до 255*/
-    unsigned char red = FunсPtr(pixel, redBits) >> shift;
-    unsigned char green = FunсPtr(pixel, greenBits) >> shift;
-    unsigned char blue = FunсPtr(pixel, blueBits) >> shift;
-    unsigned char alpha = FunсPtr(pixel, alphaBits);
-    std::cout << "Ваш цвет содержит:\n";
-    std::cout << static_cast<int>(red) << " из 255 красного\n";
-    std::cout << static_cast<int>(green) << " из 255 зелёного\n";
-    std::cout << static_cast<int>(blue) << " из 255 голубого\n";
-    std::cout << static_cast<int>(alpha) << " из 255 степени не прозрачности\n";
+
+// обычный уеказатель на функцию И (&)
+static constexpr binary_op binAnd{AndOperatin};
+
+// обычный уеказатель на функцию ИЛИ (|)
+static constexpr binary_op binOr{OrOperatin};
+
+// обычный уеказатель на функцию ИСКЛЮЧАЮЩЕЕ ИЛИ (^)
+static constexpr binary_op binXor{XorOperatin};
+
+// указатель на функцию std::function
+std::function<bool(bit_t a, bit_t b)> fcnPtr;
+
+auto Select(const uchar_t& choice, bit_t&, bit_t&) -> bool {
+    // указываем длину массива
+    constexpr bit_t sizeArr{3};
+    // создаём массив из указателей на функции
+    bool (*funcArray[sizeArr])(bit_t, bit_t) = {binAnd, binOr, binXor};
+    for (bit_t i{0}; i < sizeArr; ++i) {
+    switch (choice) {
+    case '&':
+        return funcArray[i];
+        break;
+    case '|':
+        return funcArray[i + 1];
+        break;
+    case '^':
+        return funcArray[i + 2];
+        break;
+    default: return false;
+    }
 }
+}
+
+
 
