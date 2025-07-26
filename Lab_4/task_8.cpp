@@ -2,6 +2,8 @@
 #include <functional>
 #include"type_thecking.h"
 
+#define FUNCTION_POINTER 1
+
 // создаём псевдоним типа для unsigned int
 using bit_t = unsigned int;
 
@@ -35,34 +37,36 @@ auto Select(const uchar_t& choice, bit_t&, bit_t&) -> bool;
 auto LogicalFunctions() -> void {
     bool stop = false;
     do {
-    std::cout << "Введите  целочисленное значение для переменной a и нажмите ввод : ";
-    a = Type_Thecking(a);
-    std::cout << "Введите  целочисленное значение для переменной b и нажмите ввод : ";
-    b = Type_Thecking(b);
-    std::cout << "Веберите логическую операцию : \n"
-                 "& - И (&)\n"
-                 "| - ИЛИ (|)\n"
-                 "^ - ИСКЛЮЧАЮЩЕЕ ИЛИ (^)\n и нажми ввод : ";
+        std::cout << "Введите  целочисленное значение для переменной a и нажмите ввод : ";
+        a = Type_Thecking(a);
+        std::cout << "Введите  целочисленное значение для переменной b и нажмите ввод : ";
+        b = Type_Thecking(b);
+        std::cout << "Веберите логическую операцию и введите соответствующий символ: \n"
+                     "& - И (&)\n"
+                     "| - ИЛИ (|)\n"
+                     "^ - ИСКЛЮЧАЮЩЕЕ ИЛИ (^)\n и нажми ввод : ";
 
-    uchar_t choice = Choice_Type_Thecking(choice);
+        uchar_t choice = Choice_Type_Thecking(choice);
 
-    #define FUNCTION_POINTER 1
-    std::cout << "результат операции " << a << ' ' << choice << ' ' << b << " = " << Select(choice, a, b) << '\n';
+#if FUNCTION_POINTER == 1
+        std::cout << "результат операции " << a << ' ' << choice << ' ' << b << " = " << Select(choice, a, b) << '\n';
+#elif FUNCTION_POINTER == 2
+#endif
 
-    // запрос пользователю на выбор действия
-    std:: cout << "Хотите продолжить введите 'Y, а если хотите прекратить 'N' и нажмите ввод: \n";
+        // запрос пользователю на выбор действия
+        std:: cout << "Хотите продолжить введите 'Y, а если хотите прекратить 'N' и нажмите ввод: \n";
 
-    char choice2 {};
+        char choice2 {};
 
-    // проверка на корректность ввода
-    choice2 = Type_Thecking (choice2);
+        // проверка на корректность ввода
+        choice2 = Type_Thecking (choice2);
 
-    // условие для действия по выбору пользователя
-    if (choice2 == 'Y' || choice2 == 'y') stop = false;
+        // условие для действия по выбору пользователя
+        if (choice2 == 'Y' || choice2 == 'y') stop = false;
 
-    else if (choice2 == 'N' || choice2 == 'n') stop = true;
-}
-while( ! stop); // выход из праграммы по выбору пользователя
+        else if (choice2 == 'N' || choice2 == 'n') stop = true;
+    }
+    while( ! stop); // выход из праграммы по выбору пользователя
 }
 
 
@@ -84,20 +88,22 @@ auto Select(const uchar_t& choice, bit_t&, bit_t&) -> bool {
     // создаём массив из указателей на функции
     bool (*funcArray[sizeArr])(bit_t, bit_t) = {binAnd, binOr, binXor};
     for (bit_t i{0}; i < sizeArr; ++i) {
-    switch (choice) {
-    case '&':
-        return funcArray[i];
-        break;
-    case '|':
-        return funcArray[i + 1];
-        break;
-    case '^':
-        return funcArray[i + 2];
-        break;
-    default: return false;
+        switch (choice) {
+        case '&':
+            return funcArray[i];
+            break;
+        case '|':
+            return funcArray[i + 1];
+            break;
+        case '^':
+            return funcArray[i + 2];
+            break;
+        default: return false;
+        }
     }
 }
-}
+
+
 
 
 
