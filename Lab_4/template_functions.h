@@ -70,7 +70,7 @@ auto MersWhir (T *Array, const D& size) -> void {
 }
 
 
-//шаблонная функция для своего генератора случайных чисел
+//шаблонная функция для своего генератора случайных чисел с диапазоном максимального и минимального значения
 template <typename T, typename D>
 auto MyGen (T *Array,const D& size, const D& Gmin, const D& Gmax) -> void {
   bool alreadyThere;
