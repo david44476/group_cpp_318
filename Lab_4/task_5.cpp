@@ -1,4 +1,7 @@
-﻿#include"task_5.h"
+#include<iostream>
+#include<iomanip>
+#include"template_functions.h" // содержит определение моих шаблонных функций
+#include"task_5.h"
 
 // функция сравнения, которая выполняет сортировку в порядке возрастания
 auto ascending (short a, short b) -> bool {
@@ -31,8 +34,8 @@ auto CreateArray () -> void {
   std::cout << "Создание массива по параметрам пользоватля" << '\n';
 
   // переменые для проверки на коректность ввода
-  constexpr short min = 0;
-  constexpr short max = 100;
+  constexpr short min {static_cast<short>(Type_Char)};
+  constexpr short max {static_cast<short>(Type_Double)};
   std::cout << "Выберите какого типа даных хотите создать массив" << '\n'
                 << "тип char нажмите 1,\n"
                 "тип short нажмите 2,\n"
@@ -56,9 +59,9 @@ auto CreateArray () -> void {
         short max{90}; // максимальное значение для генератора случайных
         // Вводим размер массива с проверками корректности
         std::cout << "\vВведите число для длины массива от 1 до 25 и нажмите ввод : ";
-        arraySize = Type_Thecking (arraySize, sizeMin, sizeMax); // проверка на коректность ввода
+        arraySize = Type_Thecking (arraySize, min, max); // проверка на коректность ввода
         char Array[max_length]; // создание массива типа char
-        MyGen (Array, arraySize, min, max); //функция для своего генератора случайных чисел
+        MyGen (Array, arraySize, sizeMin, sizeMax); //функция для своего генератора случайных чисел
         PrintArray2 (Array, arraySize, "\vВывод не отсортированного массива");
         InsertionSort (Array, arraySize, ascending); // функция для сортировки массива в порядке возростания
         PrintArray2 (Array, arraySize, "Вывод отсортированного массива, в порядке возростания");
@@ -128,5 +131,8 @@ auto CreateArray () -> void {
       break;
     }
 }
+
+
+
 
 
