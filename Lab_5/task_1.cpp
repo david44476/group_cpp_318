@@ -1,6 +1,6 @@
 #include<iostream>
 #include<iomanip>
-#include"template_functions.h"
+#include"template_functions.h" // содержит определение моих шаблонных функций
 
 // функция для задания №1
 auto Task_1 () -> void {
@@ -18,28 +18,62 @@ auto Task_1 () -> void {
                  "aдpecа и значения элементов массива созданного в куче (выведите в цикле)\n" << std::endl;
 
     extern int main ();
-    std::cout << "вывод адреса функции main: " << (void*)&main << '\n';
+    std::cout << "вывод адреса функции main: " << reinterpret_cast<void*>(main) << '\n';
 
     extern char Type_Thecking (char c);
-    std::cout << "\vвывод адреса функции Type_Thecking: " << (void*)&Type_Thecking << '\n';
+    std::cout << "\vвывод адреса функции Type_Thecking: " << reinterpret_cast<void*>(Type_Thecking) << '\n';
 
-    // создаём переменную для длины массива и вывода адреса в стеки
+    // создаём переменную для длины массива и вывода адреса в стеке
     constexpr short size{5};
-    std::cout << "\vвывод адреса переменной созданной в стэке: " << &size << '\n';
-    // создаём массив типа short из пяти элементов
+    std::cout << "\vвывод адреса переменной size созданной в стэке: " << &size << '\n';
+    // создаём массив типа short из пяти элементов в стеке
     short stecArray[size]{7, 2, 3, 4, 5};
     // вызов функции дли вывода массива
-    ArrayPrint (stecArray, size, "\vвывод aдpecа и значения элементов массива "
-                                "созданного в стэке (выведим в цикле)");
+    ArrayPrint (stecArray, size, "\vвывод aдpecа и значения элементов массива stecArray"
+                                " созданного в стэке (выведим в цикле)");
 
     // создаём переменную в статической памяти в секции .bss
     static short staVal;
-    std::cout << "\vвывод адреса переменной в статической памяти в секции .bss " << &staVal << '\n';
-    // создаём переменную в статической памяти в секции .data
-    static short staVal1{0};
-    std::cout << "\vвывод адреса переменной в статической памяти в секции .data " << &staVal1 << '\n';
+    std::cout << "\vвывод адреса переменной staVal"
+                 " в статической памяти в секции .bss " << &staVal << '\n';
 
-    static short staArray[size]{5, 66, 74, 20, 10};
-    ArrayPrint (staArray, size, "\vвывод aдpecа и значения элементов массива "
-                                "созданного в статической памяти (выведим в цикле)");
+    // создаём переменную в статической памяти в секции .data
+    static short staVal1{5};
+    std::cout << "\vвывод адреса переменной staVal1"
+                 " в статической памяти в секции .data " << &staVal1 << '\n';
+
+    // создаём массив типа short из пяти элементов в статической памяти
+    static short statArray[size]{5, 66, 74, 20, 10};
+    // вызов функции дли вывода массива
+    ArrayPrint (statArray, size, "\vвывод aдpecа и значения элементов массива statArray"
+                               " созданного в статической памяти (выводим в цикле)");
+
+    // запрос на выделение динамической памяти для целочисленного значения
+    short *dinamValue = new (std::nothrow) short{10};
+    if (!dinamValue) { // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+        // Обработка этого случая
+        std::cout << "память не выделенна!!!";
+    }
+    else {
+        std::cout <<  "\vвывод адреса переменной dinamValue созданной в куче: " << &dinamValue << '\n';
+        delete dinamValue;
+        dinamValue = nullptr;
+    }
+
+    // запрос на выделение динамической памяти для массива
+    short *dinamArray = new (std::nothrow) short[size];
+    if (!dinamArray) { // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+        // Обработка этого случая
+        std::cout << "память не выделенна!!!";
+    }
+    else {
+        // функция для заполнения массива вихрем Мерсена
+        MersWhir (dinamArray, size);
+        // вызов функции дли вывода массива
+        ArrayPrint (dinamArray, size, "\vвывод aдpecа и значения элементов массива dinamArray"
+                                     " созданного в куче (выводим в цикле)");
+        delete[] dinamArray;
+        dinamArray = nullptr;
+    }
 }
+
