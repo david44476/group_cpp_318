@@ -29,7 +29,7 @@ struct s_Creature {
 auto NewView () -> RetConst;
 
 // деклорация функции для вывода нового вида в консоль
-auto PrintCreature (const s_Creature& creature) -> void;
+auto PrintCreature (const s_Creature& creature, const char* str) -> void;
 
 auto Task_2 () -> RetConst {
     std::string s = "Задание 2)";
@@ -42,7 +42,7 @@ auto Task_2 () -> RetConst {
     bool stop = false; // переменная для цикла do while
     do {
         NewView (); // вызов функции для создания нового вида
-        PrintCreature(*creature); // вызов функции для вывода нового вида в консоль
+        PrintCreature(*creature, "Созданный вами вид"); // вызов функции для вывода нового вида в консоль
         delete creature; // освобождаем память
         creature = nullptr; // обнуляем указатель
         Stop(); // вызов функции для останоки или продолжения выполнения программы по выбору пользователя
@@ -111,7 +111,8 @@ auto NewView () -> RetConst {
 
 
 // функция для вывода нового вида в консоль
-auto PrintCreature (const s_Creature &creature) -> void {
+auto PrintCreature (const s_Creature &creature, const char* str) -> void {
+    std::cout << str << '\n';
     std::cout << creature.head << '\n' << creature.body << '\n'
               << creature.Head.muzzle << '\n' << creature.Head.ears << '\n'
               << creature.Head.eyes << '\n' << creature.Body.foreLimbs << '\n'
