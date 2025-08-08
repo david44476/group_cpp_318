@@ -41,6 +41,7 @@ auto PrintArray2 (const T *Array, const D& size, const char* str) -> void {
     std::cout << std::endl;
 }
 
+
 // функция для вывода массива с номером элемента его адресом и значением
 template <typename T, typename D>
 auto ArrayPrint (const T *array, const D& size, const char *str) ->void {

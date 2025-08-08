@@ -1,4 +1,4 @@
-#define TASK 1
+#define TASK 2
 #if (TASK == 1)
 #include "task_1.h"
 #elif (TASK == 2)
@@ -21,7 +21,7 @@ int main() {
 #if (TASK == 1)
     Task_1();
 #elif (TASK == 2)
-    task_2();
+    Task_2();
 #elif (TASK == 3)
     task_3();
 #elif (TASK == 4)

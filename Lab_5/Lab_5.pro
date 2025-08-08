@@ -9,6 +9,7 @@ CONFIG += c++17 cmdline
 SOURCES += \
         main.cpp \
         task_1.cpp \
+        task_2.cpp \
         type_thecking.cpp
 
 # Default rules for deployment.
@@ -17,6 +18,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    constans.h \
+    stop.h \
     task_1.h \
+    task_2.h \
     template_functions.h \
     type_thecking.h

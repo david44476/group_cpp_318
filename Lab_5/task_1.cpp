@@ -76,4 +76,3 @@ auto Task_1 () -> void {
         dinamArray = nullptr;
     }
 }
-
