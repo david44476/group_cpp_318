@@ -1,9 +1,10 @@
 #include<iostream>
 #include<iomanip>
+#include "constans.h"
 #include"template_functions.h" // содержит определение моих шаблонных функций
 
 // функция для задания №1
-auto Task_1 () -> void {
+auto Task_1 () -> RetConst {
     std::string s = "Задание 1)";
     std::cout << std::setw(30) << std::right << s << '\n';
     std::cout << "Выведите следующее:\n"
@@ -50,21 +51,23 @@ auto Task_1 () -> void {
 
     // запрос на выделение динамической памяти для целочисленного значения
     short *dinamValue = new (std::nothrow) short{10};
-    if (!dinamValue) { // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+    if ( ! dinamValue) { // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
         // Обработка этого случая
         std::cout << "память не выделенна!!!";
+        return ErrMemory;
     }
     else {
         std::cout <<  "\vвывод адреса переменной dinamValue созданной в куче: " << &dinamValue << '\n';
-        delete dinamValue;
-        dinamValue = nullptr;
+        delete dinamValue; // освобождаем память
+        dinamValue = nullptr; // обнуляем указатель
     }
 
     // запрос на выделение динамической памяти для массива
     short *dinamArray = new (std::nothrow) short[size];
-    if (!dinamArray) { // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+    if ( ! dinamArray) { // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
         // Обработка этого случая
         std::cout << "память не выделенна!!!";
+        return ErrMemory;
     }
     else {
         // функция для заполнения массива вихрем Мерсена
@@ -72,7 +75,8 @@ auto Task_1 () -> void {
         // вызов функции дли вывода массива
         ArrayPrint (dinamArray, size, "\vвывод aдpecа и значения элементов массива dinamArray"
                                      " созданного в куче (выводим в цикле)");
-        delete[] dinamArray;
-        dinamArray = nullptr;
+        delete[] dinamArray; // освобождаем память
+        dinamArray = nullptr; // обнуляем указатель
     }
+    return Ok;
 }

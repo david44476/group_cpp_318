@@ -23,7 +23,7 @@ struct s_Creature {
     std::string body; // поле для тела
     s_Head Head; // вложенная структура для головы
     s_Body Body; // вложенная структура для тела
-}*creature{nullptr}; // создаём экземпляр структуры
+}*creature{nullptr}; // обьявляем указатель
 
 // деклорация функции для создания нового вида
 auto NewView () -> RetConst;
