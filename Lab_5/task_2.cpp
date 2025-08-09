@@ -96,7 +96,7 @@ auto NewView () -> RetConst {
     std::getline(std::cin, wings);
 
     // инициализируем экземпляр структуры s_Creature
-    creature = new (std::nothrow)s_Creature {head, body,
+    creature = new (std::nothrow) s_Creature {head, body,
                 // инициализируе экземпляр вложенной структуры Head
                 {muzzle, ears, eyes},
                 // инициализируе экземпляр вложенной структуры Body
