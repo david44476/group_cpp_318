@@ -10,9 +10,10 @@ auto Type_Thecking (char c) -> char;
 auto Stop () -> bool {
     bool  stop = false;
     // запрос пользователю на выбор действия
-    std:: cout << "Хотите продолжить введите 'Y, а если хотите прекратить 'N' и нажмите ввод: \n";
+    std:: cout << "Хотите продолжить введите 'Y, а если хотите прекратить 'N' и нажмите ввод: ";
     char choice{};
     choice = Type_Thecking (choice); // проверка на корректность ввода
+    std::cout << '\n';
 
     // условие для действия по выбору пользователя
     if (choice == 'Y' || choice == 'y') stop = false;
