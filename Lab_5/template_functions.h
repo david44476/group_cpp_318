@@ -112,7 +112,7 @@ auto MyGen (T *Array,const D& size, const D& Gmin, const D& Gmax) -> void {
 template <typename T>
 auto Type_Thecking (T a, T min, T max) -> T {
     while (true) {
-        if (! (std::cin >> a) || a < min || a > max || a == ' ') {
+        if ( ! (std::cin >> a) || a < min || a > max || a == ' ') {
             std::cout << "Вы ввели не верные даные!" << '\n' << "Попробуйте ещё: ";
             std::cin.clear ();
             std::cin.ignore (std::numeric_limits<T>::max(), '\n');
@@ -126,7 +126,7 @@ auto Type_Thecking (T a, T min, T max) -> T {
 template <typename T>
 auto Type_Thecking ( T a) -> T {
     while (true) {
-        if (! (std::cin >> a)) {
+        if ( ! (std::cin >> a)) {
             std::cout << "Вы ввели не верные даные!" << '\n' << "Попробуйте ещё: ";
             std::cin.clear ();
             std::cin.ignore (std::numeric_limits<T>::max(), '\n');

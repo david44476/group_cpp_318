@@ -32,7 +32,7 @@
 #include "task_8.h"
 #else
 #endif
-int main() {
+int main () {
 #if (TASK == 1)
     Task_1();
 #elif (TASK == 2)
