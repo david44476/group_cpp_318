@@ -29,7 +29,7 @@ struct s_Creature {
 auto NewView () -> RetConst;
 
 // деклорация функции для вывода нового вида в консоль
-auto PrintCreature (const s_Creature& creature, const char* str) -> void;
+auto PrintCreature (const s_Creature& fr_creature, const char* fp_str) -> void;
 
 // функция для задания №2
 auto Task_2 () -> RetConst {
@@ -112,11 +112,11 @@ auto NewView () -> RetConst {
 
 
 // функция для вывода нового вида в консоль
-auto PrintCreature (const s_Creature &creature, const char* str) -> void {
-    std::cout << str << '\n';
-    std::cout << creature.head << '\n' << creature.body << '\n'
-              << creature.Head.muzzle << '\n' << creature.Head.ears << '\n'
-              << creature.Head.eyes << '\n' << creature.Body.foreLimbs << '\n'
-              << creature.Body.hindLimbs << '\n' << creature.Body.tail << '\n'
-              << creature.Body.wings << std::endl;
+auto PrintCreature (const s_Creature& fr_creature, const char* fp_str) -> void {
+    std::cout << fp_str << '\n';
+    std::cout << fr_creature.head << '\n' << fr_creature.body << '\n'
+              << fr_creature.Head.muzzle << '\n' << fr_creature.Head.ears << '\n'
+              << fr_creature.Head.eyes << '\n' << fr_creature.Body.foreLimbs << '\n'
+              << fr_creature.Body.hindLimbs << '\n' << fr_creature.Body.tail << '\n'
+              << fr_creature.Body.wings << std::endl;
 }

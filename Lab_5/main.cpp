@@ -13,7 +13,7 @@
 *
 * locale (кодировка): UTF 8
 */
-#define TASK 2
+#define TASK 1
 #if (TASK == 1)
 #include "task_1.h"
 #elif (TASK == 2)
