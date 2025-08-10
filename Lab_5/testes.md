@@ -118,23 +118,11 @@ int main() {
     int mas_all[12];
     cin >> mas_all[0] >> mas_all[1] >> mas_all[2];
 
-    int mas_a[3];
-    mas_a[0] = mas_all[0];
-    mas_a[1] = mas_all[1];
-    mas_a[2] = mas_all[2];
-    new_object.kod1 = mas_a[0];
+    new_object.kod1 = mas_all[0];
 
-    int mas_b[3];
-    mas_b[0] = mas_all[0];
-    mas_b[1] = mas_all[1];
-    mas_b[2] = mas_all[2];
-    new_object.nom1 = mas_b[1];
+    new_object.nom1 = mas_all[1];
 
-    int mas_c[4];
-    mas_c[0] = mas_all[0];
-    mas_c[1] = mas_all[1];
-    mas_c[2] = mas_all[2];
-    new_object.mom_abon1= mas_b[2];
+    new_object.mom_abon1= mas_all[2];
 
     object.kod = 123;
     object.nom = 456;
