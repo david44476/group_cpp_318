@@ -31,7 +31,7 @@ auto Сreator (s_Creature *pcreature) -> s_Creature;
 // деклорация функции для вывода нового вида в консоль
 auto PrintCreature (const s_Creature &f_creature, const char* f_str) -> void;
 
-// функция для создания частей тела
+// деклорация функции для создания частей тела
 auto ParOfBody (const char *f_str) -> std::string;
 
 // функция для задания №2
