@@ -55,6 +55,7 @@ auto NewView () -> RetConst {
             std::cout << "память не выделенна!!!";
             return ErrMemory;
         }
+            
         Сreator (p_creator); // вызов функции для создания нового вида;
         PrintCreature (*p_creator, "Созданный вами вид"); // вызов функции для вывода нового вида в консоль
         delete p_creator; // освобождаем память
