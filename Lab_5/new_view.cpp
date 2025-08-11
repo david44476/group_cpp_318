@@ -31,7 +31,7 @@ auto Сreator (s_Creature *pcreature) -> s_Creature;
 // деклорация функции для вывода нового вида в консоль
 auto PrintCreature (const s_Creature &f_creature, const char* f_str) -> void;
 
-// деклорация функции для создания частей тела
+// функция для создания частей тела
 auto ParOfBody (const char *f_str) -> std::string;
 
 // функция для задания №2
@@ -48,7 +48,7 @@ auto NewView () -> RetConst {
     bool stop = false; // переменная для цикла do while
     do {
         // создаём экземпляр структуры в динамической памяти
-        s_Creature *p_creator = new (std::nothrow) s_Creature;
+        s_Creature *p_creator  {new (std::nothrow) s_Creature};
         // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
         if ( ! p_creator) {
             // Обработка этого случая
@@ -67,31 +67,31 @@ auto NewView () -> RetConst {
 }
 
 // функция для создания нового вида
-auto Сreator (s_Creature *p_creator) -> s_Creature {
+auto Сreator (s_Creature *f_creator) -> s_Creature {
 
-    p_creator->head = ParOfBody ("Введите голову сущесва например \" голова дракона \" и нажмите ввод: ");
+    f_creator->head = ParOfBody ("Введите голову сущесва например \" голова дракона \" и нажмите ввод: ");
 
-    p_creator->body = ParOfBody ("Введите тело сущесва например \" тело дракона \" и нажмите ввод: ");
+    f_creator->body = ParOfBody ("Введите тело сущесва например \" тело дракона \" и нажмите ввод: ");
 
-    p_creator->Head.muzzle = ParOfBody ("Введите морду сущесва например \" морда дракона \" и нажмите ввод: ");
+    f_creator->Head.muzzle = ParOfBody ("Введите морду сущесва например \" морда дракона \" и нажмите ввод: ");
 
-    p_creator->Head.ears = ParOfBody ("Введите уши сущесва например \" уши дракона \" и нажмите ввод: ");
+    f_creator->Head.ears = ParOfBody ("Введите уши сущесва например \" уши дракона \" и нажмите ввод: ");
 
-    p_creator->Head.eyes = ParOfBody ("Введите глаза сущесва например \" глаза дракона \" и нажмите ввод: ");
+    f_creator->Head.eyes = ParOfBody ("Введите глаза сущесва например \" глаза дракона \" и нажмите ввод: ");
 
-    p_creator->Body.foreLimbs = ParOfBody ("Введите передние конечности сущесва например "
+    f_creator->Body.foreLimbs = ParOfBody ("Введите передние конечности сущесва например "
                                          "\" передние лапы дракона \"и нажмите ввод: ");
 
-    p_creator->Body.hindLimbs = ParOfBody ("Введите задние конечности сущесва например "
+    f_creator->Body.hindLimbs = ParOfBody ("Введите задние конечности сущесва например "
                                          "\" задние лапы дракона \"и нажмите ввод: ");
 
-    p_creator->Body.tail = ParOfBody ("Введите хвост сущесва например \" хвост дракона \" и нажмите ввод: ");
+    f_creator->Body.tail = ParOfBody ("Введите хвост сущесва например \" хвост дракона \" и нажмите ввод: ");
 
-    p_creator->Body.wings = ParOfBody ("Введите крылья сущесва например \" крылья дракона \" и нажмите ввод: ");
+    f_creator->Body.wings = ParOfBody ("Введите крылья сущесва например \" крылья дракона \" и нажмите ввод: ");
 
     std::cout << std::endl;
 
-    return *p_creator;
+    return *f_creator;
 }
 
 
@@ -113,3 +113,4 @@ auto ParOfBody (const char *f_str) -> std::string {
     std::getline(std::cin, newPart);
     return newPart;
 }
+
