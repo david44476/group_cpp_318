@@ -55,10 +55,10 @@ auto NewView () -> RetConst {
             std::cout << "память не выделенна!!!";
             return ErrMemory;
         }
-            
+
         Сreator (p_creator); // вызов функции для создания нового вида;
         PrintCreature (*p_creator, "Созданный вами вид"); // вызов функции для вывода нового вида в консоль
-        delete p_creator; // освобождаем память
+        if (p_creator) delete p_creator; // освобождаем память
         p_creator = nullptr; // обнуляем указатель
         if ( ! (stop == Stop())) return ErrData ; // вызов функции для останоки или продолжения выполнения программы по выбору пользователя
     }
@@ -81,10 +81,10 @@ auto Сreator (s_Creature *f_creator) -> s_Creature {
     f_creator->Head.eyes = ParOfBody ("Введите глаза сущесва например \" глаза дракона \" и нажмите ввод: ");
 
     f_creator->Body.foreLimbs = ParOfBody ("Введите передние конечности сущесва например "
-                                         "\" передние лапы дракона \"и нажмите ввод: ");
+                                          "\" передние лапы дракона \"и нажмите ввод: ");
 
     f_creator->Body.hindLimbs = ParOfBody ("Введите задние конечности сущесва например "
-                                         "\" задние лапы дракона \"и нажмите ввод: ");
+                                          "\" задние лапы дракона \"и нажмите ввод: ");
 
     f_creator->Body.tail = ParOfBody ("Введите хвост сущесва например \" хвост дракона \" и нажмите ввод: ");
 
@@ -114,4 +114,3 @@ auto ParOfBody (const char *f_str) -> std::string {
     std::getline(std::cin, newPart);
     return newPart;
 }
-
