@@ -15,16 +15,16 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 add_executable(Lab_5
   main.cpp
   constans.h
+  continent.cpp
+  continent.h
+  new_view.cpp
+  new_view.h
   stop.h
   task_1.cpp
   task_1.h
-  new_view.cpp
-  new_view.cpp
-  new_view.h
   template_functions.h
   type_thecking.cpp
-  continent.cpp
-  continent.h
+  type_thecking.h
 )
 target_link_libraries(Lab_5 Qt${QT_VERSION_MAJOR}::Core)
 

@@ -13,7 +13,7 @@
 *
 * locale (кодировка): UTF 8
 */
-#define TASK 2
+#define TASK 3
 #if (TASK == 1)
 #include "task_1.h"
 #elif (TASK == 2)
@@ -38,7 +38,7 @@ int main () {
 #elif (TASK == 2)
     NewView();
 #elif (TASK == 3)
-    Continent ();
+    Continents ();
 #elif (TASK == 4)
     task_4();
 #elif (TASK == 5)
