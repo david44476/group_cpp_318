@@ -17,7 +17,7 @@ std::cout << *pj << '\n';
 int main() {
     float a=3.14;
     float *pj;
-    pj = (float*)&a;
+    pj = &a;
     std::cout << *pj << '\n';
 }
 ```
