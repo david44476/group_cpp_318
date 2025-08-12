@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include<iomanip>
+#include"constans.h"
 
 enum Сities {
     Cities_Kali, // колумбия Дата основания:1536 Население:2 471 474 Площадь:564 км²
@@ -21,16 +22,19 @@ enum Сities {
 // структура города
 struct s_Сities {
     std::string title; // название города
+    std::string district; // район города
     unsigned short yearOfFound; // год основания города
-    unsigned square; // площадь города
-    unsigned population; // население города
+    float square; // площадь города
+    float population; // население города
 };
 
 // структура страны
 struct s_Countries {
     std::string title; // название страны
-    unsigned square; // плошадь страны
-    unsigned population; // население страны
+    std::string capital; // сталица страны
+    std::string area; // область страны
+    float square; // плошадь страны
+    float population; // население страны
     s_Сities Сiti; // вложенная сруктура город
 };
 
@@ -41,17 +45,71 @@ struct s_Continent {
     s_Countries s_Countri; // вложенная структура страна
 } *Continent{nullptr}, *Countri{nullptr}, *Сiti{nullptr};
 
-auto Continents () -> void {
-    std::string s = "Задание 3)";
-    std::cout << std::setw(30) << std::right << s << '\n';
-    std::cout << "Создайте структуру данных материк, страны/государства, столицы, область/регион, города.\n"
-                 "То есть пользователь вводит город, в программе выводится область/регион этого города,\n"
-                 "столица этого города, государство/страна этого города и материк этого города. Городов\n"
-                 "должно быть не менее 10, и некоторые города имеют общие столицы или регионы или\n"
-                 "материк, однако имеются которые не имеют общих пересечений. Если города нет в списке,\n"
-                 "выдать пользователю «Данная информация отсутствует», и предложить повторить поиск или\n"
-                 "выйти по нажатию «q».\n"
-                 "В задании при выполнении необходимо применить следующее: создайте объекты структуры\n"
-                 "в статической и динамической памяти (определение объектов статически и динамически).\n"
-                 "Использование ссылки на структуру." << std::endl;
+using wstr = std::wstring;
+
+auto ChoosCity (const wstr&) -> Сities;
+
+auto Regist(wstr &text) -> wstr;
+
+auto Continents () -> RetConst {
+
+    setlocale(LC_ALL, "ru_RU.UTF8");
+
+    wstr s = L"Задание 3)";
+    std::wcout << std::setw(30) << std::right << s << '\n';
+    std::wcout << L"Создайте структуру данных материк, страны/государства, столицы, область/регион, города.\n"
+                  "То есть пользователь вводит город, в программе выводится область/регион этого города,\n"
+                  "столица этого города, государство/страна этого города и материк этого города. Городов\n"
+                  "должно быть не менее 10, и некоторые города имеют общие столицы или регионы или\n"
+                  "материк, однако имеются которые не имеют общих пересечений. Если города нет в списке,\n"
+                  "выдать пользователю «Данная информация отсутствует», и предложить повторить поиск или\n"
+                  "выйти по нажатию «q».\n"
+                  "В задании при выполнении необходимо применить следующее: создайте объекты структуры\n"
+                  "в статической и динамической памяти (определение объектов статически и динамически).\n"
+                  "Использование ссылки на структуру." << std::endl;
+
+    std::wcout << L"Введите название города; на пример \" Москва \" и нажмите ввод: ";
+    wstr city; // строковая переменная ввода города
+    std::getline(std::wcin, city);
+    city = Regist(city);
+    short choice = static_cast<short>(ChoosCity (city));
+
+
+    // // создаём экземпляр структуры в динамической памяти
+    // Continent = {new (std::nothrow) s_Continent};
+    // // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+    // if ( ! Continent) {
+    //     // Обработка этого случая
+    //     std::wcout << L"память не выделенна!!!";
+    //     return ErrMemory;
+    // }
+    // if (Continent) delete Continent; // освобождаем память
+    // Continent = nullptr; // обнуляем указатель
+    return Ok;
+}
+
+// функция преобразования символов в верхний регистр
+auto Regist (wstr& text) -> wstr {
+    short diff_ul{32}; // разница между заглавными и строчными символами алфавита
+    short up_a {1071}; // десятичный код символа для проверки условия
+    for (auto& i : text) {
+        if (i >= up_a) i -= diff_ul;
+    }
+    return text;
+}
+
+auto ChoosCity(const wstr &text) -> Сities {
+    if (text == L"МОСКВА")return Cities_Moscow;
+    else if (text == L"СОЧИ") return Cities_Sochi;
+    else if (text == L"ТОМСК") return Cities_Tomsk;
+    else if (text == L"СИДНЕЙ") return Cities_Sydney;
+    else if (text == L"ГЕЛОНГ") return Cities_Geelong;
+    else if (text == L"КЭРНС") return Cities_Cairns;
+    else if (text == L"ЛОНДОН") return Cities_London;
+    else if (text == L"ЛИДС") return Cities_Leeds;
+    else if (text == L"ЛУТОН") return Cities_Luton;
+    else if (text== L"ЛИМА") return Cities_Lima;
+    else if (text == L"БОГОТА") return Cities_Bogota;
+    else if (text == L"КАЛИ") return Cities_Kali;
+    else std::wcout << L"Данная информация отсутствует!" << '\n';
 }
