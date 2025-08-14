@@ -1,7 +1,7 @@
+#include "constans.h"
 #include<iostream>
 #include<string>
 #include<iomanip>
-#include"constans.h"
 
 enum Сities {
     Cities_Kali, // колумбия Дата основания:1536 Население:2 471 474 Площадь:564 км²
@@ -19,39 +19,50 @@ enum Сities {
     Cities_Totall, // общее количество городов
 };
 
+// прототип типа на std::wstring
+using wstr = std::wstring;
+
 // структура города
 struct s_Сities {
-    std::string title; // название города
-    std::string district; // район города
-    unsigned short yearOfFound; // год основания города
-    float square; // площадь города
-    float population; // население города
+    wstr *title; // название города
+    wstr *district; // район города
+    unsigned short *yearOfFound; // год основания города
+    float *square; // площадь города
+    float *population; // население города
 };
 
 // структура страны
 struct s_Countries {
-    std::string title; // название страны
-    std::string capital; // сталица страны
-    std::string area; // область страны
-    float square; // плошадь страны
-    float population; // население страны
+    wstr *title; // название страны
+    wstr *capital; // сталица страны
+    wstr *area; // область страны
+    float *square; // плошадь страны
+    float *population; // население страны
     s_Сities Сiti; // вложенная сруктура город
 };
 
 // структура континент
 struct s_Continent {
-    std::string title; // название континента
-    float square; // плошадь континента
+    wstr *title; // название континента
+    float *square; // плошадь континента
     s_Countries s_Countri; // вложенная структура страна
-} *Continent{nullptr}, *Countri{nullptr}, *Сiti{nullptr};
+} *Continent{nullptr};
 
-using wstr = std::wstring;
-
-auto ChoosCity (const wstr&) -> Сities;
-
+// деклорация функциии преобразования символов в верхний регистр
 auto Regist(wstr &text) -> wstr;
 
-auto Continents () -> RetConst {
+// деклорация функциии выбора гогода
+auto ChoosCity ( s_Continent *p_Continent, const wstr &r_text) -> short;
+
+// деклорация функциии инициализации экземляров структуры
+auto CreatOfCont (s_Continent *p_Continent) -> RetConst;
+
+// деклорация функциии вывода структуры в консоль
+auto RrintContinent (s_Continent *p_Continent, const short &type) -> void;
+
+
+// функция по заданию №3
+auto Continents () -> void {
 
     setlocale(LC_ALL, "ru_RU.UTF8");
 
@@ -72,20 +83,13 @@ auto Continents () -> RetConst {
     wstr city; // строковая переменная ввода города
     std::getline(std::wcin, city);
     city = Regist(city);
-    short choice = static_cast<short>(ChoosCity (city));
-
-
-    // // создаём экземпляр структуры в динамической памяти
-    // Continent = {new (std::nothrow) s_Continent};
-    // // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
-    // if ( ! Continent) {
-    //     // Обработка этого случая
-    //     std::wcout << L"память не выделенна!!!";
-    //     return ErrMemory;
-    // }
-    // if (Continent) delete Continent; // освобождаем память
-    // Continent = nullptr; // обнуляем указатель
-    return Ok;
+    std::wcout << L"Город " << city << '\n';
+    short type = ChoosCity (Continent, city);
+    std::wcout << L"Город " << city << '\n';
+    CreatOfCont (Continent);
+    std::wcout << L"Город " << city << '\n';
+    RrintContinent (Continent, type);
+    std::wcout << L"Город " << city << '\n';
 }
 
 // функция преобразования символов в верхний регистр
@@ -98,18 +102,121 @@ auto Regist (wstr& text) -> wstr {
     return text;
 }
 
-auto ChoosCity(const wstr &text) -> Сities {
-    if (text == L"МОСКВА")return Cities_Moscow;
-    else if (text == L"СОЧИ") return Cities_Sochi;
-    else if (text == L"ТОМСК") return Cities_Tomsk;
-    else if (text == L"СИДНЕЙ") return Cities_Sydney;
-    else if (text == L"ГЕЛОНГ") return Cities_Geelong;
-    else if (text == L"КЭРНС") return Cities_Cairns;
-    else if (text == L"ЛОНДОН") return Cities_London;
-    else if (text == L"ЛИДС") return Cities_Leeds;
-    else if (text == L"ЛУТОН") return Cities_Luton;
-    else if (text== L"ЛИМА") return Cities_Lima;
-    else if (text == L"БОГОТА") return Cities_Bogota;
-    else if (text == L"КАЛИ") return Cities_Kali;
-    else std::wcout << L"Данная информация отсутствует!" << '\n';
+// функциия выбора гогода
+auto ChoosCity ( s_Continent *p_Continent, const wstr &r_text) -> short {
+    short type;
+    if (r_text == L"МОСКВА") type = Cities_Moscow;
+    else if (r_text == L"СОЧИ") type = Cities_Sochi;
+    else if (r_text == L"ТОМСК") type = Cities_Tomsk;
+    else if (r_text == L"СИДНЕЙ") type = Cities_Sydney;
+    else if (r_text == L"ДЖЕЛОНГ") type = Cities_Geelong;
+    else if (r_text == L"КЭРНС") type = Cities_Cairns;
+    else if (r_text == L"ЛОНДОН") type = Cities_London;
+    else if (r_text == L"ЛИДС") type = Cities_Leeds;
+    else if (r_text == L"ЛУТОН") type = Cities_Luton;
+    else if (r_text == L"ЛИМА") type = Cities_Lima;
+    else if (r_text == L"БОГОТА") type = Cities_Bogota;
+    else if (r_text == L"КАЛИ") type = Cities_Kali;
+
+    return type;
+}
+
+// функциия инициализации экземляров структуры
+auto CreatOfCont (s_Continent *p_Continent) -> RetConst {
+    //выделяется память для структуры
+    p_Continent = new (std::nothrow) s_Continent;
+    // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+    if ( ! p_Continent) {
+        // Обработка этого случая
+        std::wcout << L"Память не выделенна!!!";
+        return ErrMemory;
+    }
+
+    // if (p_Continent) delete p_Continent; // освобождаем память
+    // p_Continent = nullptr; // обнуляем указатель
+
+    //выделяется память для поля *title структуры Continent
+    p_Continent->title = new (std::nothrow) wstr [Cities_Lima];
+    if ( ! p_Continent->title) {
+        // Обработка этого случая
+        std::wcout << L"Память не выделенна!!!";
+        return ErrMemory;
+    }
+    p_Continent->title[0] = L"Евразия"; // название материка
+    p_Continent->title[1] = L"Южная Америка"; // названте материка
+
+    // if (p_Continent->title) delete [] p_Continent->title; // освобождаем память
+    // p_Continent->title = nullptr; // обнуляем указатель
+
+    //выделяется память для поля *square структуры Continent
+    p_Continent->square = new (std::nothrow) float [Cities_Lima];
+    if ( ! p_Continent->square) {
+        // Обработка этого случая
+        std::wcout << L"Память не выделенна!!!";
+        return ErrMemory;
+    }
+    p_Continent->square[0] =  53.6f; // площадь матирика Евразия в млн.км²
+    p_Continent->square[1] = 17.84f; // площадь матирика Южная Америка в млн.км²
+
+    // if (p_Continent->square) delete [] p_Continent->square; // освобождаем память
+    // p_Continent->square = nullptr; // обнуляем указатель
+
+    return Ok;
+}
+
+// функциия вывода структуры в консоль
+auto RrintContinent (s_Continent *p_Continent, const short &type) -> void {
+
+    switch (type) {
+    case Cities_Moscow: {
+        std::wcout << L"Находится на територии материка " + p_Continent->title[0] << '\n';
+        break;
+    }
+    case Cities_Sochi: {
+        break;
+    }
+    case Cities_Tomsk: {
+        break;
+    }
+    case Cities_Sydney: {
+        break;
+    }
+    case Cities_Geelong: {
+        break;
+    }
+    case Cities_Cairns: {
+        break;
+    }
+    case Cities_London: {
+        break;
+    }
+    case Cities_Leeds: {
+        break;
+    }
+    case Cities_Luton: {
+        break;
+    }
+    case Cities_Lima: {
+        break;
+    }
+    case Cities_Bogota: {
+        break;
+    }
+    case Cities_Kali: {
+        break;
+    }
+    default:
+        std::wcout <<L"Данная информация отсутствует!!!" << '\n';
+        break;
+    }
+
+    if (p_Continent->title) delete [] p_Continent->title; // освобождаем память
+    p_Continent->title = nullptr; // обнуляем указатель
+
+    if (p_Continent->square) delete [] p_Continent->square; // освобождаем память
+    p_Continent->square = nullptr; // обнуляем указатель
+
+    if (p_Continent) delete p_Continent; // освобождаем память
+    p_Continent = nullptr; // обнуляем указатель
+
 }
