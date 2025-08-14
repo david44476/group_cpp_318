@@ -52,13 +52,13 @@ struct s_Continent {
 auto Regist(wstr &text) -> wstr;
 
 // деклорация функциии выбора гогода
-auto ChoosCity ( s_Continent *p_Continent, const wstr &r_text) -> short;
+auto ChoosCity (const wstr &r_text) -> short;
 
 // деклорация функциии инициализации экземляров структуры
 auto CreatOfCont (s_Continent *p_Continent) -> RetConst;
 
 // деклорация функциии вывода структуры в консоль
-auto RrintContinent (s_Continent *p_Continent, const short &type) -> void;
+auto RrintContinent (const short &type) -> void;
 
 
 // функция по заданию №3
@@ -84,11 +84,11 @@ auto Continents () -> void {
     std::getline(std::wcin, city);
     city = Regist(city);
     std::wcout << L"Город " << city << '\n';
-    short type = ChoosCity (Continent, city);
+    short type = ChoosCity (city);
     std::wcout << L"Город " << city << '\n';
     CreatOfCont (Continent);
     std::wcout << L"Город " << city << '\n';
-    RrintContinent (Continent, type);
+    RrintContinent (type);
     std::wcout << L"Город " << city << '\n';
 }
 
@@ -103,7 +103,7 @@ auto Regist (wstr& text) -> wstr {
 }
 
 // функциия выбора гогода
-auto ChoosCity ( s_Continent *p_Continent, const wstr &r_text) -> short {
+auto ChoosCity (const wstr &r_text) -> short {
     short type;
     if (r_text == L"МОСКВА") type = Cities_Moscow;
     else if (r_text == L"СОЧИ") type = Cities_Sochi;
@@ -165,11 +165,11 @@ auto CreatOfCont (s_Continent *p_Continent) -> RetConst {
 }
 
 // функциия вывода структуры в консоль
-auto RrintContinent (s_Continent *p_Continent, const short &type) -> void {
+auto RrintContinent (const short &type) -> void {
 
     switch (type) {
     case Cities_Moscow: {
-        std::wcout << L"Находится на територии материка " + p_Continent->title[0] << '\n';
+        std::wcout << L"Находится на територии материка " + Continent->title[0] << '\n';
         break;
     }
     case Cities_Sochi: {
@@ -210,13 +210,13 @@ auto RrintContinent (s_Continent *p_Continent, const short &type) -> void {
         break;
     }
 
-    if (p_Continent->title) delete [] p_Continent->title; // освобождаем память
-    p_Continent->title = nullptr; // обнуляем указатель
+    if (Continent->title) delete [] Continent->title; // освобождаем память
+    Continent->title = nullptr; // обнуляем указатель
 
-    if (p_Continent->square) delete [] p_Continent->square; // освобождаем память
-    p_Continent->square = nullptr; // обнуляем указатель
+    if (Continent->square) delete [] Continent->square; // освобождаем память
+    Continent->square = nullptr; // обнуляем указатель
 
-    if (p_Continent) delete p_Continent; // освобождаем память
-    p_Continent = nullptr; // обнуляем указатель
+    if (Continent) delete Continent; // освобождаем память
+    Continent = nullptr; // обнуляем указатель
 
 }
