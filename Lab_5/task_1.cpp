@@ -3,8 +3,35 @@
 #include "constans.h"
 #include"template_functions.h" // содержит определение моих шаблонных функций
 
+// декларация функции main
+auto main () -> int;
+
+// деклорация фунуции Type_Thecking
+auto Type_Thecking (char c) -> char;
+
+// деклорация функции вывода адреса функции main
+auto addressfunctions (int (&func)(), const char *str) -> void;
+
+// деклорация функции для вывода адреса функции Type_Thecking
+auto addressfunctions (char (&func)(char), const char *str) -> void;
+
+// создаём переменную в статической памяти в секции .bss
+short staVal;
+
+// создаём переменную в статической памяти в секции .data
+short size{5};
+
+// создаём массив типа short из пяти элементов в статической памяти
+short statArray[]{5, 66, 74, 20, 10};
+
+// деклорация функции вывода адреса переменной, адреса и значения элементов массива созданных в стеке
+auto stecFunc () -> void;
+
+// деклорация функции вывода адреса переменной и адреса и значения элементов массива созданных в куче
+auto heapFunc () -> RetConst;
+
 // функция для задания №1
-auto Task_1 () -> RetConst {
+auto Task_1 () -> void {
     std::string s = "Задание 1)";
     std::cout << std::setw(30) << std::right << s << '\n';
     std::cout << "Выведите следующее:\n"
@@ -18,37 +45,49 @@ auto Task_1 () -> RetConst {
                  "адрес переменной созданной в куче\n"
                  "aдpecа и значения элементов массива созданного в куче (выведите в цикле)\n" << std::endl;
 
-    extern int main ();
-    std::cout << "вывод адреса функции main: " << reinterpret_cast<void*>(main) << '\n';
+    // вызов функции для вывода адреса функции main
+    addressfunctions (main, "Вывод адреса функции main: ");
 
-    extern char Type_Thecking (char c);
-    std::cout << "\vвывод адреса функции Type_Thecking: " << reinterpret_cast<void*>(Type_Thecking) << '\n';
+    // вызов функции для вывода адреса функции Type_Thecking
+    addressfunctions (Type_Thecking, "Вывод адреса функции  Type_Thecking: ");
 
-    // создаём переменную для длины массива и вывода адреса в стеке
-    constexpr short size{5};
-    std::cout << "\vвывод адреса переменной size созданной в стэке: " << &size << '\n';
+    // вызов функции вывода адреса переменной, адреса и значения элементов массива созданных в стеке
+    stecFunc ();
+
+    // вызов функции вывода адреса переменной, адреса и значения элементов массива созданных в куче
+    heapFunc ();
+}
+
+// функция вывода адреса переменной, адреса и значения элементов массива созданных в стеке
+auto stecFunc () -> void {
+    // создаём переменную для длины массива и вывода адреса  переменной созданной в стеке
+    constexpr short arrSize{5};
+    std::cout << "\vВывод адреса переменной arrSize созданной в стэке: " << &arrSize << '\n';
     // создаём массив типа short из пяти элементов в стеке
-    short stecArray[size]{7, 2, 3, 4, 5};
-    // вызов функции дли вывода массива
-    ArrayPrint (stecArray, size, "\vвывод aдpecа и значения элементов массива stecArray"
-                                " созданного в стэке (выведим в цикле)");
+    short stecArray[arrSize];
+    // функция для заполнения массива вихрем Мерсена
+    MersWhir (stecArray, arrSize);
+    // вызов функции для вывода адреса и значений элементов массива созданного в стеке
+    ArrayPrint (stecArray, arrSize, "\vВывод aдpecа и значения элементов массива stecArray"
+                                   " созданного в стэке (выводим в цикле)");
 
-    // создаём переменную в статической памяти в секции .bss
-    static short staVal;
-    std::cout << "\vвывод адреса переменной staVal"
+    // вывод адреса переменной staVal в статической памяти в секции .bss
+    std::cout << "\vВывод адреса переменной staVal"
                  " в статической памяти в секции .bss " << &staVal << '\n';
 
-    // создаём переменную в статической памяти в секции .data
-    static short staVal1{5};
-    std::cout << "\vвывод адреса переменной staVal1"
-                 " в статической памяти в секции .data " << &staVal1 << '\n';
+    // вывод адреса переменной size в статической памяти в секции .data
+    std::cout << "\vвывод адреса переменной size"
+                 " в статической памяти в секции .data " << &size << '\n';
 
-    // создаём массив типа short из пяти элементов в статической памяти
-    static short statArray[size]{5, 66, 74, 20, 10};
-    // вызов функции дли вывода массива
-    ArrayPrint (statArray, size, "\vвывод aдpecа и значения элементов массива statArray"
-                               " созданного в статической памяти (выводим в цикле)");
 
+    // вызов функции для вывода адреса и значений элементов массива созданного в статической памяти
+    ArrayPrint (statArray, ::size, "\vВывод aдpecа и значения элементов массива statArray"
+                                  " созданного в статической памяти (выводим в цикле)");
+}
+
+
+// функция вывода адреса переменной, адреса и значения элементов массива созданных в куче
+auto heapFunc () -> RetConst {
     // запрос на выделение динамической памяти для целочисленного значения
     short *dinamValue = new (std::nothrow) short{10};
     if ( ! dinamValue) { // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
@@ -57,13 +96,13 @@ auto Task_1 () -> RetConst {
         return ErrMemory;
     }
     else {
-        std::cout <<  "\vвывод адреса переменной dinamValue созданной в куче: " << &dinamValue << '\n';
+        std::cout <<  "\vВывод адреса переменной dinamValue созданной в куче: " << &dinamValue << '\n';
         delete dinamValue; // освобождаем память
         dinamValue = nullptr; // обнуляем указатель
     }
 
     // запрос на выделение динамической памяти для массива
-    short *dinamArray = new (std::nothrow) short[size];
+    short *dinamArray = new (std::nothrow) short[::size];
     if ( ! dinamArray) { // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
         // Обработка этого случая
         std::cout << "память не выделенна!!!";
@@ -73,10 +112,22 @@ auto Task_1 () -> RetConst {
         // функция для заполнения массива вихрем Мерсена
         MersWhir (dinamArray, size);
         // вызов функции дли вывода массива
-        ArrayPrint (dinamArray, size, "\vвывод aдpecа и значения элементов массива dinamArray"
+        ArrayPrint (dinamArray, size, "\vВывод aдpecа и значения элементов массива dinamArray"
                                      " созданного в куче (выводим в цикле)");
         delete[] dinamArray; // освобождаем память
         dinamArray = nullptr; // обнуляем указатель
     }
     return Ok;
+}
+
+// функция вывода адреса функции Type_Thecking
+auto addressfunctions (char (&func)(char c), const char *str) -> void {
+
+    std::cout << str << reinterpret_cast<void*>(func) << '\n';
+}
+
+// функция вывода адреса функции main
+auto addressfunctions (int (&func)(), const char *str) -> void {
+
+    std::cout << str << reinterpret_cast<void*>(func) << '\n';
 }
