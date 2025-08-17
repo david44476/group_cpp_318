@@ -10,10 +10,10 @@ auto main () -> int;
 auto Type_Thecking (char c) -> char;
 
 // деклорация функции вывода адреса функции main
-auto addressfunctions (int (&func)(), const char *str) -> void;
+auto AddressFunctions (int (&func)(), const char *str) -> void;
 
 // деклорация функции для вывода адреса функции Type_Thecking
-auto addressfunctions (char (&func)(char), const char *str) -> void;
+auto AddressFunctions (char (&func)(char), const char *str) -> void;
 
 // создаём переменную в статической памяти в секции .bss
 short staVal;
@@ -25,10 +25,10 @@ short size{5};
 short statArray[]{5, 66, 74, 20, 10};
 
 // деклорация функции вывода адреса переменной, адреса и значения элементов массива созданных в стеке
-auto stecFunc () -> void;
+auto StecFunc () -> void;
 
 // деклорация функции вывода адреса переменной и адреса и значения элементов массива созданных в куче
-auto heapFunc () -> RetConst;
+auto HeapFunc () -> RetConst;
 
 // функция для задания №1
 auto Task_1 () -> void {
@@ -46,20 +46,20 @@ auto Task_1 () -> void {
                  "aдpecа и значения элементов массива созданного в куче (выведите в цикле)\n" << std::endl;
 
     // вызов функции для вывода адреса функции main
-    addressfunctions (main, "Вывод адреса функции main: ");
+    AddressFunctions (main, "Вывод адреса функции main: ");
 
     // вызов функции для вывода адреса функции Type_Thecking
-    addressfunctions (Type_Thecking, "Вывод адреса функции  Type_Thecking: ");
+    AddressFunctions (Type_Thecking, "Вывод адреса функции  Type_Thecking: ");
 
     // вызов функции вывода адреса переменной, адреса и значения элементов массива созданных в стеке
-    stecFunc ();
+    StecFunc ();
 
     // вызов функции вывода адреса переменной, адреса и значения элементов массива созданных в куче
-    heapFunc ();
+    HeapFunc ();
 }
 
 // функция вывода адреса переменной, адреса и значения элементов массива созданных в стеке
-auto stecFunc () -> void {
+auto StecFunc () -> void {
     // создаём переменную для длины массива и вывода адреса  переменной созданной в стеке
     constexpr short arrSize{5};
     std::cout << "\vВывод адреса переменной arrSize созданной в стэке: " << &arrSize << '\n';
@@ -87,7 +87,7 @@ auto stecFunc () -> void {
 
 
 // функция вывода адреса переменной, адреса и значения элементов массива созданных в куче
-auto heapFunc () -> RetConst {
+auto HeapFunc () -> RetConst {
     // запрос на выделение динамической памяти для целочисленного значения
     short *dinamValue = new (std::nothrow) short{10};
     if ( ! dinamValue) { // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
@@ -121,13 +121,13 @@ auto heapFunc () -> RetConst {
 }
 
 // функция вывода адреса функции Type_Thecking
-auto addressfunctions (char (&func)(char c), const char *str) -> void {
+auto AddressFunctions (char (&func)(char c), const char *str) -> void {
 
     std::cout << str << reinterpret_cast<void*>(func) << '\n';
 }
 
 // функция вывода адреса функции main
-auto addressfunctions (int (&func)(), const char *str) -> void {
+auto AddressFunctions (int (&func)(), const char *str) -> void {
 
     std::cout << str << reinterpret_cast<void*>(func) << '\n';
 }
