@@ -40,7 +40,7 @@ auto Task_1 (int (&r_main)()) -> void {
                  "aдpecа и значения элементов массива созданного в куче (выведите в цикле)\n" << std::endl;
 
     // вывод адреса функции main
-    std::cout << "Вывод адреса функции main: " << reinterpret_cast<void*>(p_main) << '\n';
+    std::cout << "Вывод адреса функции main: " << reinterpret_cast<void*>(r_main) << '\n';
 
     // вызов функции для вывода адреса функции Type_Thecking
     AddressFunctions (Type_Thecking, "Вывод адреса функции  Type_Thecking: ");
