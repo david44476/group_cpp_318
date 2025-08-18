@@ -3,14 +3,8 @@
 #include "constans.h"
 #include"template_functions.h" // содержит определение моих шаблонных функций
 
-// декларация функции main
-auto main () -> int;
-
 // деклорация фунуции Type_Thecking
 auto Type_Thecking (char c) -> char;
-
-// деклорация функции вывода адреса функции main
-auto AddressFunctions (int (&func)(), const char *str) -> void;
 
 // деклорация функции для вывода адреса функции Type_Thecking
 auto AddressFunctions (char (&func)(char), const char *str) -> void;
@@ -31,7 +25,7 @@ auto StecFunc () -> void;
 auto HeapFunc () -> RetConst;
 
 // функция для задания №1
-auto Task_1 () -> void {
+auto Task_1 (int (&p_main)()) -> void {
     std::string s = "Задание 1)";
     std::cout << std::setw(30) << std::right << s << '\n';
     std::cout << "Выведите следующее:\n"
@@ -45,8 +39,8 @@ auto Task_1 () -> void {
                  "адрес переменной созданной в куче\n"
                  "aдpecа и значения элементов массива созданного в куче (выведите в цикле)\n" << std::endl;
 
-    // вызов функции для вывода адреса функции main
-    AddressFunctions (main, "Вывод адреса функции main: ");
+    // вывод адреса функции main
+    std::cout << "Вывод адреса функции main: " << reinterpret_cast<void*>(p_main) << '\n';
 
     // вызов функции для вывода адреса функции Type_Thecking
     AddressFunctions (Type_Thecking, "Вывод адреса функции  Type_Thecking: ");
@@ -73,11 +67,11 @@ auto StecFunc () -> void {
 
     // вывод адреса переменной staVal в статической памяти в секции .bss
     std::cout << "\vВывод адреса переменной staVal"
-                 " в статической памяти в секции .bss " << &staVal << '\n';
+                 " созданной в статической памяти в секции .bss: " << &staVal << '\n';
 
     // вывод адреса переменной size в статической памяти в секции .data
     std::cout << "\vвывод адреса переменной size"
-                 " в статической памяти в секции .data " << &size << '\n';
+                 " созданной в статической памяти в секции .data: " << &size << '\n';
 
 
     // вызов функции для вывода адреса и значений элементов массива созданного в статической памяти
@@ -126,8 +120,3 @@ auto AddressFunctions (char (&func)(char c), const char *str) -> void {
     std::cout << str << reinterpret_cast<void*>(func) << '\n';
 }
 
-// функция вывода адреса функции main
-auto AddressFunctions (int (&func)(), const char *str) -> void {
-
-    std::cout << str << reinterpret_cast<void*>(func) << '\n';
-}
