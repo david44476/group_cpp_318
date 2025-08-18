@@ -34,7 +34,8 @@
 #endif
 int main () {
 #if (TASK == 1)
-    Task_1 (main);
+    int (&r_main)() = main;
+    Task_1 (r_main);
 #elif (TASK == 2)
     NewView();
 #elif (TASK == 3)
