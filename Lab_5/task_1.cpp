@@ -10,10 +10,10 @@ auto Type_Thecking (char c) -> char;
 auto AddressFunctions (char (&func)(char), const char *str) -> void;
 
 // создаём переменную в статической памяти в секции .bss
-short staVal;
+short statVal;
 
 // создаём переменную в статической памяти в секции .data
-short size{5};
+short statSize{5};
 
 // создаём массив типа short из пяти элементов в статической памяти
 short statArray[]{5, 66, 74, 20, 10};
@@ -67,15 +67,15 @@ auto StecFunc () -> void {
 
     // вывод адреса переменной staVal в статической памяти в секции .bss
     std::cout << "\vВывод адреса переменной staVal"
-                 " созданной в статической памяти в секции .bss: " << &staVal << '\n';
+                 " созданной в статической памяти в секции .bss: " << &statVal << '\n';
 
     // вывод адреса переменной size в статической памяти в секции .data
     std::cout << "\vвывод адреса переменной size"
-                 " созданной в статической памяти в секции .data: " << &size << '\n';
+                 " созданной в статической памяти в секции .data: " << &statSize << '\n';
 
 
     // вызов функции для вывода адреса и значений элементов массива созданного в статической памяти
-    ArrayPrint (statArray, ::size, "\vВывод aдpecа и значения элементов массива statArray"
+    ArrayPrint (statArray, ::statSize, "\vВывод aдpecа и значения элементов массива statArray"
                                   " созданного в статической памяти (выводим в цикле)");
 }
 
@@ -96,7 +96,7 @@ auto HeapFunc () -> RetConst {
     }
 
     // запрос на выделение динамической памяти для массива
-    short *dinamArray = new (std::nothrow) short[::size];
+    short *dinamArray = new (std::nothrow) short[::statSize];
     if ( ! dinamArray) { // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
         // Обработка этого случая
         std::cout << "память не выделенна!!!";
@@ -104,9 +104,9 @@ auto HeapFunc () -> RetConst {
     }
     else {
         // функция для заполнения массива вихрем Мерсена
-        MersWhir (dinamArray, size);
+        MersWhir (dinamArray, statSize);
         // вызов функции дли вывода массива
-        ArrayPrint (dinamArray, size, "\vВывод aдpecа и значения элементов массива dinamArray"
+        ArrayPrint (dinamArray, statSize, "\vВывод aдpecа и значения элементов массива dinamArray"
                                      " созданного в куче (выводим в цикле)");
         delete[] dinamArray; // освобождаем память
         dinamArray = nullptr; // обнуляем указатель
