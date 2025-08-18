@@ -25,7 +25,7 @@ auto StecFunc () -> void;
 auto HeapFunc () -> RetConst;
 
 // функция для задания №1
-auto Task_1 (int (&p_main)()) -> void {
+auto Task_1 (int (&r_main)()) -> void {
     std::string s = "Задание 1)";
     std::cout << std::setw(30) << std::right << s << '\n';
     std::cout << "Выведите следующее:\n"
