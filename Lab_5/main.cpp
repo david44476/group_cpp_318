@@ -49,7 +49,5 @@ int main () {
     task_7();
 #elif (TASK == 8)
     task_8();
-#else
-// и тд
 #endif
 }
