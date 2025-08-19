@@ -13,7 +13,7 @@
 *
 * locale (кодировка): UTF 8
 */
-#define TASK 1
+#define TASK 2
 #if (TASK == 1)
 #include "task_1.h"
 #elif (TASK == 2)
@@ -34,8 +34,7 @@
 #endif
 int main () {
 #if (TASK == 1)
-    int (&r_main)() = main;
-    Task_1 (r_main);
+    Task_1 (reinterpret_cast<void*>(main));
 #elif (TASK == 2)
     NewView();
 #elif (TASK == 3)
