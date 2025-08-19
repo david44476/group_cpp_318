@@ -23,16 +23,16 @@ struct s_Creature {
     std::string body; // поле для тела
     s_Head Head; // вложенная структура для головы
     s_Body Body; // вложенная структура для тела
-};
-
-// деклорация функции для создания нового вида
-auto Сreator (s_Creature *pcreature) -> s_Creature;
-
-// деклорация функции для вывода нового вида в консоль
-auto PrintCreature (const s_Creature &f_creature, const char* f_str) -> void;
+} *p_creator{nullptr};
 
 // функция для создания частей тела
 auto ParOfBody (const char *f_str) -> std::string;
+
+// деклорация функции для создания нового вида
+auto Сreator (s_Creature *f_creator, std::string (&r_ParOfBody)(const char*)) -> void;
+
+// деклорация функции для вывода нового вида в консоль
+auto PrintCreature (const s_Creature *p_creature, const char* p_str) -> void;
 
 // функция для задания №2
 auto NewView () -> RetConst {
@@ -48,7 +48,7 @@ auto NewView () -> RetConst {
     bool stop = false; // переменная для цикла do while
     do {
         // создаём экземпляр структуры в динамической памяти
-        s_Creature *p_creator  {new (std::nothrow) s_Creature};
+        p_creator = new (std::nothrow) s_Creature;
         // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
         if ( ! p_creator) {
             // Обработка этого случая
@@ -56,8 +56,8 @@ auto NewView () -> RetConst {
             return ErrMemory;
         }
 
-        Сreator (p_creator); // вызов функции для создания нового вида;
-        PrintCreature (*p_creator, "Созданный вами вид"); // вызов функции для вывода нового вида в консоль
+        Сreator (p_creator, ParOfBody); // вызов функции для создания нового вида;
+        PrintCreature (p_creator, "Созданный вами вид"); // вызов функции для вывода нового вида в консоль
         if (p_creator) delete p_creator; // освобождаем память
         p_creator = nullptr; // обнуляем указатель
         if ( ! (stop == Stop())) return ErrData ; // вызов функции для останоки или продолжения выполнения программы по выбору пользователя
@@ -67,43 +67,39 @@ auto NewView () -> RetConst {
     return Ok;
 }
 
+
 // функция для создания нового вида
-auto Сreator (s_Creature *f_creator) -> s_Creature {
+auto Сreator (s_Creature *p_creator, std::string (&r_ParOfBody)(const char*)) -> void {
 
-    f_creator->head = ParOfBody ("Введите голову сущесва например \" голова дракона \" и нажмите ввод: ");
+    p_creator->head = r_ParOfBody ("Введите голову сущесва например \" голова дракона \" и нажмите ввод: ");
 
-    f_creator->body = ParOfBody ("Введите тело сущесва например \" тело дракона \" и нажмите ввод: ");
+    p_creator->body = r_ParOfBody ("Введите тело сущесва например \" тело дракона \" и нажмите ввод: ");
 
-    f_creator->Head.muzzle = ParOfBody ("Введите морду сущесва например \" морда дракона \" и нажмите ввод: ");
+    p_creator->Head.muzzle = r_ParOfBody ("Введите морду сущесва например \" морда дракона \" и нажмите ввод: ");
 
-    f_creator->Head.ears = ParOfBody ("Введите уши сущесва например \" уши дракона \" и нажмите ввод: ");
+    p_creator->Head.ears = r_ParOfBody ("Введите уши сущесва например \" уши дракона \" и нажмите ввод: ");
 
-    f_creator->Head.eyes = ParOfBody ("Введите глаза сущесва например \" глаза дракона \" и нажмите ввод: ");
+    p_creator->Head.eyes = r_ParOfBody ("Введите глаза сущесва например \" глаза дракона \" и нажмите ввод: ");
 
-    f_creator->Body.foreLimbs = ParOfBody ("Введите передние конечности сущесва например "
+    p_creator->Body.foreLimbs = r_ParOfBody ("Введите передние конечности сущесва например "
                                           "\" передние лапы дракона \"и нажмите ввод: ");
 
-    f_creator->Body.hindLimbs = ParOfBody ("Введите задние конечности сущесва например "
+    p_creator->Body.hindLimbs = r_ParOfBody ("Введите задние конечности сущесва например "
                                           "\" задние лапы дракона \"и нажмите ввод: ");
 
-    f_creator->Body.tail = ParOfBody ("Введите хвост сущесва например \" хвост дракона \" и нажмите ввод: ");
+    p_creator->Body.tail = r_ParOfBody ("Введите хвост сущесва например \" хвост дракона \" и нажмите ввод: ");
 
-    f_creator->Body.wings = ParOfBody ("Введите крылья сущесва например \" крылья дракона \" и нажмите ввод: ");
-
-    std::cout << std::endl;
-
-    return *f_creator;
+    p_creator->Body.wings = r_ParOfBody ("Введите крылья сущесва например \" крылья дракона \" и нажмите ввод: ");
 }
 
 
 // функция для вывода нового вида в консоль
-auto PrintCreature (const s_Creature &f_creature, const char* f_str) -> void {
-    std::cout << f_str << '\n';
-    std::cout << f_creature.head << '\n' << f_creature.body << '\n'
-              << f_creature.Head.muzzle << '\n' << f_creature.Head.ears << '\n'
-              << f_creature.Head.eyes << '\n' << f_creature.Body.foreLimbs << '\n'
-              << f_creature.Body.hindLimbs << '\n' << f_creature.Body.tail << '\n'
-              << f_creature.Body.wings << std::endl;
+auto PrintCreature (const s_Creature *p_creator, const char* p_str) -> void {
+    std::cout << p_str << '\n';
+        std::cout << p_creator->head << '\n' << p_creator->body << '\n' << p_creator->Head.muzzle << '\n'
+              << p_creator->Head.ears << '\n' << p_creator->Head.eyes <<'\n' << p_creator->Body.foreLimbs << '\n'
+                  << p_creator->Body.hindLimbs << '\n' << p_creator->Body.tail << '\n'
+                  << p_creator->Body.wings << '\n';
 }
 
 
