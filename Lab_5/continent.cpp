@@ -24,24 +24,23 @@ using wstr = std::wstring;
 
 // структура города
 struct s_Сities {
-    wstr *cityTitle; // название города
     unsigned short *yearOfFound; // год основания города
-    float *cityPopulation; // численость население города
-} Сities{nullptr};
+    wstr *cityPopulation; // численость население города
+} *Сiti{nullptr};
 
 // структура страны
 struct s_Countries {
     wstr *coutTitle; // название страны
     wstr *capital; // сталица страны
-    float *cuntSquare; // плошадь страны
-    float *coutPopulation; // численость население страны
+    wstr *cuntSquare; // плошадь страны
+    wstr *coutPopulation; // численость население страны
     s_Сities Сiti; // вложенная сруктура город
-} *Countries{nullptr};
+} *Countri{nullptr};
 
 // структура континент
 struct s_Continent {
     wstr *contTitle; // название континента
-    float *contSquare; // плошадь континента
+    wstr *contSquare; // плошадь континента
     s_Countries s_Countri; // вложенная структура страна
 } *Continent{nullptr};
 
@@ -54,7 +53,6 @@ auto ChoosCity (wstr (&r_Regist)(wstr &), wstr &r_city) -> short;
 
 // деклорация функциии вывода структуры в консоль
 auto RrintContinent (s_Continent *p_Continent, const short &r_town) ->  RetConst;
-
 
 // функция по заданию №3
 auto Continents () -> void {
@@ -82,6 +80,7 @@ auto Continents () -> void {
     RrintContinent (Continent, town);
 }
 
+
 // функция преобразования символов в верхний регистр
 auto Regist (wstr& text) -> wstr {
     short diff_ul{32}; // разница между заглавными и строчными символами алфавита
@@ -91,6 +90,7 @@ auto Regist (wstr& text) -> wstr {
     }
     return text;
 }
+
 
 // функциия выбора гогода
 auto ChoosCity (wstr (&r_Regist)(wstr &), wstr &r_city) -> short {
@@ -115,17 +115,9 @@ auto ChoosCity (wstr (&r_Regist)(wstr &), wstr &r_city) -> short {
 // функциия вывода структуры Continent в консоль
 auto RrintContinent (s_Continent *p_Continent, const short &r_town) -> RetConst {
 
-    //выделяется память для структуры материк
-    p_Continent = new (std::nothrow) s_Continent;
-    // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
-    if ( ! p_Continent) {
-        // Обработка этого случая
-        std::wcout << L"Память не выделенна!!!";
-        return ErrMemory;
-    }
-
     //выделяется память для поля название материка
-    p_Continent->contTitle = new (std::nothrow) wstr [Cities_Luton];
+    p_Continent->contTitle = new (std::nothrow) wstr [Cities_Lima];
+    // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
     if ( ! p_Continent->contTitle) {
         // Обработка этого случая
         std::wcout << L"Память не выделенна!!!";
@@ -136,18 +128,20 @@ auto RrintContinent (s_Continent *p_Continent, const short &r_town) -> RetConst 
     p_Continent->contTitle[Cities_Lima] = L"Австралия"; // названте материка
 
     //выделяется память для поля площадь материка
-    p_Continent->contSquare = new (std::nothrow) float [Cities_Luton];
+    p_Continent->contSquare = new (std::nothrow) wstr [Cities_Luton];
+    // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
     if ( ! p_Continent->contSquare) {
         // Обработка этого случая
         std::wcout << L"Память не выделенна!!!";
         return ErrMemory;
     }
-    p_Continent->contSquare[Cities_Kali] =  53.6f; // площадь матирика Евразия в млн.км²
-    p_Continent->contSquare[Cities_Bogota] = 17.84f; // площадь матирика Южная Америка в млн.км²
-    p_Continent->contSquare[Cities_Lima] = 8.6f; // площадь матирика Австралии в млн.км²
+    p_Continent->contSquare[Cities_Kali] =  L"53.6 млн.км²"; // площадь матирика Евразия в млн.км²
+    p_Continent->contSquare[Cities_Bogota] = L"17.84 млн.км²"; // площадь матирика Южная Америка в млн.км²
+    p_Continent->contSquare[Cities_Lima] = L"8.6 млн.км²"; // площадь матирика Австралии в млн.км²
 
     //выделяется память для поля название страны
-    p_Continent->s_Countri.coutTitle = new (std::nothrow) wstr [Cities_Luton];
+    Countri->coutTitle = new (std::nothrow) wstr [Cities_Leeds];
+    // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
     if ( ! p_Continent->s_Countri.coutTitle) {
         // Обработка этого случая
         std::wcout << L"Память не выделенна!!!";
@@ -160,32 +154,35 @@ auto RrintContinent (s_Continent *p_Continent, const short &r_town) -> RetConst 
     p_Continent->s_Countri.coutTitle[Cities_Leeds] = L"Перу"; // инициализация название страны
 
     //выделяется память для поля площадь страны
-    p_Continent->s_Countri.cuntSquare = new (std::nothrow) float [Cities_Luton];
-    if ( ! p_Continent->s_Countri.cuntSquare[Cities_Luton]) {
+    p_Continent->s_Countri.cuntSquare = new (std::nothrow) wstr [Cities_Luton];
+    // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+    if ( ! p_Continent->s_Countri.cuntSquare) {
         // Обработка этого случая
         std::wcout << L"Память не выделенна!!!";
         return ErrMemory;
     }
-    p_Continent->s_Countri.cuntSquare[Cities_Kali] = 2561; // инициализация площади России
-    p_Continent->s_Countri.cuntSquare[Cities_Bogota] = 1602; // инициализация площади Великобритании
-    p_Continent->s_Countri.cuntSquare[Cities_Lima] = 1775; // инициализация площади Колумбия
-    p_Continent->s_Countri.cuntSquare[Cities_Luton] = 2672; // инициализация площади Перу
+    p_Continent->s_Countri.cuntSquare[Cities_Kali] = L"17.1 млн.км²"; // инициализация площади России в млн.км²
+    p_Continent->s_Countri.cuntSquare[Cities_Bogota] = L"243 610 км²" ; // инициализация площади Великобритании в млн.км²
+    p_Continent->s_Countri.cuntSquare[Cities_Lima] = L"1.142 млн.км²"; // инициализация площади Колумбия в млн.км²
+    p_Continent->s_Countri.cuntSquare[Cities_Luton] = L"1.285 млн.км²"; // инициализация площади Перу в млн.км²
 
     //выделяется память для поля численость населения страны
-    p_Continent->s_Countri.coutPopulation = new (std::nothrow) float [Cities_Luton];
+    p_Continent->s_Countri.coutPopulation = new (std::nothrow) wstr [Cities_Luton];
+    // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
     if ( ! p_Continent->s_Countri.coutPopulation) {
         // Обработка этого случая
         std::wcout << L"Память не выделенна!!!";
         return ErrMemory;
     }
-    p_Continent->s_Countri.coutPopulation[Cities_Kali] = 146.119928f ; // инициализация числености населения России
-    p_Continent->s_Countri.coutPopulation[Cities_Bogota] = 57.106398f; // инициализация числености населения Англии
-    p_Continent->s_Countri.coutPopulation[Cities_Lima] = 53.474361f; // инициализация числености населения Колумбии
-    p_Continent->s_Countri.coutPopulation[Cities_Luton] =  27.000498f; // инициализация числености населения Австралии
-    p_Continent->s_Countri.coutPopulation[Cities_Leeds] = 33.726000f; // инициализация числености населения Перу
+    p_Continent->s_Countri.coutPopulation[Cities_Kali] = L"146 119 928" ; // инициализация числености населения России
+    p_Continent->s_Countri.coutPopulation[Cities_Bogota] = L"57 106 398"; // инициализация числености населения Англии
+    p_Continent->s_Countri.coutPopulation[Cities_Lima] = L"53 474 361"; // инициализация числености населения Колумбии
+    p_Continent->s_Countri.coutPopulation[Cities_Luton] =  L"27 000 498"; // инициализация числености населения Австралии
+    p_Continent->s_Countri.coutPopulation[Cities_Leeds] = L"33 726 000"; // инициализация числености населения Перу
 
-    //выделяется память для поля сталица страны
+    //выделяется память для поля столица страны
     p_Continent->s_Countri.capital = new (std::nothrow) wstr [Cities_Luton];
+    // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
     if ( ! p_Continent->s_Countri.capital) {
         // Обработка этого случая
         std::wcout << L"Память не выделенна!!!";
@@ -197,9 +194,58 @@ auto RrintContinent (s_Continent *p_Continent, const short &r_town) -> RetConst 
     p_Continent->s_Countri.capital[Cities_Luton] = L"Сидней"; // инициализация названия столици Австралии
     p_Continent->s_Countri.capital[Cities_Leeds] = L"Лима"; // инициализация названия столици Перу
 
+    //выделяется память для поля год основания города
+    p_Continent->s_Countri.Сiti.yearOfFound = new (std::nothrow) unsigned short [Cities_Totall];
+    // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+    if ( ! p_Continent->s_Countri.Сiti.yearOfFound) {
+        // Обработка этого случая
+        std::wcout << L"Память не выделенна!!!";
+        return ErrMemory;
+    }
+    // инециализация год основания для городов
+    p_Continent->s_Countri.Сiti.yearOfFound[Cities_Moscow] = 1147;
+    p_Continent->s_Countri.Сiti.yearOfFound[Cities_Sochi] = 1838;
+    p_Continent->s_Countri.Сiti.yearOfFound[Cities_Tomsk] = 1604;
+    p_Continent->s_Countri.Сiti.yearOfFound[Cities_Sydney] = 1788;
+    p_Continent->s_Countri.Сiti.yearOfFound[Cities_Geelong] = 1838;
+    p_Continent->s_Countri.Сiti.yearOfFound[Cities_Cairns] = 1876;
+    p_Continent->s_Countri.Сiti.yearOfFound[Cities_London] = 47;
+    p_Continent->s_Countri.Сiti.yearOfFound[Cities_Leeds] = 1086;
+    p_Continent->s_Countri.Сiti.yearOfFound[Cities_Luton] = 1876;
+    p_Continent->s_Countri.Сiti.yearOfFound[Cities_Lima] = 1535;
+    p_Continent->s_Countri.Сiti.yearOfFound[Cities_Bogota] = 1538;
+    p_Continent->s_Countri.Сiti.yearOfFound[Cities_Kali] = 1536;
+    //////////////////////////////////////////////////////////////
+
+    //выделяется память для поля населения города
+    p_Continent->s_Countri.Сiti.cityPopulation = new (std::nothrow) wstr [Cities_Totall];
+    // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+    if ( ! p_Continent->s_Countri.Сiti.cityPopulation) {
+        // Обработка этого случая
+        std::wcout << L"Память не выделенна!!!";
+        return ErrMemory;
+    }
+    // инециализация числености населения для городов
+    p_Continent->s_Countri.Сiti.cityPopulation[Cities_Moscow] = L"13 274 285";
+    p_Continent->s_Countri.Сiti.cityPopulation[Cities_Sochi] = L"445 149";
+    p_Continent->s_Countri.Сiti.cityPopulation[Cities_Tomsk] = L"544 566";
+    p_Continent->s_Countri.Сiti.cityPopulation[Cities_Sydney] = L"5 450 496";
+    p_Continent->s_Countri.Сiti.cityPopulation[Cities_Geelong] = L"180 239";
+    p_Continent->s_Countri.Сiti.cityPopulation[Cities_Cairns] = L"152 759";
+    p_Continent->s_Countri.Сiti.cityPopulation[Cities_London] = L"10 100 000";
+    p_Continent->s_Countri.Сiti.cityPopulation[Cities_Leeds] = L"536 280";
+    p_Continent->s_Countri.Сiti.cityPopulation[Cities_Luton] = L"213 052";
+    p_Continent->s_Countri.Сiti.cityPopulation[Cities_Lima] = L"9 943 800";
+    p_Continent->s_Countri.Сiti.cityPopulation[Cities_Bogota] = L"8 034 649 ";
+    p_Continent->s_Countri.Сiti.cityPopulation[Cities_Kali] = L"2 471 474";
+    ///////////////////////////////////////////////////////////////////////////
+
     switch (r_town) {
     case Cities_Moscow: {
-        std::wcout << L"Находится на територии материка " + Continent->contTitle[Cities_Kali] << '\n';
+        std::wcout << L"Основан в " + p_Continent->s_Countri.Сiti.yearOfFound[Cities_Moscow] + L" Находится на територии материка " + Continent->contTitle[Cities_Kali] + L'.'
+                    +  L"Площадь материка " + Continent->contTitle[Cities_Kali] + L" состовляет:"
+                    + p_Continent->s_Countri.cuntSquare[Cities_Kali] + L'.'
+                    + L"Является столицей страны: " + p_Continent->s_Countri.coutTitle[Cities_Kali] << '\n';
         break;
     }
     case Cities_Sochi: {
@@ -251,6 +297,14 @@ auto RrintContinent (s_Continent *p_Continent, const short &r_town) -> RetConst 
         break;
     }
 
+    // освобождаем память для населения города
+    if (p_Continent->s_Countri.Сiti.cityPopulation) delete [] p_Continent->s_Countri.Сiti.cityPopulation; // освобождаем память
+    p_Continent->s_Countri.Сiti.cityPopulation = nullptr; // обнуляем указатель
+
+    // освобождаем память для год основания
+    if (p_Continent->s_Countri.Сiti.yearOfFound) delete [] p_Continent->s_Countri.Сiti.yearOfFound; // освобождаем память
+    p_Continent->s_Countri.Сiti.yearOfFound = nullptr; // обнуляем указатель
+
     // освобождаем память для столици страны
     if (p_Continent->s_Countri.capital) delete [] p_Continent->s_Countri.capital; // освобождаем память
     p_Continent->s_Countri.capital = nullptr; // обнуляем указатель
@@ -274,10 +328,6 @@ auto RrintContinent (s_Continent *p_Continent, const short &r_town) -> RetConst 
     // освобождаем память для названия материка
     if (p_Continent->contTitle) delete [] p_Continent->contTitle; // освобождаем память
     p_Continent->contTitle = nullptr; // обнуляем указатель
-
-    // освобождаем память для структуры материк
-    if (p_Continent) delete p_Continent; // освобождаем память
-    p_Continent = nullptr; // обнуляем указатель
 
     return Ok;
 }
