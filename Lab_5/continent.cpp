@@ -1,7 +1,8 @@
 #include<iostream>
 #include<string>
 #include<iomanip>
-#include "constans.h"
+#include"constans.h"
+#include"stop.h"
 
 enum Сities : short {
     Cities_Kali, // колумбия Дата основания:1536 Население:2 471 474 Площадь:564 км²
@@ -70,6 +71,8 @@ auto Continents () -> void {
                   "в статической и динамической памяти (определение объектов статически и динамически).\n"
                   "Использование ссылки на структуру.\n" << std::endl;
 
+    //bool stop = false; // переменная для цикла do while
+    do {
     std::wcout << L"Введите название города; на пример \" Москва \" и нажмите ввод: ";
     wstr city; // строковая переменная ввода города
     std::getline(std::wcin, city);
@@ -77,6 +80,9 @@ auto Continents () -> void {
     std::wcout << L"Город " << city << '\n';
     Cities (Continent);
     PrintCities (Continent, town);
+    //stop = Stop();
+    }
+    while ( ! Stop()); // выход из праграммы по выбору пользователя
 }
 
 
@@ -121,8 +127,6 @@ Town *City{nullptr};
 
 // функциия создания структуры
 auto Cities (SContinent *p_Continent) -> RetConst {
-
-
 
     //выделяется память и инициализируем поля для структуры Continent
     p_Continent = new (std::nothrow) SContinent[Cities_Luton]
@@ -179,6 +183,9 @@ auto Cities (SContinent *p_Continent) -> RetConst {
 
 // функция вывода структуры
 auto PrintCities (SContinent *p_Continent, const short& r_town) -> void {
+
+    setlocale(LC_ALL, "ru_RU.UTF8");
+
     switch (r_town) {
     case Cities_Moscow: {
         std::wcout << L"Основан в " << City[Cities_Moscow].yearOfFound << L'\n'
