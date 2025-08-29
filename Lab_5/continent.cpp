@@ -48,10 +48,10 @@ auto Regist(wstr &r_text) -> wstr;
 auto ChoosCity (wstr (&r_Regist)(wstr &), wstr &r_city) -> short;
 
 // деклорация функциии создания структуры
-auto Cities (SContinent *p_Continent) -> RetConst;
+auto Cities () -> RetConst;
 
 // деклорация функции вывода структуры
-auto PrintCities (SContinent *p_Continent, const short &r_town) -> void;
+auto PrintCities (const short& r_town) -> void;
 
 // функция по заданию №3
 auto Continents () -> void {
@@ -71,18 +71,18 @@ auto Continents () -> void {
                   "в статической и динамической памяти (определение объектов статически и динамически).\n"
                   "Использование ссылки на структуру.\n" << std::endl;
 
-    //bool stop = false; // переменная для цикла do while
+    bool stop = false; // переменная для цикла do while
     do {
-    std::wcout << L"Введите название города; на пример \" Москва \" и нажмите ввод: ";
-    wstr city; // строковая переменная ввода города
-    std::getline(std::wcin, city);
-    short town = ChoosCity (Regist, city);
-    std::wcout << L"Город " << city << '\n';
-    Cities (Continent);
-    PrintCities (Continent, town);
-    //stop = Stop();
+        std::wcout << L"Введите название города; на пример \" Москва \" и нажмите ввод: ";
+        wstr city; // строковая переменная ввода города
+        std::getline(std::wcin, city);
+        short town = ChoosCity (Regist, city);
+        std::wcout << L"Город " << city << '\n';
+        Cities ();
+        PrintCities (town);
+        stop = Stop();
     }
-    while ( ! Stop()); // выход из праграммы по выбору пользователя
+    while ( ! stop); // выход из праграммы по выбору пользователя
 }
 
 
@@ -113,7 +113,7 @@ auto ChoosCity (wstr (&r_Regist)(wstr &), wstr& r_city) -> short {
     else if (text == L"ЛИМА") id = {Cities_Lima};
     else if (text == L"БОГОТА") id = {Cities_Bogota};
     else if (text == L"КАЛИ") id = {Cities_Kali};
-
+    else id = Cities_Totall;
     return id;
 }
 
@@ -126,14 +126,16 @@ using Town = SContinent::SCountries::SСities;
 Town *City{nullptr};
 
 // функциия создания структуры
-auto Cities (SContinent *p_Continent) -> RetConst {
+auto Cities () -> RetConst {
 
     //выделяется память и инициализируем поля для структуры Continent
-    p_Continent = new (std::nothrow) SContinent[Cities_Luton]
+    Continent = new (std::nothrow) SContinent[Cities_Luton]
         {{L"Евразия", L"53.6 млн.км²"},
-         {L"Южная Америка", L"17.84 млн.км²"}, {L"Австралия", L"8.6 млн.км²"}};
+         {L"Австралия", L"8.6 млн.км²"},
+         {L"Южная Америка", L"17.84 млн.км²"}};
+
     // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
-    if ( ! p_Continent) {
+    if ( ! Continent) {
         // Обработка этого случая
         std::wcout << L"Память не выделенна!!!";
         return ErrMemory;
@@ -142,9 +144,9 @@ auto Cities (SContinent *p_Continent) -> RetConst {
     //выделяется память и инициализируем поля для структуры Countri
     Countri = new (std::nothrow) Countries[Cities_London]
         {{L"Россия", L"Москва" , L"17.1 млн.км²", L"146 119 928 млн.чел"},
+         {L"Австралия", L"Сидней", L"8.6 млн.км²", L"27 000 498 млн.чел"},
          {L"Великобритания", L"Лондон", L"243 610 км²", L"57 106 398 млн.чел"},
          {L"Колумбия", L"Богота", L"1.142 млн.км²", L"53 474 361 млн.чел"},
-         {L"Австралия", L"Сидней", L"8.6 млн.км²", L"27 000 498 млн.чел"},
          {L"Перу", L"Лима", L"1.285 млн.км²", L"33 726 000 млн.чел"}};
     // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
     if ( ! Countri) {
@@ -175,57 +177,153 @@ auto Cities (SContinent *p_Continent) -> RetConst {
         std::wcout << L"Память не выделенна!!!";
         return ErrMemory;
     }
-
-    std::wcout << L"Город привет" << '\n';
-
     return Ok;
 }
 
 // функция вывода структуры
-auto PrintCities (SContinent *p_Continent, const short& r_town) -> void {
+auto PrintCities (const short& r_town) -> void {
 
     setlocale(LC_ALL, "ru_RU.UTF8");
 
     switch (r_town) {
     case Cities_Moscow: {
-        std::wcout << L"Основан в " << City[Cities_Moscow].yearOfFound << L'\n'
-                   <<  L" Находится на територии материка " << Continent[Cities_Kali].contTitle << L'\n'
-                   << L"Площадь материка " << Continent[Cities_Kali].contTitle << L" состовляет:"
-                   << Countri[Cities_Kali].coutTitle << L'\n'
-                   << L"Является столицей страны: " << Countri[Cities_Kali].coutTitle << '\n';
+        std::wcout << L"Основан в " << City[Cities_Moscow].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Moscow].cityPopulation << L'\n'
+                   << L"Находится на територии страны " << Countri[Cities_Kali].coutTitle << L'\n'
+                   << L"Столицей страны является: " << Countri[Cities_Kali].capital << L'\n'
+                   << L"Площадь страны состовляет: " << Countri[Cities_Kali].cuntSquare << '\n'
+                   << L"Основан в " << City[Cities_Moscow].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Moscow].cityPopulation << L'\n'
+                   << L"Находится на територии материка " << Continent[Cities_Kali].contTitle << L'\n'
+                   << L"Площадь материка " << Continent[Cities_Kali].contTitle << L" состовляет: "
+                   << Continent[Cities_Kali].contSquare << L'\n';
+
         break;
     }
     case Cities_Sochi: {
+        std::wcout << L"Основан в " << City[Cities_Sochi].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Sochi].cityPopulation << L'\n'
+                   << L"Находится на територии страны " << Countri[Cities_Kali].coutTitle << L'\n'
+                   << L"Столицей страны является: " << Countri[Cities_Kali].capital << L'\n'
+                   << L"Площадь страны состовляет: " << Countri[Cities_Kali].cuntSquare << '\n'
+                   << L"Основан в " << City[Cities_Sochi].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Sochi].cityPopulation << L'\n'
+                   << L"Находится на територии материка " << Continent[Cities_Kali].contTitle << L'\n'
+                   << L"Площадь материка " << Continent[Cities_Kali].contTitle << L" состовляет: "
+                   << Continent[Cities_Kali].contSquare << L'\n';
+
         break;
     }
     case Cities_Tomsk: {
+        std::wcout << L"Основан в " << City[Cities_Tomsk].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Tomsk].cityPopulation << L'\n'
+                   << L"Находится на територии страны " << Countri[Cities_Kali].coutTitle << L'\n'
+                   << L"Столицей страны является: " << Countri[Cities_Kali].capital << L'\n'
+                   << L"Площадь страны состовляет: " << Countri[Cities_Kali].cuntSquare << '\n'
+                   << L"Основан в " << City[Cities_Tomsk].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Tomsk].cityPopulation << L'\n'
+                   << L"Находится на територии материка " << Continent[Cities_Kali].contTitle << L'\n'
+                   << L"Площадь материка " << Continent[Cities_Kali].contTitle << L" состовляет: "
+                   << Continent[Cities_Kali].contSquare << L'\n';
         break;
     }
     case Cities_Sydney: {
+        std::wcout << L"Основан в " << City[Cities_Sydney].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Sydney].cityPopulation << L'\n'
+                   << L"Находится на територии страны " << Countri[Cities_Bogota].coutTitle << L'\n'
+                   << L"Столицей страны является: " << Countri[Cities_Bogota].capital << L'\n'
+                   << L"Площадь страны состовляет: " << Countri[Cities_Bogota].cuntSquare << '\n'
+                   << L"Находится на територии материка " << Continent[Cities_Bogota].contTitle << L'\n'
+                   << L"Площадь материка " << Continent[Cities_Bogota].contTitle << L" состовляет: "
+                   << Continent[Cities_Bogota].contSquare << L'\n';
         break;
     }
     case Cities_Geelong: {
+        std::wcout << L"Основан в " << City[Cities_Geelong].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Geelong].cityPopulation << L'\n'
+                   << L"Находится на територии страны " << Countri[Cities_Bogota].coutTitle << L'\n'
+                   << L"Столицей страны является: " << Countri[Cities_Bogota].capital << L'\n'
+                   << L"Площадь страны состовляет: " << Countri[Cities_Bogota].cuntSquare << '\n'
+                   << L"Находится на територии материка " << Continent[Cities_Bogota].contTitle << L'\n'
+                   << L"Площадь материка " << Continent[Cities_Bogota].contTitle << L" состовляет: "
+                   << Continent[Cities_Bogota].contSquare << L'\n';
         break;
     }
     case Cities_Cairns: {
+        std::wcout << L"Основан в " << City[Cities_Cairns].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Cairns].cityPopulation << L'\n'
+                   << L"Находится на територии страны " << Countri[Cities_Bogota].coutTitle << L'\n'
+                   << L"Столицей страны является: " << Countri[Cities_Bogota].capital << L'\n'
+                   << L"Площадь страны состовляет: " << Countri[Cities_Bogota].cuntSquare << '\n'
+                   << L"Находится на територии материка " << Continent[Cities_Bogota].contTitle << L'\n'
+                   << L"Площадь материка " << Continent[Cities_Bogota].contTitle << L" состовляет: "
+                   << Continent[Cities_Bogota].contSquare << L'\n';
         break;
     }
     case Cities_London: {
+        std::wcout << L"Основан в " << City[Cities_London].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_London].cityPopulation << L'\n'
+                   << L"Находится на територии страны " << Countri[Cities_Lima].coutTitle << L'\n'
+                   << L"Столицей страны является: " << Countri[Cities_Lima].capital << L'\n'
+                   << L"Площадь страны состовляет: " << Countri[Cities_Lima].cuntSquare << '\n'
+                   << L"Находится на територии материка " << Continent[Cities_Kali].contTitle << L'\n'
+                   << L"Площадь материка " << Continent[Cities_Kali].contTitle << L" состовляет: "
+                   << Continent[Cities_Kali].contSquare << L'\n';
         break;
     }
     case Cities_Leeds: {
+        std::wcout << L"Основан в " << City[Cities_Leeds].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Leeds].cityPopulation << L'\n'
+                   << L"Находится на територии страны " << Countri[Cities_Lima].coutTitle << L'\n'
+                   << L"Столицей страны является: " << Countri[Cities_Lima].capital << L'\n'
+                   << L"Площадь страны состовляет: " << Countri[Cities_Lima].cuntSquare << '\n'
+                   << L"Находится на територии материка " << Continent[Cities_Kali].contTitle << L'\n'
+                   << L"Площадь материка " << Continent[Cities_Kali].contTitle << L" состовляет: "
+                   << Continent[Cities_Kali].contSquare << L'\n';
         break;
     }
     case Cities_Luton: {
+        std::wcout << L"Основан в " << City[Cities_Luton].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Luton].cityPopulation << L'\n'
+                   << L"Находится на територии страны " << Countri[Cities_Lima].coutTitle << L'\n'
+                   << L"Столицей страны является: " << Countri[Cities_Lima].capital << L'\n'
+                   << L"Площадь страны состовляет: " << Countri[Cities_Lima].cuntSquare << '\n'
+                   << L"Находится на територии материка " << Continent[Cities_Kali].contTitle << L'\n'
+                   << L"Площадь материка " << Continent[Cities_Kali].contTitle << L" состовляет: "
+                   << Continent[Cities_Kali].contSquare << L'\n';
         break;
     }
     case Cities_Lima: {
+        std::wcout << L"Основан в " << City[Cities_Lima].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Lima].cityPopulation << L'\n'
+                   << L"Находится на територии страны " << Countri[Cities_Luton].coutTitle << L'\n'
+                   << L"Столицей страны является: " << Countri[Cities_Luton].capital << L'\n'
+                   << L"Площадь страны состовляет: " << Countri[Cities_Luton].cuntSquare << '\n'
+                   << L"Находится на територии материка " << Continent[Cities_Lima].contTitle << L'\n'
+                   << L"Площадь материка " << Continent[Cities_Lima].contTitle << L" состовляет: "
+                   << Continent[Cities_Lima].contSquare << L'\n';
         break;
     }
     case Cities_Bogota: {
+        std::wcout << L"Основан в " << City[Cities_Bogota].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Bogota].cityPopulation << L'\n'
+                   << L"Находится на територии страны " << Countri[Cities_Luton].coutTitle << L'\n'
+                   << L"Столицей страны является: " << Countri[Cities_Luton].capital << L'\n'
+                   << L"Площадь страны состовляет: " << Countri[Cities_Luton].cuntSquare << '\n'
+                   << L"Находится на територии материка " << Continent[Cities_Lima].contTitle << L'\n'
+                   << L"Площадь материка " << Continent[Cities_Lima].contTitle << L" состовляет: "
+                   << Continent[Cities_Lima].contSquare << L'\n';
         break;
     }
     case Cities_Kali: {
+        std::wcout << L"Основан в " << City[Cities_Kali].yearOfFound << L" году." << L'\n'
+                   << L"Население города состовляет: " << City[Cities_Kali].cityPopulation << L'\n'
+                   << L"Находится на територии страны " << Countri[Cities_Leeds].coutTitle << L'\n'
+                   << L"Столицей страны является: " << Countri[Cities_Leeds].capital << L'\n'
+                   << L"Площадь страны состовляет: " << Countri[Cities_Leeds].cuntSquare << '\n'
+                   << L"Находится на територии материка " << Continent[Cities_Lima].contTitle << L'\n'
+                   << L"Площадь материка " << Continent[Cities_Lima].contTitle << L" состовляет: "
+                   << Continent[Cities_Lima].contSquare << L'\n';
         break;
     }
     default:
