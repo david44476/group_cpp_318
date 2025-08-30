@@ -54,7 +54,7 @@ auto Cities () -> RetConst;
 auto PrintCities (const short& r_town) -> void;
 
 // функция по заданию №3
-auto Continents () -> void {
+auto Continents () -> RetConst {
 
     setlocale(LC_ALL, "ru_RU.UTF8");
 
@@ -78,11 +78,16 @@ auto Continents () -> void {
         std::getline(std::wcin, city);
         short town = ChoosCity (Regist, city);
         std::wcout << L"Город " << city << '\n';
+        // функциия создания структуры
         Cities ();
+        // функция вывода структуры
         PrintCities (town);
-        stop = Stop();
+        // вызов функции для останоки или продолжения выполнения программы по выбору пользователя
+        if ( ! (stop == Stop())) return ErrData;
     }
     while ( ! stop); // выход из праграммы по выбору пользователя
+
+    return Ok;
 }
 
 
@@ -192,8 +197,6 @@ auto PrintCities (const short& r_town) -> void {
                    << L"Находится на територии страны " << Countri[Cities_Kali].coutTitle << L'\n'
                    << L"Столицей страны является: " << Countri[Cities_Kali].capital << L'\n'
                    << L"Площадь страны состовляет: " << Countri[Cities_Kali].cuntSquare << '\n'
-                   << L"Основан в " << City[Cities_Moscow].yearOfFound << L" году." << L'\n'
-                   << L"Население города состовляет: " << City[Cities_Moscow].cityPopulation << L'\n'
                    << L"Находится на територии материка " << Continent[Cities_Kali].contTitle << L'\n'
                    << L"Площадь материка " << Continent[Cities_Kali].contTitle << L" состовляет: "
                    << Continent[Cities_Kali].contSquare << L'\n';
@@ -206,8 +209,6 @@ auto PrintCities (const short& r_town) -> void {
                    << L"Находится на територии страны " << Countri[Cities_Kali].coutTitle << L'\n'
                    << L"Столицей страны является: " << Countri[Cities_Kali].capital << L'\n'
                    << L"Площадь страны состовляет: " << Countri[Cities_Kali].cuntSquare << '\n'
-                   << L"Основан в " << City[Cities_Sochi].yearOfFound << L" году." << L'\n'
-                   << L"Население города состовляет: " << City[Cities_Sochi].cityPopulation << L'\n'
                    << L"Находится на територии материка " << Continent[Cities_Kali].contTitle << L'\n'
                    << L"Площадь материка " << Continent[Cities_Kali].contTitle << L" состовляет: "
                    << Continent[Cities_Kali].contSquare << L'\n';
@@ -220,8 +221,6 @@ auto PrintCities (const short& r_town) -> void {
                    << L"Находится на територии страны " << Countri[Cities_Kali].coutTitle << L'\n'
                    << L"Столицей страны является: " << Countri[Cities_Kali].capital << L'\n'
                    << L"Площадь страны состовляет: " << Countri[Cities_Kali].cuntSquare << '\n'
-                   << L"Основан в " << City[Cities_Tomsk].yearOfFound << L" году." << L'\n'
-                   << L"Население города состовляет: " << City[Cities_Tomsk].cityPopulation << L'\n'
                    << L"Находится на територии материка " << Continent[Cities_Kali].contTitle << L'\n'
                    << L"Площадь материка " << Continent[Cities_Kali].contTitle << L" состовляет: "
                    << Continent[Cities_Kali].contSquare << L'\n';
@@ -331,15 +330,15 @@ auto PrintCities (const short& r_town) -> void {
         break;
     }
 
-    // освобождаем память для названия материка
-    if (City ) delete [] City ; // освобождаем память
+    // освобождаем память для города
+    if (City) delete [] City ; // освобождаем память
     City  = {nullptr}; // обнуляем указатель
 
-    // освобождаем память для названия материка
+    // освобождаем память для страны
     if (Countri) delete [] Countri; // освобождаем память
     Countri = {nullptr}; // обнуляем указатель
 
-    // освобождаем память для названия материка
+    // освобождаем память для материка
     if (Continent) delete [] Continent; // освобождаем память
     Continent = {nullptr}; // обнуляем указатель
 }
