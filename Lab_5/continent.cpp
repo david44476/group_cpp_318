@@ -71,12 +71,12 @@ auto Continents () -> RetConst {
                   "в статической и динамической памяти (определение объектов статически и динамически).\n"
                   "Использование ссылки на структуру.\n" << std::endl;
 
-    bool stop = false; // переменная для цикла do while
+    bool stop {false}; // переменная для цикла do while
     do {
         std::wcout << L"Введите название города; на пример \" Москва \" и нажмите ввод: ";
         wstr city; // строковая переменная ввода города
         std::getline(std::wcin, city);
-        short town = ChoosCity (Regist, city);
+        short town {ChoosCity (Regist, city)};
         std::wcout << L"Город " << city << '\n';
         // функциия создания структуры
         Cities ();
@@ -342,4 +342,3 @@ auto PrintCities (const short& r_town) -> void {
     if (Continent) delete [] Continent; // освобождаем память
     Continent = {nullptr}; // обнуляем указатель
 }
-
