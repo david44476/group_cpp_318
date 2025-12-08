@@ -3,7 +3,7 @@
 #include<iomanip>
 #include"constans.h"
 
-auto Func (std::string& r_text) -> short;
+auto Func (std::string& r_text) -> void;
 auto Regist (std::string& r_text) -> void;
 
 // функция по заданию №4
@@ -21,35 +21,36 @@ auto StringPacking () -> RetConst {
                  "регистре и восстанавливает по ней исходную строку с буквами в верхнем регистре.\n"
               << std::endl;
 
-    std::string str{"4ab5c4d"};
-    //Func (str);
-    for (auto i : Func(str)) {
-        std::cout << i;
-    }
+    std::string str {"4ab5c4d"};
     Regist (str);
+    Func (str);
+    //std::cout << str << '\n';
     return Ok;
 }
-
-
-auto Func (std::string& r_text) -> short {
-    short size{};
-    for (auto i : r_text) {
-        if (std::isdigit(i)) ++size;
-    }
-    short *number = new (std::nothrow) short[size];
-    for (auto i : r_text) {
-        if (std::isdigit(i)) number[i] = (short)i - (short)'0';
-    }
-    return *number;
-}
-
 
 // функция преобразования символов в верхний регистр
 auto Regist (std::string& r_text) -> void {
     short diff_ul{32}; // разница между пропесными и строчными символами алфавита
-    short up_a {90}; // десятичный код символа для проверки условия
+    short down_a {90}; // десятичный код символа для проверки условия
+    short up_a {122}; // десятичный код символа для проверки условия
     for (auto& i : r_text) {
-        if (i >= up_a) i -= diff_ul;
+        if (i <= up_a && i >= down_a) i -= diff_ul;
     }
-    std::cout << r_text << '\n';
+}
+
+auto Func (std::string& r_text) -> void {
+    short summ {0};
+    short down_a {48};
+    short up_a {57};
+    for (auto i : r_text) {
+        if (i >= down_a && i <= up_a) {
+            summ = i - '0';
+        }
+        for (short j{0}; j < summ; j++) {
+            if (i <= 90 && i >= 65) {
+                std::cout << i;
+            }
+        }
+    }
+    std::cout << '\n';
 }
