@@ -13,7 +13,7 @@
 *
 * locale (кодировка): UTF 8
 */
-#define TASK 3
+#define TASK 4
 #if (TASK == 1)
 #include "task_1.h"
 #elif (TASK == 2)
@@ -21,7 +21,7 @@
 #elif (TASK == 3)
 #include"continent.h"
 #elif (TASK == 4)
-#include "task_4.h"
+#include "string_packing.h"
 #elif (TASK == 5)
 #include "task_5.h"
 #elif (TASK == 6)
@@ -40,7 +40,7 @@ int main () {
 #elif (TASK == 3)
     Continents ();
 #elif (TASK == 4)
-    task_4();
+    StringPacking ();
 #elif (TASK == 5)
     task_5();
 #elif (TASK == 6)
