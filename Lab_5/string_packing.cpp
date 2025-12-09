@@ -22,9 +22,9 @@ auto StringPacking () -> RetConst {
               << std::endl;
 
     std::string str {"4ab5c4d"};
-    Regist (str);
-    Func (str);
-    //std::cout << str << '\n';
+    std::cout << "Строка до распаковки " << str << '\n';
+    Regist (str); // вызов функции для преобразования символов в верхний регистр
+    Func (str); // вызов функции для распаковки строки
     return Ok;
 }
 
@@ -38,6 +38,7 @@ auto Regist (std::string& r_text) -> void {
     }
 }
 
+// функция распаковки строки
 auto Func (std::string& r_text) -> void {
     short summ {0};
     short down_a {48};
