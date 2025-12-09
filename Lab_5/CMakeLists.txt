@@ -14,6 +14,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
 add_executable(Lab_5
   main.cpp
+  string_packing.cpp
+  string_packing.h
   constans.h
   continent.cpp
   continent.h
