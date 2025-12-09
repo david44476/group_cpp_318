@@ -22,7 +22,7 @@ auto StringPacking () -> RetConst {
               << std::endl;
 
     std::string str {"4ab5c4d"};
-    std::cout << "Строка до распаковки " << str << '\n';
+    std::cout << "Исходная строка " << str << '\n';
     Regist (str); // вызов функции для преобразования символов в верхний регистр
     Func (str); // вызов функции для распаковки строки
     return Ok;
