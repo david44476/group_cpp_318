@@ -31,8 +31,8 @@ auto StringPacking () -> RetConst {
 // функция преобразования символов в верхний регистр
 auto Regist (std::string& r_text) -> void {
     short diff_ul{32}; // разница между пропесными и строчными символами алфавита
-    short down_a {90}; // десятичный код символа для проверки условия
-    short up_a {122}; // десятичный код символа для проверки условия
+    short down_a {97}; // десятичный код символа 'a' для проверки условия
+    short up_a {122}; // десятичный код символа 'z' для проверки условия
     for (auto& i : r_text) {
         if (i <= up_a && i >= down_a) i -= diff_ul;
     }
@@ -41,8 +41,8 @@ auto Regist (std::string& r_text) -> void {
 // функция распаковки строки
 auto unpackString (std::string& r_text) -> std::string {
     short summ {0}; // накопленное число повторений
-    short down_a {48}; // десятичный код символа 0
-    short up_a {57}; // десятичный код символа 9
+    short down_a {48}; // десятичный код символа '0' для проверки условия
+    short up_a {57}; // десятичный код символа '9' для проверки условия
     std::string result;  // итоговая распакованная строка
     for (char i : r_text) {
         if (i >= down_a && i <= up_a) {
@@ -61,4 +61,3 @@ auto unpackString (std::string& r_text) -> std::string {
     }
     return result;
 }
-
