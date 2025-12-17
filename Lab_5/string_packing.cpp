@@ -3,7 +3,9 @@
 #include<iomanip>
 #include"constans.h"
 
+// деклорация функции распаковки строки
 auto unpackString (std::string& r_text) -> std::string;
+// деклорация функции преобразования символов в верхний регистр
 auto Regist (std::string& r_text) -> void;
 
 // функция по заданию №4
