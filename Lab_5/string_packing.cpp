@@ -3,7 +3,7 @@
 #include<iomanip>
 #include"constans.h"
 
-auto Func (std::string& r_text) -> void;
+auto unpackString (std::string& r_text) -> std::string;
 auto Regist (std::string& r_text) -> void;
 
 // функция по заданию №4
@@ -21,10 +21,10 @@ auto StringPacking () -> RetConst {
                  "регистре и восстанавливает по ней исходную строку с буквами в верхнем регистре.\n"
               << std::endl;
 
-    std::string str {"4ab5c4d"};
-    std::cout << "Исходная строка " << str << '\n';
-    Regist (str); // вызов функции для преобразования символов в верхний регистр
-    Func (str); // вызов функции для распаковки строки
+    std::string str {"10a5b11c6d"};
+    std::cout << "Начальная строка: " << str << '\n';
+    Regist (str);
+    std::cout << "Распакованная строка: " << unpackString (str) << '\n';
     return Ok;
 }
 
@@ -39,19 +39,26 @@ auto Regist (std::string& r_text) -> void {
 }
 
 // функция распаковки строки
-auto Func (std::string& r_text) -> void {
-    short summ {0};
-    short down_a {48};
-    short up_a {57};
-    for (auto i : r_text) {
+auto unpackString (std::string& r_text) -> std::string {
+    short summ {0}; // накопленное число повторений
+    short down_a {48}; // десятичный код символа 0
+    short up_a {57}; // десятичный код символа 9
+    std::string result;  // итоговая распакованная строка
+    for (char i : r_text) {
         if (i >= down_a && i <= up_a) {
-            summ = i - '0';
+            // накапливаем число (учитываем многозначные числа)
+            summ = summ * 10 + (i - down_a);
         }
-        for (short j{0}; j < summ; j++) {
-            if (i <= 90 && i >= 65) {
-                std::cout << i;
-            }
+        else if (i >= 65 && i <= 90) {
+            // буква: преобразуем в верхний регистр и повторяем summ раз
+            // если summ == 0, то считаем, что повтор 1 раз
+            int repeat = (summ > 0) ? summ : 1;
+            char upperChar = i;
+            result.append(repeat, upperChar);
+            // сбрасываем счётчик после использования
+            summ = 0;
         }
     }
-    std::cout << '\n';
+    return result;
 }
+
