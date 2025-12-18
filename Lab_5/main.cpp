@@ -13,7 +13,7 @@
 *
 * locale (кодировка): UTF 8
 */
-#define TASK 4
+#define TASK 5
 #if (TASK == 1)
 #include "task_1.h"
 #elif (TASK == 2)
@@ -23,7 +23,7 @@
 #elif (TASK == 4)
 #include "string_packing.h"
 #elif (TASK == 5)
-#include "task_5.h"
+#include "Task_5.h"
 #elif (TASK == 6)
 #include "task_6.h"
 #elif (TASK == 7)
@@ -42,7 +42,7 @@ int main () {
 #elif (TASK == 4)
     StringPacking ();
 #elif (TASK == 5)
-    task_5();
+    Normalize();
 #elif (TASK == 6)
     task_6();
 #elif (TASK == 7)
@@ -51,3 +51,4 @@ int main () {
     task_8();
 #endif
 }
+
