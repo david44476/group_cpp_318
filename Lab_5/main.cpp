@@ -13,7 +13,7 @@
 *
 * locale (кодировка): UTF 8
 */
-#define TASK 5
+#define TASK 6
 #if (TASK == 1)
 #include "task_1.h"
 #elif (TASK == 2)
@@ -25,7 +25,7 @@
 #elif (TASK == 5)
 #include "Task_5.h"
 #elif (TASK == 6)
-#include "task_6.h"
+#include "array_of_str.h"
 #elif (TASK == 7)
 #include "task_7.h"
 #elif (TASK == 8)
@@ -44,11 +44,10 @@ int main () {
 #elif (TASK == 5)
     Normalize();
 #elif (TASK == 6)
-    task_6();
+    ArrayOfStr ();
 #elif (TASK == 7)
     task_7();
 #elif (TASK == 8)
     task_8();
 #endif
 }
-
