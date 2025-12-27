@@ -14,8 +14,6 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
 add_executable(Lab_5
   main.cpp
-  string_packing.cpp
-  string_packing.h
   constans.h
   continent.cpp
   continent.h
@@ -28,6 +26,12 @@ add_executable(Lab_5
   type_thecking.cpp
   type_thecking.h
   stop.cpp
+  string_packing.cpp
+  string_packing.h
+  task_5.cpp
+  task_5.h
+  array_of_str.cpp
+  array_of_str.h
 )
 target_link_libraries(Lab_5 Qt${QT_VERSION_MAJOR}::Core)
 
