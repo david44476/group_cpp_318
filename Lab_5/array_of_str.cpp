@@ -8,6 +8,7 @@
 
 // прототип типа на std::wstring
 using wstr = std::wstring;
+size_t arrayLength{0}; // длина массива
 // деклорация функции проверки ввода
 auto Type_Thecking ( const unsigned short& fr_a) -> unsigned short;
 // деклорация функции создания массива строк
@@ -41,7 +42,6 @@ auto ArrayStr () -> wstr* {
     std::wcout << L"Введите строки но не более 25 строк (после каждого ввода строки нажмите ввод),\n"
                   "каждая строка не более 80 символов (пустая строка — завершение ввода): " << '\n';
     wstr line; // переменная для ввода строк
-    size_t arrayLength{0}; // длина массива
     wstr *arrayOfStrings = new (std::nothrow) wstr [MAX_LINES];
     // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
     if (!arrayOfStrings) {
@@ -63,6 +63,11 @@ auto ArrayStr () -> wstr* {
             ++arrayLength;
         }
         wstr *newArray = new (std::nothrow) wstr [arrayLength];
+        if (!newArray) {
+            // Обработка этого случая
+            std::wcout << L"Память не выделенна!!!";
+            return newArray = nullptr; // обнуляем указатель
+        }
         for (size_t i : *newArray) {
             newArray[i] = arrayOfStrings[i];
         }
@@ -73,7 +78,7 @@ auto ArrayStr () -> wstr* {
 }
 
 // функция сортировки в алфавитном порядке
-auto AlphaOrder (wstr (*const p_array)())-> wstr* {
+auto AlphaOrder (wstr (*const p_array)()) -> wstr* {
     wstr *newArray = p_array();
     for (int i = 0; i < newArray->size() - 1; ++i) {
         for (int j = 0; j < newArray->size() - i - 1; ++j) {
