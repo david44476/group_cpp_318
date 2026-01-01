@@ -1,148 +1,164 @@
-#include<iostream>
+#include <iostream>
 #include <limits>
-#include<string>
-#include<iomanip>
-#include"constans.h"
-#include"stop.h"
-#define MAX_LINES 25 // макс. количество строк
-#define MAX_LENGTH 80 // макс. длина строки
+#include <string>
+#include <iomanip>
+#include "constans.h"
+#include "stop.h"
 
-// прототип типа на std::wstring
+#define MAX_LINES 25 // максимальное количество строк
+#define MAX_LENGTH 80 // максимальна длина строки
+
+// псевдоним типа
 using wstr = std::wstring;
-size_t arrayLength{0}; // длина массива
-// деклорация функции создания массива строк
-auto ArrayStr() -> wstr*;
-// псевдоним типа указателя на функцию
-using PtrFunc = wstr*(*)(wstr*(*)());
-// деклорация функции сортировки
-auto SelectOfSort (wstr *(* const PtrArray)()) -> PtrFunc;
-// функция по заданию №6
-auto ArrayOfStr () -> RetConst {
 
-    setlocale(LC_ALL, "ru_RU.UTF8");
+// структура функций для создания и сортировки массива строк
+struct S_FuncStr {
+
+    // функция создания массива строк
+    auto ArrayStr(short& fr_size) -> wstr* {
+        wstr line; // переменная для ввода строк
+        // создание денамического массива строк
+        wstr* arrayOfStrings = new (std::nothrow) wstr[MAX_LINES];
+        // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+        if (!arrayOfStrings) {
+            // Обработка этого случая
+            std::wcout << L"Память не выделена!\n";
+            return nullptr;
+        }
+
+        fr_size = 0; // длина массива
+        while (fr_size < MAX_LINES) {
+            std::getline(std::wcin, line);
+            if (line.empty()) break;
+            if (line.length() > MAX_LENGTH) {
+                std::wcout << L"Строка слишком длинная (максимум " << MAX_LENGTH << L" символов).\n";
+                continue;
+            }
+            // присваемаем элементам массива строки введёные пользователем
+            arrayOfStrings[fr_size++] = line;
+        }
+        // создание нового денамического массива длиной "количество введёных строк"
+        wstr* newArray = new (std::nothrow) wstr[fr_size];
+        // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+        if (!newArray) {
+            // Обработка этого случая
+            std::wcout << L"Память не выделена!\n";
+            delete[] arrayOfStrings; // освобождаем память
+            return nullptr;
+        }
+        // копируем исходный массив в новый
+        for (size_t i = 0; i < fr_size; ++i) {
+            newArray[i] = arrayOfStrings[i];
+        }
+        delete[] arrayOfStrings; // освобождаем память исходного массива
+        arrayOfStrings = nullptr; // обнуляем указатель на исходный массив
+        return newArray; // возврощаем указатель на новый массив
+    }
+    // функция сортировки в алфавитном порядке
+    auto AlphaOrder(wstr* fp_Array, const size_t& fr_size) -> void {
+        for (size_t i = 0; i < fr_size - 1; ++i) {
+            for (size_t j = 0; j < fr_size - i - 1; ++j) {
+                if (fp_Array[j] > fp_Array[j + 1]) {
+                    std::swap(fp_Array[j], fp_Array[j + 1]);
+                }
+            }
+        }
+    }
+    //функция сортировки по длине строк
+    auto LengthOfLines(wstr* fp_Array, const size_t& fr_size) -> void {
+        for (size_t i = 0; i < fr_size - 1; ++i) {
+            for (size_t j = 0; j < fr_size - i - 1; ++j) {
+                if (fp_Array[j].length() > fp_Array[j + 1].length()) {
+                    std::swap(fp_Array[j], fp_Array[j + 1]);
+                }
+            }
+        }
+    }
+    // функция сортировки по выбору пользователя
+    auto SelectOfSort(wstr* fp_Array, const size_t& fr_size, const wchar_t& choice) -> void {
+        switch (choice) {
+        case '1':
+            // вызов фукнции сортировки в алфавитном порядке
+            AlphaOrder(fp_Array, fr_size);
+            break;
+        case '2':
+            // вызов фукнции сортировки по длине строк
+            LengthOfLines(fp_Array, fr_size);
+            break;
+        default:
+            std::wcout << L"Такой сортировки не предусмотрено!\n";
+        }
+    }
+    //функция вывода массива строк
+    auto PrintArraySTR(const wstr* fp_Array, const size_t& fr_size) -> void {
+        for (size_t i = 0; i < fr_size; ++i) {
+            std::wcout << fp_Array[i] << ',';
+        }
+        std::wcout <<std::endl;
+    }
+    // функция проверки ввода символа
+    auto Type_Thecking1 ( wchar_t& fr_a) -> wchar_t {
+        while (true) {
+            if ( ! (std::wcin >> fr_a)) {
+                std::cout << "Вы ввели не верные даные!" << '\n' << "Попробуйте ещё: ";
+                std::cin.clear ();
+                std::cin.ignore (std::numeric_limits<wchar_t>::max(), '\n');
+            }
+            else break;
+        }
+        return fr_a;
+    }
+    // указатель на структуру функций
+} *StrFunc{nullptr};
+
+// функция по заданию №6
+auto ArrayOfStr() -> RetConst {
+
+    setlocale(LC_ALL, "ru_RU.UTF-8");
 
     wstr s = L"Задание 6)";
     std::wcout << std::setw(30) << std::right << s << '\n';
     std::wcout << L"Дан массив строк (максимально 25 строк, каждая строка не более 80 символов).\n"
-                  "Строки вводятся пользователем, признак завершения ввода – ввод пустой строки.\n"
-                  "Упорядочить строки по длине или по алфавиту (по выбору пользователя).\v" << std::endl;
+                  L"Строки вводятся пользователем, признак завершения ввода – ввод пустой строки.\n"
+                  L"\v";
 
-    bool stop {false}; // переменная для цикла do while
+    short arrayLength = 0; // длина массива
+    bool stop = false; // переменная для цикла while
+
     do {
-        // вызов функции создания массива строк и сортировки
-        SelectOfSort (ArrayStr);
-
-        // вызов функции для останоки или продолжения выполнения программы по выбору пользователя
-        if (!(stop == Stop())) return ErrData;
-    }
-    while (!stop); // выход из праграммы по выбору пользователя
-    return Ok;
-}
-
-// функция создания массива строк
-auto ArrayStr () -> wstr* {
-    std::wcout << L"Введите строки но не более 25 строк (после каждого ввода строки нажмите ввод),\n"
-                  "каждая строка не более 80 символов (пустая строка — завершение ввода): " << '\n';
-    wstr line; // переменная для ввода строк
-    wstr *arrayOfStrings = new (std::nothrow) wstr [MAX_LINES];
-    // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
-    if (!arrayOfStrings) {
-        // Обработка этого случая
-        std::wcout << L"Память не выделенна!!!";
-        return arrayOfStrings = nullptr; // обнуляем указатель
-    }
-    else {
-        while (arrayLength < MAX_LINES) {
-            std::getline(std::wcin, line);
-            if (line.empty()) {
-                break;
-            }
-            if (line.length() > MAX_LENGTH) {
-                std::wcout << L"Строка слишком длинная (максимум " << MAX_LENGTH << " символов).\n";
-                continue;
-            }
-            arrayOfStrings[arrayLength] = line;
-            ++arrayLength;
-        }
-        // создание нового массива длиной "количество строк введёное пользователем"
-        wstr *newArray = new (std::nothrow) wstr [arrayLength];
-        // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+        std::wcout << L"Введите строки (не более 25), каждая не длиннее 80 символов.\n"
+                      L"Пустая строка — завершение ввода:\n";
+        // вызов функции создания массива строк
+        wstr* newArray = StrFunc->ArrayStr(arrayLength);
         if (!newArray) {
-            // Обработка этого случая
-            std::wcout << L"Память не выделенна!!!";
-            return newArray = nullptr; // обнуляем указатель
+            std::wcout << L"Ошибка выделения памяти!\n";
+            return ErrData;
         }
-        // копируем исходный массив в новый
-        for (size_t i : *newArray) {
-            newArray[i] = arrayOfStrings[i];
-        }
-        // удаляем исходный массив
-        delete [] arrayOfStrings; // освобождаем память
-        arrayOfStrings = nullptr; // обнуляем указатель
-        return newArray;
-    }
-}
 
-wstr* (*fcnPtr)() = ArrayStr;
+        std::wcout << L"Неотсортированный массив:\n";
+        // вызов функции вывода массива строк
+        StrFunc->PrintArraySTR(newArray, arrayLength);
 
-// функция сортировки в алфавитном порядке
-auto AlphaOrder (wstr*(*const p_array)())-> wstr* {
-    wstr *newArray = p_array();
-    for (int i = 0; i < newArray->size() - 1; ++i) {
-        for (int j = 0; j < newArray->size() - i - 1; ++j) {
-            if (newArray[j] > newArray[j + 1]) {
-                std::swap(newArray[j], newArray[j + 1]);
-            }
-        }
-    }
-    return newArray;
-}
+        std::wcout << L"Выберите способ сортировки:\n"
+                      L"1 — по алфавиту\n"
+                      L"2 — по длине строк\n"
+                      L"Ваш выбор: ";
 
-// функция сортировки по длине строк
-auto LengthOfLines (wstr*(*const p_array)()) -> wstr* {
-    wstr *newArray = p_array();
-    for (int i = 0; i < newArray->size() - 1; ++i) {
-        for (int j = 0; j < newArray->size()- i - 1; ++j) {
-            if (newArray[i].length() > newArray[j + 1].length()) {
-                std::swap(newArray[j], newArray[j + 1]);
-            }
-        }
-    }
-    return newArray;
-}
+        // проверка ввода
+        wchar_t choice = (StrFunc->Type_Thecking1(choice));
 
-// псевдоним типа указателя на функцию
-using PtrFunc = wstr*(*)(wstr*(*)());
-// функция проверки ввода
-auto Type_Thecking11 ( const short& fr_a) -> short {
-    while (true) {
-        if ( ! (std::cin >> fr_a)) {
-            std::cout << "Вы ввели не верные даные!" << '\n' << "Попробуйте ещё: ";
-            std::cin.clear ();
-            std::cin.ignore (std::numeric_limits<short>::max(), '\n');
-        }
-        else break;
-    }
-    return fr_a;
-}
-// функция выбора сортировки
-auto SelectOfSort (wstr*(*const PtrArray)()) -> PtrFunc {
+        // вызов функции сортировки массива строк по выбору пользователя
+        StrFunc->SelectOfSort(newArray, arrayLength, choice);
 
-    std::wcout << L"Выберите способ сортировки 1- в алфавитном порядке\n, 2- по длине строк\n"
-                  "Ваш выбор: ";
-    short choice;
-    std::wcin >> choice;
-    switch (choice) {
-    case 1: {
-        return AlphaOrder(PtrArray);
-        break;
-    }
-    case 2: {
-        return LengthOfLines(PtrArray);
-        break;
-    }
-    default:
-        std::wcout << L"Такой сортивки не предусмотрено!!!";
-        return nullptr;
-    }
+        std::wcout << L"Отсортированный массив:\n";
+        // вызов функции вывода массива строк
+        StrFunc->PrintArraySTR(newArray, arrayLength);
+
+        delete[] newArray; // освобождаем память
+        newArray = nullptr; // обнуляем указатель
+
+        if (!(stop == Stop())) return ErrData;
+    } while (!stop);
+
+    return Ok;
 }
