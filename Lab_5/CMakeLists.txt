@@ -9,9 +9,6 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
-
 add_executable(Lab_5
   main.cpp
   constans.h
@@ -33,7 +30,6 @@ add_executable(Lab_5
   array_of_str.cpp
   array_of_str.h
 )
-target_link_libraries(Lab_5 Qt${QT_VERSION_MAJOR}::Core)
 
 include(GNUInstallDirs)
 install(TARGETS Lab_5
