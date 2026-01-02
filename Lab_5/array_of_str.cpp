@@ -55,7 +55,7 @@ struct S_FuncStr {
         }
 
         // копируем исходный массив в новый
-        for (size_t i = 0; i < fr_size; ++i) {
+        for (size_t i {0}; i < fr_size; ++i) {
             newArray[i] = arrayOfStrings[i];
         }
         delete[] arrayOfStrings; // освобождаем память исходного массива
@@ -65,7 +65,7 @@ struct S_FuncStr {
 
     // функция сортировки в алфавитном порядке
     auto AlphaOrder(wstr* fp_Array, const size_t& fr_size) -> void {
-        for (size_t i = 0; i < fr_size - 1; ++i) {
+        for (size_t i {0}; i < fr_size - 1; ++i) {
             for (size_t j = 0; j < fr_size - i - 1; ++j) {
                 if (fp_Array[j] > fp_Array[j + 1]) {
                     std::swap(fp_Array[j], fp_Array[j + 1]);
@@ -76,7 +76,7 @@ struct S_FuncStr {
 
     //функция сортировки по длине строк
     auto LengthOfLines(wstr* fp_Array, const size_t& fr_size) -> void {
-        for (size_t i = 0; i < fr_size - 1; ++i) {
+        for (size_t i {0}; i < fr_size - 1; ++i) {
             for (size_t j = 0; j < fr_size - i - 1; ++j) {
                 if (fp_Array[j].length() > fp_Array[j + 1].length()) {
                     std::swap(fp_Array[j], fp_Array[j + 1]);
@@ -105,7 +105,7 @@ struct S_FuncStr {
 
     //функция вывода массива строк
     auto PrintArraySTR(const wstr* fp_Array, const size_t& fr_size) -> void {
-        for (size_t i = 0; i < fr_size; ++i) {
+        for (size_t i {0}; i < fr_size; ++i) {
             std::wcout << fp_Array[i] << ',';
         }
         std::wcout <<std::endl;
@@ -134,16 +134,16 @@ auto ArrayOfStr() -> RetConst {
 
     wstr s = L"Задание 6)";
     std::wcout << std::setw(30) << std::right << s << '\n';
-    std::wcout << L"Дан массив строк (максимально 25 строк, каждая строка не более 80 символов).\n"
-                  L"Строки вводятся пользователем, признак завершения ввода – ввод пустой строки.\n"
-                  L"\v";
+    std::wcout << "Дан массив строк (максимально 25 строк, каждая строка не более 80 символов).\n"
+                  "Строки вводятся пользователем, признак завершения ввода – ввод пустой строки.\n"
+                  "\v";
 
-    short arrayLength = 0; // длина массива
+    short arrayLength {0}; // длина массива
     bool stop = false; // переменная для цикла while
 
     do {
         std::wcout << L"Введите строки (не более 25), каждая не длиннее 80 символов.\n"
-                      L"Пустая строка — завершение ввода:\n";
+                      "Пустая строка — завершение ввода:\n";
 
         // вызов функции создания массива строк
         wstr* newArray = StrFunc->ArrayStr(arrayLength);
@@ -158,9 +158,9 @@ auto ArrayOfStr() -> RetConst {
         StrFunc->PrintArraySTR(newArray, arrayLength);
 
         std::wcout << L"Выберите способ сортировки:\n"
-                      L"1 — по алфавиту\n"
-                      L"2 — по длине строк\n"
-                      L"Ваш выбор: ";
+                      "1 — по алфавиту\n"
+                      "2 — по длине строк\n"
+                      "Ваш выбор: ";
 
         // проверка ввода
         wchar_t choice = (StrFunc->Type_Thecking1(choice));
