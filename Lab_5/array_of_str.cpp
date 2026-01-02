@@ -17,10 +17,13 @@ struct S_FuncStr {
     // функция создания массива строк
     auto ArrayStr(short& fr_size) -> wstr* {
         wstr line; // переменная для ввода строк
+
         // создание денамического массива строк
         wstr* arrayOfStrings = new (std::nothrow) wstr[MAX_LINES];
+
         // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
         if (!arrayOfStrings) {
+
             // Обработка этого случая
             std::wcout << L"Память не выделена!\n";
             return nullptr;
@@ -34,18 +37,23 @@ struct S_FuncStr {
                 std::wcout << L"Строка слишком длинная (максимум " << MAX_LENGTH << L" символов).\n";
                 continue;
             }
+
             // присваемаем элементам массива строки введёные пользователем
             arrayOfStrings[fr_size++] = line;
         }
+
         // создание нового денамического массива длиной "количество введёных строк"
         wstr* newArray = new (std::nothrow) wstr[fr_size];
+
         // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
         if (!newArray) {
+
             // Обработка этого случая
             std::wcout << L"Память не выделена!\n";
             delete[] arrayOfStrings; // освобождаем память
             return nullptr;
         }
+
         // копируем исходный массив в новый
         for (size_t i = 0; i < fr_size; ++i) {
             newArray[i] = arrayOfStrings[i];
@@ -54,6 +62,7 @@ struct S_FuncStr {
         arrayOfStrings = nullptr; // обнуляем указатель на исходный массив
         return newArray; // возврощаем указатель на новый массив
     }
+
     // функция сортировки в алфавитном порядке
     auto AlphaOrder(wstr* fp_Array, const size_t& fr_size) -> void {
         for (size_t i = 0; i < fr_size - 1; ++i) {
@@ -64,6 +73,7 @@ struct S_FuncStr {
             }
         }
     }
+
     //функция сортировки по длине строк
     auto LengthOfLines(wstr* fp_Array, const size_t& fr_size) -> void {
         for (size_t i = 0; i < fr_size - 1; ++i) {
@@ -74,14 +84,17 @@ struct S_FuncStr {
             }
         }
     }
+
     // функция сортировки по выбору пользователя
     auto SelectOfSort(wstr* fp_Array, const size_t& fr_size, const wchar_t& choice) -> void {
         switch (choice) {
         case '1':
+
             // вызов фукнции сортировки в алфавитном порядке
             AlphaOrder(fp_Array, fr_size);
             break;
         case '2':
+
             // вызов фукнции сортировки по длине строк
             LengthOfLines(fp_Array, fr_size);
             break;
@@ -89,6 +102,7 @@ struct S_FuncStr {
             std::wcout << L"Такой сортировки не предусмотрено!\n";
         }
     }
+
     //функция вывода массива строк
     auto PrintArraySTR(const wstr* fp_Array, const size_t& fr_size) -> void {
         for (size_t i = 0; i < fr_size; ++i) {
@@ -96,6 +110,7 @@ struct S_FuncStr {
         }
         std::wcout <<std::endl;
     }
+
     // функция проверки ввода символа
     auto Type_Thecking1 ( wchar_t& fr_a) -> wchar_t {
         while (true) {
@@ -108,6 +123,7 @@ struct S_FuncStr {
         }
         return fr_a;
     }
+
     // указатель на структуру функций
 } *StrFunc{nullptr};
 
@@ -128,6 +144,7 @@ auto ArrayOfStr() -> RetConst {
     do {
         std::wcout << L"Введите строки (не более 25), каждая не длиннее 80 символов.\n"
                       L"Пустая строка — завершение ввода:\n";
+
         // вызов функции создания массива строк
         wstr* newArray = StrFunc->ArrayStr(arrayLength);
         if (!newArray) {
@@ -136,6 +153,7 @@ auto ArrayOfStr() -> RetConst {
         }
 
         std::wcout << L"Неотсортированный массив:\n";
+
         // вызов функции вывода массива строк
         StrFunc->PrintArraySTR(newArray, arrayLength);
 
@@ -151,6 +169,7 @@ auto ArrayOfStr() -> RetConst {
         StrFunc->SelectOfSort(newArray, arrayLength, choice);
 
         std::wcout << L"Отсортированный массив:\n";
+
         // вызов функции вывода массива строк
         StrFunc->PrintArraySTR(newArray, arrayLength);
 
