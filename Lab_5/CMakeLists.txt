@@ -29,6 +29,8 @@ add_executable(Lab_5
   task_5.h
   array_of_str.cpp
   array_of_str.h
+  descrip_func.cpp
+  descrip_func.h
 )
 
 include(GNUInstallDirs)
