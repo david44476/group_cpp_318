@@ -23,7 +23,7 @@
 #elif (TASK == 4)
 #include "string_packing.h"
 #elif (TASK == 5)
-#include "Task_5.h"
+#include "task_5.h"
 #elif (TASK == 6)
 #include "array_of_str.h"
 #elif (TASK == 7)
