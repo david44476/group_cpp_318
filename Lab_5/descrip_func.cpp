@@ -17,8 +17,8 @@ auto DescripFunc () -> RetConst {
     std::wcout << L"Реализовать самописные функции преобразования числа в строку "
                   "и строки в число." <<'\n';
 
-        wstr str{L"123.78"};
-        StrToNum (str);
+    wstr str{L"-70000"};
+    StrToNum (str);
 
     return Ok;
 }
@@ -26,15 +26,22 @@ auto DescripFunc () -> RetConst {
 // функция преобразования строки в число
 auto StrToNum (wstr& fp_str) -> void {
 
-    short num{0};
-    for(unsigned i{0}; i < fp_str.length(); i++) {
+    int num{0}; // число
+    int i{0};
+    int sign = 0; // знак числа 0- положительное, 1 — отрицательное
 
-        // проверяем, является ли символ цифрой
-        if(std::isdigit(fp_str[i])) {
-
-            // добавляем в массив цифру
-            num = num * 10 + (fp_str[i] - '0');
-        }
+    if (fp_str[i] == '-') {
+        sign = 1;
+        ++i;
     }
+    // проверяем, является ли символ цифрой
+    while(std::isdigit(fp_str[i])) {
+
+        // добавляем в массив цифру
+        num = num * 10 + (fp_str[i] - '0');
+        ++i;
+    }
+    if (sign == 1)
+        num = -num;
     std::wcout << num << L" Тип даных: " << typeid(num).name() << std::endl;
 }
