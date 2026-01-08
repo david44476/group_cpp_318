@@ -31,6 +31,8 @@ add_executable(Lab_5
   array_of_str.h
   descrip_func.cpp
   descrip_func.h
+  mail_address.h
+  mail_address.cpp
 )
 
 include(GNUInstallDirs)
