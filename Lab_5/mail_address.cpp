@@ -1,6 +1,6 @@
 #include<iostream>
 #include<string>
-#include <iomanip>
+#include<iomanip>
 
 // псевдоним типа
 using wstr = std::wstring;
@@ -15,30 +15,31 @@ struct Address {
 
 void Parse (wstr& line, Address* address);
 void Unify (Address* address);
-wstr Format(const Address& address);
+void Format(const Address& address);
 
 // функция по заданию №8
 auto MailAddress () -> void {
 
     setlocale (LC_ALL, "ru_RU.UTF-8");
 
-    wstr s = L"Задание 7)";
+    wstr s = L"Задание 8)";
     std::wcout << std::setw (30) << std::right << s << '\n';
     std::wcout << L"Разработать программу, обрабатывающую почтовые адреса." << '\n';
 
     // std::wcout << L"Введите почтовый адрес в Формате: " << '\n'
-    //             << L"Россия, г. Екатеринбург, пр-д. Ермолаева, д. 32" << '\n';
+    //            << L"Россия, г. Екатеринбург, пр-д. Ермолаева, д. 32" << '\n';
+
     wstr line = L"Россия, г. Екатеринбург, пр-д. Ермолаева, д. 32";
     try {
         Parse(line, address);
         Unify(address);
         Format(*address);
 
-        while (std::getline (std::wcin, line)) {
-            Parse (line, address);
-            Unify (address);
-            Format (*address);
-        }
+        // while (std::getline (std::wcin, line)) {
+        //     Parse (line, address);
+        //     Unify (address);
+        //     Format (*address);
+        // }
     } catch (const char* error_message) {
         std::cerr << error_message;
     }
@@ -55,7 +56,7 @@ void Parse(wstr& line, Address* address) {
 
     // Извлекаем House
     stop = line.find (L',', start);
-    if (stop == wstr::npos) {
+    if (stop == std::string::npos) {
         throw L"Неверный формат: пропущена запятая\n";
     }
     address->House = line.substr (start, stop - start);
@@ -63,7 +64,7 @@ void Parse(wstr& line, Address* address) {
 
     // Извлекаем Street
     stop = line.find (L',', start);
-    if (stop == wstr::npos) {
+    if (stop == std::string::npos) {
         throw L"Неверный формат: пропущена запятая\n";
     }
     address->Street = line.substr (start, stop - start);
@@ -71,7 +72,7 @@ void Parse(wstr& line, Address* address) {
 
     // Извлекаем City
     stop = line.find (L',', start);
-    if (stop == wstr::npos) {
+    if (stop == std::string::npos) {
         throw L"Неверный формат: пропущена запятая\n";
     }
     address->City = line.substr (start, stop - start);
@@ -89,7 +90,7 @@ void Unify (Address* address) {
     wstr Str = L"д.";
     // Обработка House
     size_t pos {address->House.find (L"д.", 0)};
-    if (pos != wstr::npos) {
+    if (pos != std::string::npos) {
         address->House.replace (pos, 2, L"дом");
     } else {
         address->House.insert (0, L"дом ");
@@ -101,15 +102,15 @@ void Unify (Address* address) {
 
     // Обработка Street
     pos = address->Street.find (L"ул.", 0);
-    if (pos != wstr::npos) {
+    if (pos != std::string::npos) {
         address->Street.replace (pos, 3, L"улица");
     }
     pos = address->Street.find (L"пр-д.", 0);
-    if (pos != wstr::npos) {
+    if (pos != std::string::npos) {
         address->Street.replace (pos, 5, L"проезд");
     }
     pos = address->Street.find (L"улица", 0);
-    if (pos == wstr::npos) {
+    if (pos == std::string::npos) {
         address->Street.insert (0, L"улица ");
     }
     address->Street.erase (0, address->Street.find_first_not_of(L' '));
@@ -117,11 +118,11 @@ void Unify (Address* address) {
 
     // Обработка City
     pos = address->City.find (L"г.", 0);
-    if (pos != wstr::npos) {
+    if (pos != std::string::npos) {
         address->City.replace (pos, 2, L"город");
     }
     pos = address->City.find (L"город", 0);
-    if (pos == wstr::npos) {
+    if (pos == std::string::npos) {
         address->City.insert (0, L"город ");
     }
     address->City.erase (0, address->City.find_first_not_of(L' '));
@@ -132,7 +133,7 @@ void Unify (Address* address) {
     address->Country.erase (address->Country.find_last_not_of(L' ') + 1);
 }
 
-auto Format(const Address& address) -> wstr {
-return address.Country + L", " + address.City <+ L", " +
-           address.Street + L", " + address.House + L'\n';
+auto Format(const Address& address) -> void {
+    std::wcout << address.Country + L", " + address.City + L", " +
+               address.Street + L", " + address.House + L'\n';
 }
