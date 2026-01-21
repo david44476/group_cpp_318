@@ -13,7 +13,7 @@
 *
 * locale (кодировка): UTF 8
 */
-#define TASK 5
+#define TASK 8
 #if (TASK == 1)
 #include "task_1.h"
 #elif (TASK == 2)
@@ -29,25 +29,25 @@
 #elif (TASK == 7)
 #include "descrip_func.h"
 #elif (TASK == 8)
-#include "task_8.h"
+#include "mail_address.h"
 #else
 #endif
 int main () {
 #if (TASK == 1)
     Task_1 (reinterpret_cast<void*>(main));
 #elif (TASK == 2)
-    NewView();
+    NewView ();
 #elif (TASK == 3)
     Continents ();
 #elif (TASK == 4)
     StringPacking ();
 #elif (TASK == 5)
-    Normalize();
+    Normalize ();
 #elif (TASK == 6)
     ArrayOfStr ();
 #elif (TASK == 7)
     DescripFunc ();
 #elif (TASK == 8)
-    task_8();
+    MailAddress ();
 #endif
 }
