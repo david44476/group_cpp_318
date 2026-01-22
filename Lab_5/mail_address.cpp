@@ -24,7 +24,7 @@ void Parse (wstr& line, Address* address) {
         std::wcout << L"exception\n";
     }
 
-    size_t start = 0;
+    size_t start {0};
 
     // Извлекаем S_Country
     auto stop = line.find (',', start);
@@ -32,6 +32,7 @@ void Parse (wstr& line, Address* address) {
         std::wcout << L"Неверный формат: пропущена запятая\n";
     }
     address->S_Country = line.substr (start, stop - start);
+    std::wcout << L"Всё в порядке!\n";
     start = stop + 1;
 
     // Извлекаем S_City
@@ -149,7 +150,7 @@ auto MailAddress () -> void {
     std::wcout << L"Разработать программу, обрабатывающую почтовые адреса." << '\n';
     std::wcout << L"Всё в порядке!\n";
     std::wcout << L"Введите почтовый адрес в формате: " << '\n'
-                     << L"с-на. Россия, г. Краснокаменск, мик-н. 4, д. 444, кв. 76" << '\n';
+               << L"с-на. Россия, г. Краснокаменск, мик-н. 4, д. 444, кв. 76" << '\n';
 
     wstr line = L"Россия, г. Краснокаменск, мик-н. Северный, д. 444";
     //wstr line;
