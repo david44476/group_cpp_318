@@ -32,7 +32,7 @@ void Parse (wstr& line, Address* address) {
         std::wcout << L"Неверный формат: пропущена запятая\n";
     }
     address->S_Country = line.substr (start, stop - start);
-    ++start;
+    start = stop + 1;
 
     // Извлекаем S_City
     stop = line.find (',', start);
@@ -40,7 +40,7 @@ void Parse (wstr& line, Address* address) {
         std::wcout << L"Неверный формат: пропущена запятая\n";
     }
     address->S_City = line.substr (start, stop - start);
-    ++start;
+    start = stop + 1;
 
     // Извлекаем S_Street
     stop = line.find(',', start);
@@ -48,7 +48,7 @@ void Parse (wstr& line, Address* address) {
         std::wcout << L"Неверный формат: пропущена запятая\n";
     }
     address->S_Street = line.substr(start, stop - start);
-    ++start;
+    start = stop + 1;
 
     // Извлекаем S_House
     stop = line.find (',', start);
@@ -56,7 +56,7 @@ void Parse (wstr& line, Address* address) {
         std::wcout << L"Неверный формат: пропущена запятая\n";
     }
     address->S_House = line.substr (start, stop - start);
-    ++start;
+    start = stop + 1;
 
     // Извлекаем S_Flat
     stop = line.find(',', start);
