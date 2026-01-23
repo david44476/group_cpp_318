@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include<iomanip>
+#include"constans.h"
 
 // псевдоним типа
 using wstr = std::wstring;
@@ -14,12 +15,8 @@ struct Address {
     wstr S_Flat; // квартира
 } *address{nullptr};
 
-// void Parse (wstr& line, Address *address);
-// void Unify (Address *address);
-// wstr Format(const Address& address);
-
 // функция выделения из строки компонентов адреса
-void Parse (wstr& line, Address *address) {
+auto Parse (wstr& line, Address *address) -> void {
     if (line.empty ()) {
         std::wcout << L"exception\n";
     }
@@ -67,7 +64,7 @@ void Parse (wstr& line, Address *address) {
 }
 
 // функция приводит компоненты адреса к каноническому виду
-void Unify (Address *address) {
+auto Unify (Address *address) -> void {
     if (address == nullptr) {
         std::wcout << L"exception\n";
     }
@@ -136,7 +133,7 @@ auto Format (const Address& address) -> wstr {
 }
 
 // функция по заданию №8
-auto MailAddress () -> void {
+auto MailAddress () -> RetConst {
 
     setlocale (LC_ALL, "ru_RU.UTF-8");
 
@@ -150,11 +147,17 @@ auto MailAddress () -> void {
 
     wstr line;
     address = new (std::nothrow) Address[100];
+    if ( ! address) {
+        // Обработка этого случая
+        std::wcout << L"Память не выделенна!!!";
+        return ErrMemory;
+    }
 
     while (std::getline(std::wcin, line)) {
 
-    Parse(line, address);
-    Unify(address);
-    std::wcout << Format(*address) << "\n";
+        Parse (line, address);
+        Unify (address);
+        std::wcout << Format (*address) << "\n";
     }
+    return Ok;
 }
