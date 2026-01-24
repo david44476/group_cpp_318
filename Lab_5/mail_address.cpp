@@ -2,10 +2,10 @@
 #include<string>
 #include<iomanip>
 #include"constans.h"
+#include"stop.h"
 #define MAX_COUNTRY 3
 #define MAX_CITY 9
 #define MAX_STREET 36
-#define null 0
 
 // псевдоним типа
 using wstr = std::wstring;
@@ -15,8 +15,8 @@ wstr Country[MAX_COUNTRY] {L"с-на. Россия", L"с-на. Англия", L
 
 // массив городов
 wstr City[MAX_CITY] {L"г. Москва", L"г. Томск", L"г. Краснокаменск", // города России
-            L"г. Лондон", L"г. Лидс", L"г. Манчестер", // города Англии
-            L"г. Рим", L"г. Милан", L"г. Неаполь"}; // города Италии
+                    L"г. Лондон", L"г. Лидс", L"г. Манчестер", // города Англии
+                    L"г. Рим", L"г. Милан", L"г. Неаполь"}; // города Италии
 
 // массив улиц
 wstr Street[MAX_STREET]
@@ -58,72 +58,92 @@ struct Address {
     wstr S_Flat; // квартира
 } *address{nullptr};
 
+// функция проверки наличия элемента в массиве
+bool Contains(const wstr* arr, size_t size, const wstr& value) {
+    for (size_t i = 0; i < size; ++i) {
+        if (arr[i] == value) return true;
+    }
+    return false;
+}
+
+// вспомогательная функция: удаление пробелов по краям
+wstr Trim(const wstr& str) {
+    size_t start = str.find_first_not_of(L' ');
+    size_t end = str.find_last_not_of(L' ');
+
+    if (start == wstr::npos) return L"";
+    return str.substr(start, end - start + 1);
+}
+
 // функция выделения из строки компонентов адреса
-auto Parse (wstr& line, Address *address) -> void {
+auto Parse (wstr& line, Address *address) -> bool {
     if (line.empty ()) {
         std::wcout << L"exception\n";
     }
 
     const wstr sepor{','};
-    size_t start{line.find_first_not_of(sepor)}; // начальный индекс первого слова
+    size_t start = line.find_first_not_of (sepor);
+
+    if (start == wstr::npos) {
+        std::wcout << L"Ошибка: не найдено данных\n";
+        return false;
+    }
 
     // Извлекаем S_Country
-    auto stop = line.find_first_of(sepor, start + 1);
-    if (stop == std::string::npos) {
-        std::wcout << L"Неверный формат: пропущена запятая\n";
-    }
-    address->S_Country = line.substr (start, stop);
-    std::wcout << address->S_Country << '\n';
-    // извлекаем строку из массива стран для сравнения
-    for (size_t j{0}; j < std::size(Country); ++j) {
-        if (address->S_Country.compare(Country[j]) == null)
-            std::wcout << L"Данной страны нет в базе!\n";
-        //return;
+    size_t stop = line.find (sepor, start);
+    if (stop == wstr::npos) stop = line.length();
+
+    address->S_Country = line.substr (start, stop - start);
+    address->S_Country = Trim (address->S_Country);  // удаление пробелов
+
+    if (!Contains (Country, MAX_COUNTRY, address->S_Country)) {
+        std::wcout << L"Ошибка: страны нет в базе\n";
+        return false;
     }
     start = stop + 1;
 
     // Извлекаем S_City
-    stop = line.find_first_of (sepor, start + 1);
-    if (stop == std::string::npos) {
-        std::wcout << L"Неверный формат: пропущена запятая\n";
-    }
+    stop = line.find (sepor, start);
+    if (stop == wstr::npos) stop = line.length();
+
     address->S_City = line.substr (start, stop - start);
-    std::wcout << address->S_City << '\n';
-    // извлекаем строку из массива городов для сравнения
-    for (size_t j{0}; j < std::size(City); ++j) {
-        if (address->S_City.compare(City[j]) == null)
-            std::wcout << L"Данного города нет в базе!\n";
-        //return;
+    address->S_City = Trim (address->S_City);  // удаление пробелов
+
+    if (!Contains (City, MAX_CITY, address->S_City)) {
+        std::wcout << L"Ошибка: города нет в базе\n";
+        return false;
     }
     start = stop + 1;
 
     // Извлекаем S_Street
-    stop = line.find_first_of (sepor, start + 1);
-    if (stop == std::string::npos) {
-        std::wcout << L"Неверный формат: пропущена запятая\n";
-    }
-    address->S_Street = line.substr(start, stop - start);
-    std::wcout << address->S_Street << '\n';
-    // извлекаем строку из массива улиц для сравнения
-    for (size_t j{0}; j < std::size(Street); ++j) {
-        if (address->S_Street.compare(Street[j]) == null)
-            std::wcout << L"Данного города нет в базе!\n";
-        //return;
+    stop = line.find (sepor, start);
+    if (stop == wstr::npos) stop = line.length();
+
+    address->S_Street = line.substr (start, stop - start);
+    address->S_Street = Trim (address->S_Street);  // удаление пробелов
+
+    if (!Contains (Street, MAX_STREET, address->S_Street)) {
+        std::wcout << L"Ошибка: улицы нет в базе\n";
+        return false;
     }
     start = stop + 1;
 
     // Извлекаем S_House
-    stop = line.find_first_of (sepor, start + 1);
-    if (stop == std::string::npos) {
-        std::wcout << L"Неверный формат: пропущена запятая\n";
-    }
+    stop = line.find (sepor, start);
+    if (stop == wstr::npos) stop = line.length();
+
     address->S_House = line.substr (start, stop - start);
-    std::wcout << address->S_House << '\n';
+    address->S_House = Trim (address->S_House);  // удаление пробелов
     start = stop + 1;
 
     // Извлекаем S_Flat
-    address->S_Flat = line.substr(start);
-    std::wcout << address->S_Flat << '\n';
+    stop = line.find (sepor, start);
+    if (stop == wstr::npos) stop = line.length();
+
+    address->S_Flat = line.substr (start, stop - start);
+    address->S_Flat = Trim (address->S_Flat);  // удаление пробелов
+
+    return true;
 }
 
 // функция приводит компоненты адреса к каноническому виду
@@ -137,20 +157,12 @@ auto Unify (Address *address) -> void {
     if (pos != std::string::npos) {
         address->S_Country.replace (pos, 5, L"страна");
     }
-    
-    // Удаление пробелов по краям
-    address->S_Country.erase (0, address->S_Country.find_first_not_of (' '));
-    address->S_Country.erase (address->S_Country.find_last_not_of (' ') + 1);
 
     // Обработка S_City
     pos = address->S_City.find (L"г.", 0);
     if (pos != std::string::npos) {
         address->S_City.replace (pos, 2, L"город");
     }
-    
-    // Удаление пробелов по краям
-    address->S_City.erase (0, address->S_City.find_first_not_of (' '));
-    address->S_City.erase (address->S_City.find_last_not_of (' ') + 1);
 
     // Обработка S_Street
     pos = address->S_Street.find(L"ул.", 0);
@@ -182,31 +194,18 @@ auto Unify (Address *address) -> void {
     if (pos != std::string::npos) {
         address->S_Street.replace (pos, 4, L"площадь");
     }
-    
-    // Удаление пробелов по краям
-    address->S_Street.erase (0, address->S_Street.find_first_not_of (' '));
-    address->S_Street.erase (address->S_Street.find_last_not_of (' ') + 1);
 
     // Обработка S_House
     pos = address->S_House.find (L"д.", 0);
     if (pos != std::string::npos) {
         address->S_House.replace (pos, 2, L"дом");
     }
-    
-    // Удаление пробелов по краям
-    address->S_House.erase (0, address->S_House.find_first_not_of (' '));
-    address->S_House.erase (address->S_House.find_last_not_of (' ') + 1);
 
     // Обработка S_Flat
     pos = address->S_Flat.find (L"кв.", 0);
     if (pos != std::string::npos) {
         address->S_Flat.replace (pos, 3, L"квартира");
     }
-    
-    // Удаление пробелов по краям
-    address->S_Flat.erase (0, address->S_Flat.find_first_not_of (' '));
-    address->S_Flat.erase (address->S_Flat.find_last_not_of (' ') + 1);
-
 }
 
 // функция вывода структуры
@@ -217,7 +216,7 @@ auto Format (const Address& address) -> wstr {
 
 // функция вывода базы знаний
 auto PrintArray (const wstr *fp_Array, const short& fr_size, const wchar_t* p_str) -> void {
-    std::wcout << p_str << '\n';
+    std::wcout << std::setw (30) << std::right << p_str << '\n';
     const unsigned dev{3}; // переменная для деления
     unsigned short count{1}; // переменная счётчик
     for (size_t i{0}; i < fr_size; ++i) {
@@ -238,24 +237,41 @@ auto MailAddress () -> RetConst {
     std::wcout << L"Разработать программу, обрабатывающую почтовые адреса." << '\n';
 
     std::wcout << L"Введите почтовый адрес в формате: " << '\n'
-               << L"с-на. Англия, г. Сочи, мик-н. Солнечный, д. 444, кв. 76." << '\n';
-
-    //выделяется память под поля для структуры address
-    address = new (std::nothrow) Address;
+               << L"с-на. Россия, г. Краснокаменск, мик-н. Солнечный, д. 444, кв. 76.\n" << '\v';
+    wstr line; // переменная для ввода строки
 
     PrintArray (Country, MAX_COUNTRY, L"База стран: "); // вывод базы стран
     PrintArray (City, MAX_CITY, L"База городов: "); // вывод базы городов
     PrintArray (Street, MAX_STREET, L"База улиц: "); // вывод базы улиц
 
-    wstr line; // переменная для ввода строки
-    while (std::getline(std::wcin, line)) {
+    bool stop {false}; // переменная для цикла do while
+    do {
 
-        Parse (line, address);
-        Unify (address);
-        std::wcout << Format (*address) << "\n";
-    }
+        //выделяется память под поля для структуры address
+        address = new (std::nothrow) Address;
 
-    if (address) delete address ; // освобождаем память
-    address  = {nullptr}; // обнуляем указатель
+        // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+        if (!address) {
+
+            // Обработка этого случая
+            std::wcout << L"Память не выделенна!!!";
+            return ErrMemory;
+        }
+        while (std::getline (std::wcin, line)) {
+            if (!Parse (line, address)) {
+                break;
+            }
+            Unify (address);
+            std::wcout << Format (*address) << L"\n";
+            break;
+        }
+
+        if (address) delete address ; // освобождаем память
+        address  = {nullptr}; // обнуляем указатель
+
+        // вызов функции для останоки или продолжения выполнения программы по выбору пользователя
+        if (!(stop == Stop ())) return ErrData;
+
+    } while (!stop); // выход из праграммы по выбору пользователя
     return Ok;
 }
