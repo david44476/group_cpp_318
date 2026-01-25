@@ -59,7 +59,7 @@ struct Address {
 } *address{nullptr};
 
 // функция проверки наличия элемента в массиве
-bool Contains(const wstr* arr, size_t size, const wstr& value) {
+auto Contains(const wstr* arr, size_t size, const wstr& value) -> bool {
     for (size_t i = 0; i < size; ++i) {
         if (arr[i] == value) return true;
     }
@@ -67,7 +67,7 @@ bool Contains(const wstr* arr, size_t size, const wstr& value) {
 }
 
 // вспомогательная функция: удаление пробелов по краям
-wstr Trim(const wstr& str) {
+auto Trim(const wstr& str) -> wstr {
     size_t start = str.find_first_not_of(L' ');
     size_t end = str.find_last_not_of(L' ');
 
@@ -76,7 +76,7 @@ wstr Trim(const wstr& str) {
 }
 
 // функция выделения из строки компонентов адреса
-auto Parse (wstr& line, Address *address) -> bool {
+auto Parse (wstr& line, Address *address) -> RetConst {
     if (line.empty ()) {
         std::wcout << L"exception\n";
     }
@@ -85,8 +85,8 @@ auto Parse (wstr& line, Address *address) -> bool {
     size_t start = line.find_first_not_of (sepor);
 
     if (start == wstr::npos) {
-        std::wcout << L"Ошибка: не найдено данных\n";
-        return false;
+        std::wcout << L"Ошибка: не найдено запятой!\n";
+        return ErrData;
     }
 
     // Извлекаем S_Country
@@ -98,7 +98,7 @@ auto Parse (wstr& line, Address *address) -> bool {
 
     if (!Contains (Country, MAX_COUNTRY, address->S_Country)) {
         std::wcout << L"Ошибка: страны нет в базе\n";
-        return false;
+        return ErrData;
     }
     start = stop + 1;
 
@@ -111,7 +111,7 @@ auto Parse (wstr& line, Address *address) -> bool {
 
     if (!Contains (City, MAX_CITY, address->S_City)) {
         std::wcout << L"Ошибка: города нет в базе\n";
-        return false;
+        return ErrData;
     }
     start = stop + 1;
 
@@ -124,7 +124,7 @@ auto Parse (wstr& line, Address *address) -> bool {
 
     if (!Contains (Street, MAX_STREET, address->S_Street)) {
         std::wcout << L"Ошибка: улицы нет в базе\n";
-        return false;
+        return ErrData;
     }
     start = stop + 1;
 
@@ -143,7 +143,7 @@ auto Parse (wstr& line, Address *address) -> bool {
     address->S_Flat = line.substr (start, stop - start);
     address->S_Flat = Trim (address->S_Flat);  // удаление пробелов
 
-    return true;
+    return Ok;
 }
 
 // функция приводит компоненты адреса к каноническому виду
@@ -236,8 +236,7 @@ auto MailAddress () -> RetConst {
     std::wcout << std::setw (30) << std::right << s << '\n';
     std::wcout << L"Разработать программу, обрабатывающую почтовые адреса." << '\n';
 
-    std::wcout << L"Введите почтовый адрес в формате: " << '\n'
-               << L"с-на. Россия, г. Краснокаменск, мик-н. Солнечный, д. 444, кв. 76.\n" << '\v';
+
     wstr line; // переменная для ввода строки
 
     PrintArray (Country, MAX_COUNTRY, L"База стран: "); // вывод базы стран
@@ -246,6 +245,9 @@ auto MailAddress () -> RetConst {
 
     bool stop {false}; // переменная для цикла do while
     do {
+
+        std::wcout << L"Введите почтовый адрес в формате: " << '\n'
+                   << L"с-на. Россия, г. Краснокаменск, мик-н. Солнечный, д. 444, кв. 76.\n" << '\v';
 
         //выделяется память под поля для структуры address
         address = new (std::nothrow) Address;
@@ -258,7 +260,7 @@ auto MailAddress () -> RetConst {
             return ErrMemory;
         }
         while (std::getline (std::wcin, line)) {
-            if (!Parse (line, address)) {
+            if (Parse (line, address)) {
                 break;
             }
             Unify (address);
