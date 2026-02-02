@@ -270,7 +270,7 @@ auto MailAddress () -> RetConst {
             return ErrMemory;
         }
         while (std::getline (std::wcin, line)) {
-            if (Parse (line, address, P_Trim, P_Contains)) {
+            if (Parse (line, address, Trim, Contains)) {
                 break;
             }
             Unify (address);
