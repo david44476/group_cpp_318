@@ -7,6 +7,21 @@
 #define MAX_CITY 9
 #define MAX_STREET 36
 
+// пространство имён для функций вывода ошибок
+namespace errmess {
+auto Exeption (const std::wstring &str) {
+    std::wcout << L"Ошибка: " << str << '\n';
+}
+
+auto Warning (const std::wstring &str) {
+    std::wcout << L"Предупреждение: " << str << '\n';
+}
+
+auto Info (const std::wstring &str) {
+    std::wcout << L"Информация: " << str << '\n';
+}
+}// errmess
+
 // псевдоним типа
 using wstr = std::wstring;
 
@@ -58,21 +73,33 @@ struct Address {
     wstr S_Flat; // квартира
 } *address{nullptr};
 
+// деклорация функций
+auto Contains (wstr *f_arr, const size_t &f_size,wstr &f_value, wstr (*) (wstr)) -> bool;
+auto Trim (const wstr &f_str) -> wstr;
+auto DelStr (wstr f_str) -> wstr;
+
+// указатель на функцию Contains
+using PtrContains = bool (*) (wstr*, const size_t&, wstr&, wstr (*) (wstr));
+const PtrContains P_Contains {Contains};
+
+// указатель на функцию Trim
+using PtrTrim = wstr (*) (const wstr&);
+const PtrTrim P_Trim {Trim};
+
+// указатель на функцию DelStr
+using PtrDlStr = wstr (*) (wstr);
+const PtrDlStr P_DelStr {DelStr};
+
 // функция проверки наличия элемента в массиве
-auto Contains(const wstr *f_arr, const size_t &f_size, const wstr &f_value) -> bool {
+auto Contains ( wstr *f_arr, const size_t &f_size, wstr &f_value, wstr (*) (wstr)) -> bool {
     for (size_t i = 0; i < f_size; ++i) {
-        if (f_arr[i] == f_value) return true;
+        if (P_DelStr (f_arr[i]) == P_DelStr (f_value)) return true;
     }
     return false;
 }
 
-// указатель на функцию Contains
-//bool (*PtrContains) (const wstr*, const size_t&, const wstr&) = Contains;
-using PtrContains = bool (*) (const wstr*, const size_t&, const wstr&);
-const PtrContains P_Contains {Contains};
-
 // вспомогательная функция: удаление пробелов по краям
-auto Trim(const wstr &f_str) -> wstr {
+auto Trim (const wstr &f_str) -> wstr {
     size_t start = f_str.find_first_not_of(L' ');
     size_t end = f_str.find_last_not_of(L' ');
 
@@ -80,77 +107,87 @@ auto Trim(const wstr &f_str) -> wstr {
     return f_str.substr(start, end - start + 1);
 }
 
-// указатель на функцию Trim
-//wstr (*PtrTrim) (const wstr&) = Trim;
-using PtrTrim = wstr (*) (const wstr&);
-const PtrTrim P_Trim {Trim};
+// функция удаления подстроки
+auto DelStr (wstr f_str) -> wstr {
+    const wstr sepor{'.'}; // переменная для поиска индексов
+    size_t start = f_str.find_first_not_of (sepor); // находим начальный индекс слова
+    auto stop = f_str.find (sepor, start); // находим конечный индекс слова
+    f_str.erase (0, stop + 1); // удаляем подстроку
+    return f_str;
+}
 
 // функция выделения из строки компонентов адреса
-auto Parse (wstr &f_line, Address *f_address, PtrTrim P_Trim, PtrContains P_Contains) -> RetConst {
+auto Parse (wstr &f_line, Address *f_address) -> RetConst {
     if (f_line.empty ()) {
-        std::wcout << L"exception\n";
+        errmess::Warning (L"пустая строка!");
     }
 
-    const wstr sepor{','};
-    auto start = f_line.find_first_not_of (sepor);
+    const wstr sepor{','}; // переменная для поиска индексов
+    auto start = f_line.find_first_not_of (sepor); // находим начальный индекс слова
 
     if (start == wstr::npos) {
-        std::wcout << L"Ошибка: не найдено запятой!\n";
+        errmess::Exeption (L"не найдено запятой!");
         return ErrData;
     }
 
+    //wstr str; // переменная для проверки с базой
+
     // Извлекаем S_Country
-    auto stop = f_line.find (sepor, start);
+    auto stop = f_line.find (sepor, start); // находим конечный индекс слова
     if (stop == wstr::npos) stop = f_line.length();
 
-    f_address->S_Country = f_line.substr (start, stop - start);
-    f_address->S_Country = P_Trim (f_address->S_Country);  // удаление пробелов
+    f_address->S_Country = f_line.substr (start, stop - start); // извлекаем из строки страну
+    //str = P_DelStr (f_address->S_Country); // удаляем не нужную подстроку
+    f_address->S_Country = P_Trim (f_address->S_Country); // удаление пробелов
 
-    if (!P_Contains (Country, MAX_COUNTRY, f_address->S_Country)) {
-        std::wcout << L"Ошибка: страны нет в базе\n";
+    // проверяем на соответствие с базой
+    if (!P_Contains (Country, MAX_COUNTRY, f_address->S_Country, DelStr)) {
+        errmess::Exeption (L"страны нет в базе!");
         return ErrData;
     }
     start = stop + 1;
 
     // Извлекаем S_City
-    stop = f_line.find (sepor, start);
+    stop = f_line.find (sepor, start); // находим конечный индекс слова
     if (stop == wstr::npos) stop = f_line.length();
 
-    f_address->S_City = f_line.substr (start, stop - start);
+    f_address->S_City = f_line.substr (start, stop - start); // извлекаем из строки город
+    //str = P_DelStr (f_address->S_City); // удаляем не нужную подстроку
     f_address->S_City = P_Trim (f_address->S_City);  // удаление пробелов
 
-    if (!P_Contains (City, MAX_CITY, f_address->S_City)) {
-        std::wcout << L"Ошибка: города нет в базе\n";
+    if (!P_Contains (City, MAX_CITY, f_address->S_City, DelStr)) {
+        errmess::Exeption (L"города нет в базе!");
         return ErrData;
     }
     start = stop + 1;
 
     // Извлекаем S_Street
-    stop = f_line.find (sepor, start);
+    stop = f_line.find (sepor, start); // находим конечный индекс слова
     if (stop == wstr::npos) stop = f_line.length();
 
-    f_address->S_Street = f_line.substr (start, stop - start);
+    f_address->S_Street = f_line.substr (start, stop - start); // извлекаем из строки город
+    //str = P_DelStr (f_address->S_Street); // удаляем не нужную подстроку
     f_address->S_Street = P_Trim (f_address->S_Street);  // удаление пробелов
 
-    if (!P_Contains (Street, MAX_STREET, f_address->S_Street)) {
-        std::wcout << L"Ошибка: улицы нет в базе\n";
+    if (!P_Contains (Street, MAX_STREET, f_address->S_Street, DelStr)) {
+        errmess::Exeption (L"улицы нет в базе!");
         return ErrData;
     }
     start = stop + 1;
 
     // Извлекаем S_House
-    stop = f_line.find (sepor, start);
+    stop = f_line.find (sepor, start); // находим конечный индекс слова
     if (stop == wstr::npos) stop = f_line.length();
 
-    f_address->S_House = f_line.substr (start, stop - start);
+    f_address->S_House = f_line.substr (start, stop - start); // извлекаем из строки дом
     f_address->S_House = P_Trim (f_address->S_House);  // удаление пробелов
     start = stop + 1;
 
     // Извлекаем S_Flat
-    stop = f_line.find (sepor, start);
+    stop = f_line.find (sepor, start); // находим конечный индекс слова
     if (stop == wstr::npos) stop = f_line.length();
 
-    f_address->S_Flat = f_line.substr (start, stop - start);
+    f_address->S_Flat = f_line.substr (start, stop - start); // извлекаем из строки квартиру
     f_address->S_Flat = P_Trim (f_address->S_Flat);  // удаление пробелов
 
     return Ok;
@@ -159,62 +196,62 @@ auto Parse (wstr &f_line, Address *f_address, PtrTrim P_Trim, PtrContains P_Cont
 // функция приводит компоненты адреса к каноническому виду
 auto Unify (Address *f_address) -> void {
     if (f_address == nullptr) {
-        std::wcout << L"exception\n";
+        errmess::Warning (L"пустая строка!");
     }
 
     // Обработка S_Country
-    auto pos = f_address->S_Country.find (L"с-на.", 0);
+    auto pos = f_address->S_Country.find (L"с-на.", 0); // находим начальный индекс заменяемой подстроки страны
     if (pos != std::string::npos) {
-       f_address->S_Country.replace (pos, 5, L"страна");
+        f_address->S_Country.replace (pos, 5, L"страна"); // заменяем подстроку
     }
 
     // Обработка S_City
-    pos = f_address->S_City.find (L"г.", 0);
+    pos = f_address->S_City.find (L"г.", 0); // находим начальный индекс заменяемой подстроки города
     if (pos != std::string::npos) {
-        f_address->S_City.replace (pos, 2, L"город");
+        f_address->S_City.replace (pos, 2, L"город"); // заменяем подстроку
     }
 
     // Обработка S_Street
-    pos = f_address->S_Street.find(L"ул.", 0);
+    pos = f_address->S_Street.find(L"ул.", 0); // находим начальный индекс заменяемой подстроки улицы
     if (pos != std::string::npos) {
-        f_address->S_Street.replace (pos, 3, L"улица");
+        f_address->S_Street.replace (pos, 3, L"улица"); // заменяем подстроку
     }
 
-    pos = f_address->S_Street.find (L"пр-д.", 0);
+    pos = f_address->S_Street.find (L"пр-д.", 0); // находим начальный индекс заменяемой подстроки проезда
     if (pos != std::string::npos) {
-        f_address->S_Street.replace (pos, 5, L"проезд");
+        f_address->S_Street.replace (pos, 5, L"проезд"); // заменяем подстроку
     }
 
-    pos = f_address->S_Street.find (L"мик-н.", 0);
+    pos = f_address->S_Street.find (L"мик-н.", 0); // находим начальный индекс заменяемой подстроки микрорайона
     if (pos != std::string::npos) {
-        f_address->S_Street.replace (pos, 6, L"микрорайон");
+        f_address->S_Street.replace (pos, 6, L"микрорайон"); // заменяем подстроку
     }
 
-    pos = f_address->S_Street.find (L"пер-к.", 0);
+    pos = f_address->S_Street.find (L"пер-к.", 0); // находим начальный индекс заменяемой подстроки переулка
     if (pos != std::string::npos) {
-        f_address->S_Street.replace (pos, 6, L"переулок");
+        f_address->S_Street.replace (pos, 6, L"переулок"); // заменяем подстроку
     }
 
-    pos = f_address->S_Street.find (L"пл-дь.", 0);
+    pos = f_address->S_Street.find (L"пл-дь.", 0); // находим начальный индекс заменяемой подстроки площади
     if (pos != std::string::npos) {
-        f_address->S_Street.replace (pos, 6, L"площадь");
+        f_address->S_Street.replace (pos, 6, L"площадь"); // заменяем подстроку
     }
 
-    pos = f_address->S_Street.find (L"в-з.", 0);
+    pos = f_address->S_Street.find (L"в-з.", 0); // находим начальный индекс заменяемой подстроки взвоза
     if (pos != std::string::npos) {
-        f_address->S_Street.replace (pos, 4, L"площадь");
+        f_address->S_Street.replace (pos, 4, L"взвоз"); // заменяем подстроку
     }
 
     // Обработка S_House
-    pos = f_address->S_House.find (L"д.", 0);
+    pos = f_address->S_House.find (L"д.", 0); // находим начальный индекс заменяемой подстроки дома
     if (pos != std::string::npos) {
-        f_address->S_House.replace (pos, 2, L"дом");
+        f_address->S_House.replace (pos, 2, L"дом"); // заменяем подстроку
     }
 
     // Обработка S_Flat
-    pos = f_address->S_Flat.find (L"кв.", 0);
+    pos = f_address->S_Flat.find (L"кв.", 0); // находим начальный индекс заменяемой подстроки квартиры
     if (pos != std::string::npos) {
-        f_address->S_Flat.replace (pos, 3, L"квартира");
+        f_address->S_Flat.replace (pos, 3, L"квартира"); // заменяем подстроку
     }
 }
 
@@ -270,7 +307,7 @@ auto MailAddress () -> RetConst {
             return ErrMemory;
         }
         while (std::getline (std::wcin, line)) {
-            if (Parse (line, address, Trim, Contains)) {
+            if (Parse (line, address)) {
                 break;
             }
             Unify (address);
