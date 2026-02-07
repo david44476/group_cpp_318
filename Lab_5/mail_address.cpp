@@ -74,12 +74,13 @@ struct Address {
 } *address{nullptr};
 
 // деклорация функций
-auto Contains (wstr *f_arr, const size_t &f_size,wstr &f_value, wstr (*) (wstr)) -> bool;
+auto Contains (wstr *f_arr, const size_t &f_size,wstr f_value) -> bool;
 auto Trim (const wstr &f_str) -> wstr;
 auto DelStr (wstr f_str) -> wstr;
+auto Regist1 (wstr f_text) -> wstr;
 
 // указатель на функцию Contains
-using PtrContains = bool (*) (wstr*, const size_t&, wstr&, wstr (*) (wstr));
+using PtrContains = bool (*) (wstr*, const size_t&, wstr);
 const PtrContains P_Contains {Contains};
 
 // указатель на функцию Trim
@@ -87,13 +88,18 @@ using PtrTrim = wstr (*) (const wstr&);
 const PtrTrim P_Trim {Trim};
 
 // указатель на функцию DelStr
-using PtrDlStr = wstr (*) (wstr);
-const PtrDlStr P_DelStr {DelStr};
+using PtrFunc = wstr (*) (wstr);
+const PtrFunc P_DelStr {DelStr};
+
+// указатель на функцию Regist1
+const PtrFunc P_Regist1 {Regist1};
 
 // функция проверки наличия элемента в массиве
-auto Contains ( wstr *f_arr, const size_t &f_size, wstr &f_value, wstr (*) (wstr)) -> bool {
+auto Contains ( wstr *f_arr, const size_t &f_size, wstr f_value) -> bool {
+    f_value = P_DelStr  (P_Regist1 (f_value));
     for (size_t i = 0; i < f_size; ++i) {
-        if (P_DelStr (f_arr[i]) == P_DelStr (f_value)) return true;
+        f_arr[i] = DelStr (P_Regist1 (f_arr[i]));
+        if (f_arr[i] == f_value) return true;
     }
     return false;
 }
@@ -109,11 +115,22 @@ auto Trim (const wstr &f_str) -> wstr {
 
 // функция удаления подстроки
 auto DelStr (wstr f_str) -> wstr {
-    const wstr sepor{'.'}; // переменная для поиска индексов
-    size_t start = f_str.find_first_not_of (sepor); // находим начальный индекс слова
-    auto stop = f_str.find (sepor, start); // находим конечный индекс слова
+    const wstr sepor {L" "}; // переменная для поиска индексов
+    size_t start {f_str.find_first_of (sepor)}; // находим начальный индекс слова
+    auto stop {f_str.find_last_of (sepor, start + 1)}; // находим конечный индекс слова
     f_str.erase (0, stop + 1); // удаляем подстроку
     return f_str;
+}
+
+// функция преобразования символов в верхний регистр
+auto Regist1 (wstr r_text) -> wstr {
+    short diff_ul{32}; // разница между пропесными и строчными символами алфавита
+    short down_a {1072}; // десятичный код символа 'a' для проверки условия
+    short up_a {1103}; // десятичный код символа 'z' для проверки условия
+    for (size_t i{0}; i < r_text.length(); ++i) {
+        if (r_text[i] <= up_a && r_text[i] >= down_a) r_text[i] -= diff_ul;
+    }
+    return r_text;
 }
 
 // функция выделения из строки компонентов адреса
@@ -130,18 +147,16 @@ auto Parse (wstr &f_line, Address *f_address) -> RetConst {
         return ErrData;
     }
 
-    //wstr str; // переменная для проверки с базой
-
     // Извлекаем S_Country
     auto stop = f_line.find (sepor, start); // находим конечный индекс слова
     if (stop == wstr::npos) stop = f_line.length();
 
     f_address->S_Country = f_line.substr (start, stop - start); // извлекаем из строки страну
-    //str = P_DelStr (f_address->S_Country); // удаляем не нужную подстроку
     f_address->S_Country = P_Trim (f_address->S_Country); // удаление пробелов
+    //std::wcout << f_address->S_Country << '\n';
 
     // проверяем на соответствие с базой
-    if (!P_Contains (Country, MAX_COUNTRY, f_address->S_Country, DelStr)) {
+    if (!P_Contains (Country, MAX_COUNTRY, f_address->S_Country)) {
         errmess::Exeption (L"страны нет в базе!");
         return ErrData;
     }
@@ -152,10 +167,9 @@ auto Parse (wstr &f_line, Address *f_address) -> RetConst {
     if (stop == wstr::npos) stop = f_line.length();
 
     f_address->S_City = f_line.substr (start, stop - start); // извлекаем из строки город
-    //str = P_DelStr (f_address->S_City); // удаляем не нужную подстроку
     f_address->S_City = P_Trim (f_address->S_City);  // удаление пробелов
 
-    if (!P_Contains (City, MAX_CITY, f_address->S_City, DelStr)) {
+    if (!P_Contains (City, MAX_CITY, f_address->S_City)) {
         errmess::Exeption (L"города нет в базе!");
         return ErrData;
     }
@@ -166,10 +180,9 @@ auto Parse (wstr &f_line, Address *f_address) -> RetConst {
     if (stop == wstr::npos) stop = f_line.length();
 
     f_address->S_Street = f_line.substr (start, stop - start); // извлекаем из строки город
-    //str = P_DelStr (f_address->S_Street); // удаляем не нужную подстроку
     f_address->S_Street = P_Trim (f_address->S_Street);  // удаление пробелов
 
-    if (!P_Contains (Street, MAX_STREET, f_address->S_Street, DelStr)) {
+    if (!P_Contains (Street, MAX_STREET, f_address->S_Street)) {
         errmess::Exeption (L"улицы нет в базе!");
         return ErrData;
     }
@@ -294,7 +307,7 @@ auto MailAddress () -> RetConst {
     do {
 
         std::wcout << L"Введите почтовый адрес в формате: " << '\n'
-                   << L"с-на. Россия, г. Томск, пл-дь. Южная, д. 444, кв. 76.\n" << '\v';
+                   << L"страна Россия, город Рим, площадь Южная, д. 444, кв. 76.\n" << '\v';
 
         //выделяется память под поля для структуры address
         address = new (std::nothrow) Address;
