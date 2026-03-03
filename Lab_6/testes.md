@@ -791,6 +791,7 @@ int main() {
     // Использование указателей на методы
     wMainWindow.SetCaption("Main Window");
     (wMainWindow.*ptrSetCaption)("Modified Main Window");
+
     pwChildWindow->SetszWinCaption("Child Window");
     (pwChildWindow->*ptrSetszWinCaption)("Modified Child Window");
 
@@ -817,4 +818,3 @@ Main window x1 via pointer: 10
 Main window caption via pointer: Modified Main Window
 */
 ```
-

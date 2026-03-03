@@ -2,11 +2,11 @@
 #define CONSTANS_H
 
 // перечисление заданий
-enum class ProgrEnum: short {Task_0, Task_1, Task_2, Task_3, Task_4, Task_5};
+enum class ProgrEnum: short {Task_1, Task_2, Task_3, Task_4, Task_5, Task_Max};
 
 /* Перечисление констант, используемых в качетве
    возвращаемых значений из функций */
-using typyRetConst = int; //псевдоним для типа констант enum
+using typyRetConst = short; //псевдоним для типа констант enum
 enum RetConst: typyRetConst
 {
     Ok = 0, // Выполнео

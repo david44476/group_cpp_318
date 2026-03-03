@@ -7,14 +7,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(Lab_6 main.cpp
     errmess.h
-    task_selection.cpp
+
     constans.h
     check_the_input.cpp
     check_the_input.h
-    task_selection.h
+
     errmess.cpp
     stop.cpp
     stop.h
+    laboratory.h
+    laboratory.cpp
+    denamic_objects.cpp
+    denamic_objects.h
 
 )
 

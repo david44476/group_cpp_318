@@ -2,9 +2,8 @@
 #include<limits>
 #include"errmess.h" // подключаем функций вывода ошибок
 
-// функция на корректность ввода
-auto Type_Thecking(short& f_a, const short& f_min, const short& f_max) -> short
-{
+// функция проверка на корректность ввода
+auto Type_Thecking(short& f_a, const short& f_min, const short& f_max) -> short {
     while (true)
     {
         if (!(std::wcin >> f_a) || f_a < f_min || f_a > f_max || std::wcin.fail()) // условия для проверки
@@ -18,4 +17,18 @@ auto Type_Thecking(short& f_a, const short& f_min, const short& f_max) -> short
         else  break;
     }
     return f_a;
+}
+
+// функция проверка на коректность ввода
+auto Type_Thecking(wchar_t& f_c) -> wchar_t {
+    while (true) {
+        if (!((std::wcin >> f_c) || f_c == L'Д' || f_c == L'д' || f_c == L'Н' || f_c == L'н') || f_c == L' '
+            || std::wcin.fail()) {
+            errmess::Exeption(L"Вы ввели не верный символ! Попробуйте ещё: ");
+            std::wcin.clear();
+            std::wcin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        else break;
+    }
+    return f_c;
 }
