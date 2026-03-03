@@ -18,7 +18,7 @@
 #include<clocale>
 #include"check_the_input.h"
 #include"constans.h"
-#include"laboratory.h"
+#include"Claboratory.h"
 
 auto main() -> int {
 
@@ -26,16 +26,16 @@ auto main() -> int {
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
     // создаём объект с инициализацией нужных полей класса
-    Claboratory lab_6(L"Лабораторная работа № 6", L"Тема: Исследование С++ классов в IDE Qt Creator",
-                      L"Цели работы:\n1. Закрепить на практике представление о классах.\n"
-                      L"2. Научиться инкапсулировать данные в классах языка С++.");
+    Claboratory lab_6(L"Лабораторная работа № 6\n", L"Тема: Исследование С++ классов в IDE Qt Creator\n",
+                      L"Цели работы:\n\t1. Закрепить на практике представление о классах.\n"
+                      L"\t2. Научиться инкапсулировать данные в классах языка С++.\n");
 
     // вывод информации по лабараторной работе
     lab_6.PrintLab();
 
     bool stop {false}; // переменная для цикла do while
     do {
-        std::wcout << L"Введите номер задания от 1 до 5 для демонстрации: ";
+        std::wcout << L"Введите номер задания от 1 до 5 для демонстрации и нажмите ввод: ";
 
         // проверка ввода
         short choice = Type_Thecking(choice, lab_6.Rdm_min(), lab_6.Rdm_max());

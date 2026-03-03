@@ -37,7 +37,7 @@ auto Claboratory::WrClaboratory(const wstr& f_labWorkNum, const wstr& f_topicLab
 
 // вывод информации по лабараторной работе
 auto Claboratory::PrintLab() -> void {
-    std::wcout << std::setw (30) << std::right << *m_labWorkNum + *m_topicLabWork +
+    std::wcout << std::setw (40) << std::right << *m_labWorkNum << *m_topicLabWork +
                *m_objecLabWork + m_devLabWork + m_os + m_locale;
 }
 

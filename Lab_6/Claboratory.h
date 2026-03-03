@@ -9,9 +9,9 @@ private:
     wstr* m_labWorkNum; // номер лабораторной работы
     wstr* m_topicLabWork; // тема лабораторной работы
     wstr* m_objecLabWork; // цели лабораторной работы
-    const wstr m_devLabWork{L"Разработчик: Давыдов Денис Владимирович."}; // разработчик
-    const wstr m_os{L"OS: UNIX"}; // операционная система
-    const wstr m_locale{L"locale (кодировка): UTF 8"}; // локаль
+    const wstr m_devLabWork{L"Разработчик: Давыдов Денис Владимирович.\n"}; // разработчик
+    const wstr m_os{L"OS: UNIX\n"}; // операционная система
+    const wstr m_locale{L"locale (кодировка): UTF 8\n"}; // локаль
     const unsigned short m_min{static_cast<short>(ProgrEnum::Task_1)};
     const unsigned short m_max{static_cast<short>(ProgrEnum::Task_Max)};
 public:
