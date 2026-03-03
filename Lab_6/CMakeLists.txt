@@ -17,7 +17,6 @@ add_executable(Lab_6 main.cpp
     Claboratory.cpp
     denamic_objects.cpp
     denamic_objects.h
-
 )
 
 include(GNUInstallDirs)
