@@ -3,10 +3,10 @@
 #include"errmess.h"
 
 // псевдоним типа
-using wstr = std::wstring;
+using cwstr = const std::wstring;
 
 // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
-auto MemoError(const wstr* f_ptr) -> RetConst {
+auto MemoError(const cwstr* f_ptr) -> RetConst {
     if (!f_ptr) {
 
         // Обработка этого случая
@@ -16,7 +16,7 @@ auto MemoError(const wstr* f_ptr) -> RetConst {
 }
 
 // очистка динамической памяти
-auto deletObject(const wstr* f_dinObj) -> void {
+auto deletObject(const cwstr* f_dinObj) -> void {
     if (f_dinObj) {
         delete f_dinObj;
         f_dinObj = nullptr;

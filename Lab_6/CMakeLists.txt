@@ -13,10 +13,12 @@ add_executable(Lab_6 main.cpp
     errmess.cpp
     stop.cpp
     stop.h
-    Claboratory.h
-    Claboratory.cpp
+
+
     denamic_objects.cpp
     denamic_objects.h
+    C_labWork.h
+    C_labWork.cpp
 )
 
 include(GNUInstallDirs)

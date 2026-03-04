@@ -2,7 +2,7 @@
 #define CONSTANS_H
 
 // перечисление заданий
-enum class ProgrEnum: short {Task_1, Task_2, Task_3, Task_4, Task_5, Task_Max};
+enum class ProgrEnum: unsigned short {Task_1, Task_2, Task_3, Task_4, Task_5, Task_Max};
 
 /* Перечисление констант, используемых в качетве
    возвращаемых значений из функций */
