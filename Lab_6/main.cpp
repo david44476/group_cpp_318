@@ -17,28 +17,36 @@
 //#include<clocale>
 #include"C_labWork.h"
 #include"constans.h"
+#define DAVID
 
 auto main() -> int {
 
     // устанавливаем локаль
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    // псевдоним типа
-    using wstr = std::wstring;
+    // создание объекта с моими данными по умолчанию
+    #ifdef DAVID
+    wstr devLop{L"Давыдов Денис Владимирович"};
+    wstr group{L"CPP_318"};
+    C_labWork lab_6(devLop, group);
 
-    // создаём объект
+    // создаём объект и заполняем поля класса сами
+    #elif defined(USER)
     C_labWork lab_6;
+    #endif
 
     // вывод информации по лабараторной работе
-    lab_6.PrintLab();
+    (lab_6.*PPrintLab)();
 
     bool stop {false}; // переменная для цикла do while
     do {
-        lab_6.WrTask();
-        ushort numTask{lab_6.RdTask()};
+
+        // запрашиваем у пользователя номер задания
+        (lab_6.*PWrTask)();
+        ushort numTask{(lab_6.*PRdTask)()};
 
         // переменная для демонстрации задания
-        const ProgrEnum progrEnum{lab_6.TaskSelec(numTask)};
+        const ProgrEnum progrEnum{(lab_6.*PTaskSelec)(numTask)};
 
         // переменная для текста задания
         wstr taskText{'\0'};
@@ -60,8 +68,8 @@ auto main() -> int {
                        "добавьте буквы и т. д.\n";
 
             // присваем текст по заданию
-            lab_6.WrTaskText(taskText);
-            lab_6.PrintTask(); // вывод номера и текста текущего задания
+            (lab_6.*PWrTaskText)(taskText);
+            (lab_6.*PPrintTask)(); // вывод номера и текста текущего задания
         }
 
         // запуск задания № 2
@@ -75,7 +83,7 @@ auto main() -> int {
 
             // присваем текст по заданию
             lab_6.WrTaskText(taskText);
-            lab_6.PrintTask(); // вывод номера и текста текущего задания
+            (lab_6.*PPrintTask)(); // вывод номера и текста текущего задания
         }
 
         // запуск задания № 3
@@ -87,7 +95,7 @@ auto main() -> int {
 
             // присваем текст по заданию
             lab_6.WrTaskText(taskText);
-            lab_6.PrintTask(); // вывод номера и текста текущего задания
+            (lab_6.*PPrintTask)(); // вывод номера и текста текущего задания
         }
 
         // запуск задания № 4
@@ -99,7 +107,7 @@ auto main() -> int {
 
             // присваем текст по заданию
             lab_6.WrTaskText(taskText);
-            lab_6.PrintTask(); // вывод номера и текста текущего задания
+            (lab_6.*PPrintTask)(); // вывод номера и текста текущего задания
         }
 
         // запуск задания № 5
@@ -114,11 +122,11 @@ auto main() -> int {
 
             // присваем текст по заданию
             lab_6.WrTaskText(taskText);
-            lab_6.PrintTask(); // вывод номера и текста текущего задания
+            (lab_6.*PPrintTask)(); // вывод номера и текста текущего задания
         }
 
         // вызов функции для останоки или продолжения выполнения программы по выбору пользователя
-        if (!(stop == lab_6.StopLab())) return RetConst::ErrData;
+        if (!(stop == (lab_6.*PStopLab)())) return RetConst::ErrData;
     } while (!stop); // выход из праграммы по выбору пользователя
     return 0;
 }

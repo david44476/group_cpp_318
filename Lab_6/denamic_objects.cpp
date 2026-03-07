@@ -2,21 +2,42 @@
 #include"constans.h"
 #include"errmess.h"
 
-// псевдоним типа
-using cwstr = const std::wstring;
+// псевдонимы типов
+using wstr = std::wstring;
+using ushort = unsigned short;
 
 // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
-auto MemoError(const cwstr* f_ptr) -> RetConst {
+auto MemoError(const ushort* f_ptr) -> RetConst {
     if (!f_ptr) {
 
         // Обработка этого случая
         errmess::Exeption(L"Память не выделенна!!!");
+        return ErrMemory;
     }
-    return ErrMemory;
+    else return Ok;
+}
+
+// обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+auto MemoError(const wstr* f_ptr) -> RetConst {
+    if (!f_ptr) {
+
+        // Обработка этого случая
+        errmess::Exeption(L"Память не выделенна!!!");
+        return ErrMemory;
+    }
+    else return Ok;
 }
 
 // очистка динамической памяти
-auto deletObject(const cwstr* f_dinObj) -> void {
+auto DelObj(const wstr* f_dinObj) -> void {
+    if (f_dinObj) {
+        delete f_dinObj;
+        f_dinObj = nullptr;
+    }
+}
+
+// очистка динамической памяти
+auto DelObj(const ushort* f_dinObj) -> void {
     if (f_dinObj) {
         delete f_dinObj;
         f_dinObj = nullptr;
