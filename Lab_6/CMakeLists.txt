@@ -19,6 +19,7 @@ add_executable(Lab_6 main.cpp
     denamic_objects.h
     C_labWork.h
     C_labWork.cpp
+    C_Bruteforce.cpp
 )
 
 include(GNUInstallDirs)

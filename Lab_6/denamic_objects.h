@@ -1,20 +1,26 @@
 #ifndef DENAMIC_OBJECTS_H
 #define DENAMIC_OBJECTS_H
 #include <string>
-#include "constans.h"
-
-// псевдоним типа
-using wstr = std::wstring;
-using ushort = unsigned short;
+#include"errmess.h" // функции для вывода ошибок
 
 // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
-auto MemoError(const ushort* f_ptr) -> RetConst;
+template <typename T>
+auto MemoError(const T* f_ptr) -> bool {
+    if (!f_ptr) {
 
-auto MemoError(const wstr* f_ptr) -> RetConst;
+        // Обработка этого случая
+        errmess::Exeption(L"Память не выделенна!!!\n");
+        return false;
+    }
+    else return true;
+}
 
 // очистка динамической памяти
-auto DelObj(const ushort* f_dinObj) -> void;
-
-// очистка динамической памяти
-auto DelObj(const wstr* f_dinObj) -> void;
+template <typename T>
+auto DelObj(const T* f_dinObj) -> void {
+    if (f_dinObj) {
+        delete f_dinObj;
+        f_dinObj = nullptr;
+    }
+}
 #endif // DENAMIC_OBJECTS_H
