@@ -58,7 +58,7 @@ auto main() -> int {
     // вывод информации по лабараторной работе
     (lab_6.PrintLab)(fieldWidth, separator);
 
-    bool stop {false}; // переменная для цикла do while
+    bool stop{false}; // переменная для цикла do while
     do {
 
         // запрашиваем у пользователя номер задания
