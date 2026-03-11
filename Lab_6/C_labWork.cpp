@@ -4,11 +4,11 @@
 #include<limits>
 #include<iomanip>
 #include"errmess.h" // функции для вывода ошибок
-#include"C_labWork.h" // подключаем определение класса
+#include"C_labWork.h" // обьявляем класс
 #include"denamic_objects.h" // функции для динамической памяти
 
 // конструктор без параметров
-C_labWork::C_labWork() {
+ C_labWork::C_labWork() {
     std::wcout << L"Конструктор без параметров вызвался!!!\n";
     this->WrlabWork();
 }
