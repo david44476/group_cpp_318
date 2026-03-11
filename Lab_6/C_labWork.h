@@ -32,21 +32,19 @@ private:
         wstr s_taskText{}; // текст задания
     } m_task;
 #pragma pack(pop)
-
-    // конструктор копирования
-    C_labWork(const C_labWork& copiLab) {
-        m_titlePage.s_labWorkNum = {copiLab.m_titlePage.s_labWorkNum};
-    }
 public:
 
+    // конструктор копирования
+    C_labWork(const C_labWork& copiLab) = delete;
+
     // конструктор без параметров
-    C_labWork();
+    explicit C_labWork();
 
     // конструктор с параметрами о разработчике по умочанию
-    C_labWork(const wstr& f_devLop, const wstr& f_group);
+    explicit C_labWork(const wstr& f_devLop, const wstr& f_group);
 
     // конструктор с параметрами о лабораторной работе и разработчике по умочанию
-    C_labWork(const ushort& f_labWorkNum, const wstr& f_topLabWork, const wstr& f_objLabWork,
+    explicit C_labWork(const ushort& f_labWorkNum, const wstr& f_topLabWork, const wstr& f_objLabWork,
               const wstr& f_devLop, const wstr& f_group);
 
 
