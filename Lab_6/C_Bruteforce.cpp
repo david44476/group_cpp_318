@@ -1,5 +1,4 @@
 #include<iostream>
-#include<iomanip>
 #include<vector>
 #include"C_Bruteforce.h"
 
@@ -7,6 +6,7 @@ Bruteforce::Bruteforce(const std::string &alphaBet, const unsigned short &maxLen
     : m_alphaBet{alphaBet}, m_maxLen{maxLen} {}
 
 void Bruteforce::PrintLimits() const {
+    std::cout << std::string(80, '-') << '\n';
     std::cout << "=== Ограничения перебора ===" << '\n'
               << "Допустимые символы: " << m_alphaBet << '\n'
               << "Максимальная длина пароля: " << m_maxLen << '\n';

@@ -8,7 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(Lab_6 main.cpp
     C_Bruteforce.h
     C_Bruteforce.cpp
-    bruteforce.cpp)
+    bruteforce.cpp
+    exit.cpp)
 
 include(GNUInstallDirs)
 install(TARGETS Lab_6
