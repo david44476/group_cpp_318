@@ -2,14 +2,14 @@
 #include<vector>
 #include"C_Bruteforce.h"
 
-Bruteforce::Bruteforce(const std::string &alphaBet, const unsigned short &maxLen)
+Bruteforce::Bruteforce(const std::wstring &alphaBet, const unsigned short &maxLen)
     : m_alphaBet{alphaBet}, m_maxLen{maxLen} {}
 
 void Bruteforce::PrintLimits() const {
-    std::cout << std::string(80, '-') << '\n';
-    std::cout << "=== Ограничения перебора ===" << '\n'
-              << "Допустимые символы: " << m_alphaBet << '\n'
-              << "Максимальная длина пароля: " << m_maxLen << '\n';
+    std::wcout << std::wstring(90, '-') << '\n';
+    std::wcout << L"=== Ограничения перебора ===" << '\n'
+               << L"Допустимые символы: " << m_alphaBet << '\n'
+               << L"Максимальная длина пароля: " << m_maxLen << '\n';
 
     long long numComb{0};
     long long power{1};
@@ -17,15 +17,15 @@ void Bruteforce::PrintLimits() const {
         power *= static_cast<long long>(m_alphaBet.size());
         numComb += power;
     }
-    std::cout << "Примерное число комбинаций: " << numComb << '\n';
+    std::wcout << L"Примерное число комбинаций: " << numComb << '\n';
 }
 
-std::string Bruteforce::FindPassword(const std::string &target) const {
+std::wstring Bruteforce::FindPassword(const std::wstring &target) const {
 
     // проверка: длина целевого пароля не должна превышать m_maxLen
     if (static_cast<unsigned short>(target.length()) > m_maxLen) {
-        std::cerr << "Ошибка: Целевой пароль длинее, чем разрещено настройками перебора!!!" << '\n';
-        return "";
+        std::wcerr << L"Ошибка: Целевой пароль длинее, чем разрещено настройками перебора!!!" << '\n';
+        return L"";
     }
 
     // для каждой длины от 1 до m_maxLen
@@ -37,7 +37,7 @@ std::string Bruteforce::FindPassword(const std::string &target) const {
         while (true) {
 
             // собиаем текущую комбинацию
-            std::string candidate;
+            std::wstring candidate;
             candidate.reserve(len);
             for (auto i{0}; i < len; ++i) {
                 candidate.push_back(m_alphaBet[ind[i]]);
@@ -59,5 +59,5 @@ std::string Bruteforce::FindPassword(const std::string &target) const {
             if (pos < 0) break; // все комбинации len перебраны
         }
     }
-    return ""; // по условию задачи сюда не должны попасть
+    return L""; // по условию задачи сюда не должны попасть
 }
