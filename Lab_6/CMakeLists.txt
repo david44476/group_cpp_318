@@ -9,10 +9,7 @@ add_executable(Lab_6 main.cpp
     C_Bruteforce.h
     C_Bruteforce.cpp
     bruteforce.cpp
-    exit.cpp)
-
-include(GNUInstallDirs)
-install(TARGETS Lab_6
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+    exit.cpp
+    Constans.h
+    errmess.h
+    errmess.cpp
