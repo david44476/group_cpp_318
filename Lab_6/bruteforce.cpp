@@ -1,40 +1,25 @@
 #include<iostream>
-#include<limits>
 #include"C_Bruteforce.h"
 #include"errmess.h"
 #include"myEmoji.h"
 #include"taskStr.h"
 #include"checkInput.h"
 
-// деклорация функций***************************************************************************
-const ushort CharSel(); // функция выбора набора символов
-const ushort (*const PtrCharSel)() = CharSel; // указатель на функцию выбора набора символов
-const wstr CharInput(const ushort (*)()); // функция ввода набора символов
-
-// указатель на функцию ввода набора символов
-const wstr (*const PtrCharInput)(const ushort (*)()) = CharInput;
-const wstr EnterPass(const ushort &, const wstr&, const Bruteforce &); // функция ввода пароля
-
-// указатель на функцию ввода пароля
-const wstr (*const PtrEnterPass)(const ushort&, const wstr&, const Bruteforce &) = EnterPass;
-// *********************************************************************************************
-
 // функция по заданию № 1
 auto BrutFor() -> void {
     do {
-        std::wcout << TaskStr::strTask1;
+        std::wcout << TaskStr::strTask1; // выводим задание
         constexpr ushort maxlen{4}; // максимальная длина пароля
-        wstr alphaBet{PtrCharInput(PtrCharSel)}; // вводим строку символов для перебора
+        auto alphaBet{PtrCharInput(PtrCharSel)}; // вводим строку символов для перебора
         if (!alphaBet.empty()) { // проверяем не пустая ли строка символов для перебора
             Bruteforce brutFors{alphaBet}; // создаём объект для перебора
-            wstr pass{PtrEnterPass(maxlen, alphaBet, brutFors)}; // перебераем пароль
-            //brutFors.PrintAlpBet(pass);
+            auto pass{PtrEnterPass(maxlen, brutFors)}; // перебераем пароль
         }
         std::wcout << TaskStr::seporStr + L'\n';
         std::wcout << MyEmoji::queMark << L" Хотите продолжить демонстрацию задания № "
                    << static_cast<ushort>(ProgrEnum::Task_2) << '\n';
     } while (PtrExit());
-} // BrutFor
+} // BrutFor функция по заданию № 1
 
 // функция выбора набора символов
 auto CharSel() -> const ushort {
@@ -46,31 +31,24 @@ auto CharSel() -> const ushort {
                << L"4) 0 - 9, @ # $ &" << '\n'
                << L"5) 0 - 9, a - z, A - Z, @ # $ &" << '\n';
     std::wcout << TaskStr::seporEmoji + L'\n';
-
-    // Собираем сообщение в отдельную строку — так проще и безопаснее
-    std::wstring msg = L"Введите число от ";
-    msg += std::to_wstring(static_cast<ushort>(ProgrEnum::Task_2));
-    msg += L" до ";
-    msg += std::to_wstring(static_cast<ushort>(ProgrEnum::Task_Max));
-    msg += L": ";
-    ushort choice;
+    ushort choice; // переменная для выбора набора символов
     while (true){
-        Errmess::Info(msg);
-        std::wcout << MyEmoji::fingRight << L' ';
-        if (CheckInput(choice, static_cast<ushort>(ProgrEnum::Task_2),
+        Errmess::Info(TaskStr::msg); // выводим условия ввода
+
+        // проверяем ввод
+        if (PtrUshor(choice, static_cast<ushort>(ProgrEnum::Task_2),
                        static_cast<ushort>(ProgrEnum::Task_Max),
                        L"Данного набора символов не предусмотренно!!!")) {
             break;
         }
     }
-    std::wcin.ignore(std::numeric_limits<std::streamsize>::max(), L'\n');
     return choice;
-} // CharSel
+} // CharSel функция выбора набора символов
 
 // функция ввода набора симмволов
 auto CharInput(const ushort (*PtrCharSel)()) -> const wstr {
-    wstr xstr;
-    switch (PtrCharSel()) {
+    wstr xstr; // переменная для строки символов
+    switch (PtrCharSel()) { // выбераем строку символов через указатель на функцию
     case 1: {
         xstr = L"0123456789";
         break;
@@ -93,43 +71,38 @@ auto CharInput(const ushort (*PtrCharSel)()) -> const wstr {
     }
     }
     return xstr;
-} // CharInput
+} // CharInput функция ввода набора симмволов
 
 // функция ввода пароля
-auto EnterPass(const ushort &xmaxLen, const wstr &xalphaBet, const Bruteforce &xbrutForce) -> const wstr {
+auto EnterPass(const ushort &xmaxLen, Bruteforce &xbrutForce) -> const wstr {
     std::wcout << TaskStr::seporStr + L'\n';
     std::wcout << MyEmoji::listTasks << L" Введите пароль не больше " << xmaxLen << L" символа(ов)."
                << '\n';
     std::wcout << TaskStr::seporEmoji + L'\n';
     std::wcout << MyEmoji::warning << L"Пароль должен состоять только из выбранного набора символов: "
-               << xbrutForce.GetAlphaBet() << '\n';
-
-    // Собираем сообщение в отдельную строку — так проще и безопаснее
-    std::wstring msg = L"Введите пароль от ";
-    msg += std::to_wstring(static_cast<ushort>(ProgrEnum::Task_3));
-    msg += L" до ";
-    msg += std::to_wstring(static_cast<ushort>(ProgrEnum::Task_5));
-    msg += L" символов: ";
-    wstr pass;
+               << (xbrutForce.*PtrGetAlphaBet)() << '\n';
+    wstr pass; // переменная ввода пароля
     while (true){
-        Errmess::Info(msg);
+        Errmess::Info(TaskStr::passMsg); // выводим условия ввода пароля
         std::wcout << MyEmoji::fingRight << L' ';
-        if (!CheckInput(pass, static_cast<ushort>(ProgrEnum::Task_3),
+
+        // проверяем ввод через указатель на функцию
+        if (!PtrWstr(pass, static_cast<ushort>(ProgrEnum::Task_3),
                        static_cast<ushort>(ProgrEnum::Task_5),
-                       L"Длина пароля превышает максимальную длину в "
+                       L"Длина пароля не соответствует заданнаму в "
                            + std::to_wstring(xmaxLen) + L" символа(ов)!!!")) {
             continue;
         }
 
-        if (xbrutForce.CharSearch(pass, xmaxLen)) {
+        // начинаем перебор
+        if ((xbrutForce.*PtrCharSearch)(pass, xmaxLen)) {
             Errmess::Exeption(L"Ведённый пароль не соответствует заданному набору символов: "
-                              + xbrutForce.GetAlphaBet());
+                              + (xbrutForce.*PtrGetAlphaBet)());
             continue;
-        } else {
-            Errmess::Every(L"Ваш пароль принят!!!");
+        } else { // если всё прошло успешно
+            (xbrutForce.*PtrPrintAlpBet)(pass); // выводим информации о переборе
             break;
         }
     }
-    std::wcin.ignore(std::numeric_limits<std::streamsize>::max(), L'\n');
     return pass;
-} // EnterPass
+} // EnterPass функция ввода пароля

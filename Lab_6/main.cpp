@@ -15,20 +15,11 @@
 */
 
 #include<iostream>
-#include"checkInput.h"
 #include"constans.h" // содержит константы
 #include"errmess.h" // содержит функции вывода ошибок
 #include"taskStr.h" // содержит строки с информацией по заданиям
 #include"myEmoji.h" // содержит эмодзи
-
-// деклорация функции выбора задания
-ProgrEnum TaskSel();
-ProgrEnum (*const PtrTaskSel)() = TaskSel; // указатель на функцию TaskSel
-
-// деклорация функции очистки окна терминала
-void ClearConsole();
-void (*const PtrClearConsole)() = ClearConsole; // указатель на функцию ClearConsole
-
+#include"checkInput.h" // содержит деклорации функций
 
 int main() {
 

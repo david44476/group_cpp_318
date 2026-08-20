@@ -16,7 +16,6 @@ constexpr wchar_t chain{L'\U0001F517'}; // цепь
 constexpr wchar_t purpose{L'\U0001F3AF'}; // цель
 constexpr wchar_t magnifier{L'\U0001F50D'}; // лупа
 constexpr wchar_t realiz{L'\U0001F6E0'}; // реализация
-constexpr wchar_t exclam{L'\U000026A0'}; // восклицательный знак в треугольнике
 constexpr wchar_t fingBott{L'\U0001F447'}; // палец указывает вниз
 constexpr wchar_t plus{L'\U00002795'}; // плюс
 constexpr wchar_t glasses{L'\U0001F453'}; // очки

@@ -6,6 +6,7 @@
 // псевдонимы типов
 using ushort = unsigned short; // на unsigned short
 using wstr = std::wstring; // на std::wstring
+using ullong = unsigned long long; // на unsigned long long
 
 // Перечисление констант, используемых в качетве выбора заданий
 enum class ProgrEnum: ushort {
@@ -25,6 +26,6 @@ enum RetFunc: ushort {
     EmptyLine, // пустая строка
     Overflow, // переполнено
     OutRange, // вне диапазона
-    ExitProg // выход из программы
+    NotFound // Не найден
 };
 #endif // CONSTANS_H

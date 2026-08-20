@@ -8,25 +8,20 @@
 
 // функция выбора задания
 auto TaskSel() -> const ProgrEnum {
-    std::wcout << std::setw(9) << MyEmoji::fingRight << L" ВЫБЕРИТЕ ЗАДАНИЕ ДЛЯ ДЕМОНСТРАЦИИ: "
+    std::wcout << std::setw(9) << MyEmoji::brain << L" ЗАДАНИЕ К ЛАБОРАТОРНОЙ РАБОТЕ № 6 "
+               << MyEmoji::brain << '\n';
+    std::wcout << TaskStr::strTask1; // вывод задания № 1
+    std::wcout << TaskStr::strTask2; // вывод задания № 2
+    std::wcout << TaskStr::strTask3; // вывод задания № 3
+    std::wcout << TaskStr::strTask4; // вывод задания № 4
+    std::wcout << TaskStr::strTask5; // вывод задания № 5
+    std::wcout << std::setw(9) << MyEmoji::fingRight << L" ВЫБЕРИТЕ ЗАДАНИЕ ДЛЯ ДЕМОНСТРАЦИИ "
                << MyEmoji::fingLeft << '\n';
-    std::wcout << TaskStr::strTask1;
-    std::wcout << TaskStr::strTask2;
-    std::wcout << TaskStr::strTask3;
-    std::wcout << TaskStr::strTask4;
-    std::wcout << TaskStr::strTask5;
 
-    // Собираем сообщение в отдельную строку — так проще и безопаснее
-    std::wstring msg = L"Введите число от ";
-    msg += std::to_wstring(static_cast<ushort>(ProgrEnum::Task_2));
-    msg += L" до ";
-    msg += std::to_wstring(static_cast<ushort>(ProgrEnum::Task_Max));
-    msg += L": ";
-    ushort choice;
+    ushort choice; // переменная выбора задания
     while (true){
-        Errmess::Info(msg);
-        std::wcout << MyEmoji::fingRight << L' ';
-        if (CheckInput(choice, static_cast<ushort>(ProgrEnum::Task_2),
+        Errmess::Info(TaskStr::msg); // выводим условия ввода
+        if (PtrUshor(choice, static_cast<ushort>(ProgrEnum::Task_2), // проверяем ввод
                        static_cast<ushort>(ProgrEnum::Task_Max), L"Данного задания не предусмотренно!!!")) {
             break;
         }
@@ -54,4 +49,4 @@ auto TaskSel() -> const ProgrEnum {
     }
     }
     return ProgrEnum::Task_Max;
-}
+} // TaskSel функция выбора задания

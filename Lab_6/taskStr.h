@@ -10,7 +10,7 @@ const wstr seporEmoji{wstr(40, MyEmoji::fingBott)}; // эмодзи раздел
 
 // сторока содержит информацию по лабораторной работе
 const wstr lab6{seporStr + L'\n'
-                + L'\t' + MyEmoji::computer + L" ЛАБОРАТОРНАЯ РАБОТА № 6" + L'\n'
+                + L'\t' + MyEmoji::computer + L" ЛАБОРАТОРНАЯ РАБОТА № 6 " + MyEmoji::computer + L'\n'
                 + seporEmoji + L'\n' + L'\v'
                 + L"   " + MyEmoji::brain + L" Тема: “Исследование С++ классов в IDE Qt Creator”"
                 + L'\n' + L'\v'
@@ -24,7 +24,7 @@ const wstr lab6{seporStr + L'\n'
 
 // строка по заданию № 1
 const wstr strTask1{seporStr + L'\n'
-                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 1: КЛАСС Bruteforce" + L'\n'
+                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 1: КЛАСС Bruteforce " + MyEmoji::light + L'\n'
                     + seporEmoji + L'\n'
                     + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
                     + L'\t' + L"- реализовать перебор пароля до гарантированного нахождения." + L'\n' + L'\v'
@@ -39,8 +39,8 @@ const wstr strTask1{seporStr + L'\n'
 
 // строка по заданию № 2
 const wstr strTask2{seporStr + L'\n'
-                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 2: ПРОВЕРКА НА ПАЛИНДРОМ" + L'\n'
-                    + seporEmoji + L'\n'
+                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 2: ПРОВЕРКА НА ПАЛИНДРОМ "
+                    + MyEmoji::light + L'\n' + seporEmoji + L'\n'
                     + L'\n' + L"   " + MyEmoji::listTasks + L" Ввод:" + L'\n'
                     + L'\t' + L"- Числа или символы от пользователя." + L'\n'
                     + L'\t' + L"- Лимит: не более 17 символов." + L'\n' + L'\v'
@@ -55,7 +55,7 @@ const wstr strTask2{seporStr + L'\n'
 
 // строка по заданию № 3
 const wstr strTask3{seporStr + L'\n'
-                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 3: СИСТЕМА «АВТОБАЗА»" + L'\n'
+                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 3: СИСТЕМА «АВТОБАЗА» " + MyEmoji::light + L'\n'
                     + seporEmoji + L'\n'
                     + L'\n' + MyEmoji::shadow + L" Роли и функции:" + L'\n' + L'\v'
                     + L"   " + MyEmoji::joystick + L" Диспетчер:" + L'\n'
@@ -73,8 +73,8 @@ const wstr strTask3{seporStr + L'\n'
 
 // строка по заданию № 4
 const wstr strTask4{seporStr + L'\n'
-                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 4: КЛАСС ДЛЯ КОМПЛЕКСНЫХ ЧИСЕЛ" + L'\n'
-                    + seporEmoji + L'\n'
+                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 4: КЛАСС ДЛЯ КОМПЛЕКСНЫХ ЧИСЕЛ "
+                    + MyEmoji::light + L'\n' + seporEmoji + L'\n'
                     + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
                     + L'\t' + L"- реализовать класс для работы с комплексными числами." + L'\n' + L'\v'
                     + L"   " + MyEmoji::realiz + L" Основные операции:" + L'\n'
@@ -90,8 +90,8 @@ const wstr strTask4{seporStr + L'\n'
 
 // строка по заданию № 5
 const wstr strTask5{seporStr + L'\n'
-                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 5: ПРОВЕРКА ПРОХОЖДЕНИЯ КИРПИЧА В ОТВЕРСТИЕ" + L'\n'
-                    + seporEmoji + L'\n'
+                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 5: ПРОВЕРКА ПРОХОЖДЕНИЯ КИРПИЧА В ОТВЕРСТИЕ "
+                    + MyEmoji::light + L'\n' + seporEmoji + L'\n'
                     + L'\n' + L"   " + MyEmoji::listTasks + L" Ввод:" + L'\n'
                     + L'\t' + L"- Размеры 3D‑отверстия (h, l, w) от пользователя, в мм." + L'\n' + L'\v'
                     + L"   " + MyEmoji::realiz + L" Реализация:" + L'\n'
@@ -104,5 +104,14 @@ const wstr strTask5{seporStr + L'\n'
                     + L"   " + MyEmoji::cup + L" Результат:" + L'\n'
                     + L'\t' + L"- Ответ: проходит кирпич или нет (зазором пренебречь)." + L'\n'
                     + seporStr + L'\n'};
+
+// Собираем сообщение в отдельную строку — так проще и безопаснее
+const wstr msg{L"Введите число от " + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_2)) + L" до "
+ + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_Max)) + L": "};
+
+// Собираем сообщение в отдельную строку — так проще и безопаснее
+const wstr passMsg{L"Введите пароль от " + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_3)) + L" до "
++ std::to_wstring(static_cast<ushort>(ProgrEnum::Task_5)) + L" символов."};
+
 };
 #endif // TASKSTR_H
