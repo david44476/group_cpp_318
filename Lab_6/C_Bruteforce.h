@@ -6,10 +6,10 @@
 class Bruteforce {
 private:
     wstr *m_alphaBet{nullptr}; // строка символов для перебора
-    mutable ullong *m_combTried{nullptr}; // счётчик итераций перебора
+    mutable ullong *m_combTried{nullptr}; // счётчик комбинаций перебора
 
     // метод класса обнуляет счётчик
-    void ResCombTri() {
+    auto ResCombTri() -> void {
         if (m_combTried) *m_combTried = 0;
     }
 public:
@@ -18,30 +18,34 @@ public:
     Bruteforce();
 
     // конструктор с параметрами
-    Bruteforce(const wstr &xalphaBet);
+    explicit Bruteforce(const wstr &xalphaBet);
 
     // конструктор копирования
-    Bruteforce(const Bruteforce &xbrutForc);
+    explicit Bruteforce(const Bruteforce &xbrutForc);
 
     // оператор присваивания (глубокое копирование)
-    Bruteforce& operator=(const Bruteforce &xbrutForc);
+     Bruteforce& operator =(const Bruteforce &xbrutForc);
 
     // деструктор
     ~Bruteforce();
 
     // метод класса устанавливает значение поля класса m_alphaBet строка символов для перебора
-    RetFunc SetAlphaBet(const wstr &xalphaBet);
+    short SetAlpha(const wstr &xalphaBet);
 
     // метод класса читает значение поля класса m_alphaBet строка символов для перебора
-    const wstr &GetAlphaBet() const {return *m_alphaBet;}
+    const wstr &GetAlpha() const {return *m_alphaBet;}
 
-    // метод класса читает значение поля класса m_combTried счётчик итераций перебора
-    const ullong &GetCombTried() const {return *m_combTried;}
+    // метод класса читает значение поля класса m_combTried счётчик комбинаций перебора
+    const ullong &GetComb() const {return *m_combTried;}
 
     // метод класса перебора комбинаций пароля
-    RetFunc CharSearch(const wstr &xpass, const ushort &xmaxLen);
+    short CharSearch(const wstr &xpass, const ushort &xmaxLen);
 
     // метод класса выводит информацию о переборе
-    void PrintAlpBet(const wstr &xpass);
+    void PrintAlpha(const wstr &xpass);
+
+    // шаблонная функция выделенния памяти
+    template<typename T>
+    friend T MemAlloc(T *xobject, const wstr &);
 };
 #endif // C_BRUTEFORCE_H

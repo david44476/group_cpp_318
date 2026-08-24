@@ -19,13 +19,15 @@ enum class ProgrEnum: ushort {
 };
 
 // Перечисление констант, используемых в качетве возвращаемых значений из функций
-enum RetFunc: ushort {
-    Ok, // выполнео
-    ErrData, // ошибка
-    ErrMemory, // ошибка выделения памяти
-    EmptyLine, // пустая строка
-    Overflow, // переполнено
-    OutRange, // вне диапазона
-    NotFound // Не найден
+namespace Ret {
+enum RetFunc: short {
+    Ok = 0, // выполнео
+    ErrData = -1, // ошибка
+    ErrMemory = -2, // ошибка выделения памяти
+    EmptyLine = -3, // пустая строка
+    Overflow = -4, // переполнено
+    OutRange = -5, // вне диапазона
+    NotFound = -6 // Не найден
 };
+}
 #endif // CONSTANS_H

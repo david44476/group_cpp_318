@@ -1,20 +1,30 @@
+#include<iostream>
 #include"errmess.h"
 #include"myEmoji.h"
-#include<iostream>
 
-// функции вывода ошибок
-auto Errmess::Exeption(const wstr &xstr) -> void {
+// пространство имён функций вывода ошибок
+namespace Errmess {
+auto Exeption(const wstr &xstr) -> void {
     std::wcout << MyEmoji::error << L' ' << xstr << L'\n';
 }
 
-auto Errmess::Warning(const wstr &xstr) -> void {
+auto Warning(const wstr &xstr) -> void {
     std::wcout << MyEmoji::warning << L' ' << xstr << L'\n';
 }
 
-auto Errmess::Info(const wstr &xstr) -> void {
+auto Info(const wstr &xstr) -> void {
     std::wcout << MyEmoji::inform << L' ' << xstr << L'\n';
 }
 
-auto Errmess::Every(const wstr &xstr) -> void {
+auto Every(const wstr &xstr) -> void {
     std::wcout << MyEmoji::satFace << L' ' << xstr << L'\n';
+}
+
+auto Input(const wstr &xstr) -> void {
+    std::wcout << MyEmoji::listTasks << L' ' << xstr << L'\n';
+}
+
+auto Create(const wstr &xstr) -> void {
+    std::wcout << MyEmoji::realiz << L' ' << xstr << L'\n';
+}
 }

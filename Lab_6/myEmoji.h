@@ -20,7 +20,7 @@ constexpr wchar_t fingBott{L'\U0001F447'}; // палец указывает вн
 constexpr wchar_t plus{L'\U00002795'}; // плюс
 constexpr wchar_t glasses{L'\U0001F453'}; // очки
 constexpr wchar_t topic{L'\U0001F4D8'}; // тема
-constexpr wchar_t computer{L'\U0001F4BB'}; // компьютер
+constexpr wchar_t laptop{L'\U0001F4BB'}; // ноутбук
 constexpr wchar_t local{L'\U0001F520'}; // локаль
 constexpr wchar_t science{L'\U0001F52C'}; // наука
 constexpr wchar_t fingRight{L'\U0001F449'}; // палец в право
@@ -29,5 +29,7 @@ constexpr wchar_t brain{L'\U0001F9E0'}; // мозг
 constexpr wchar_t satFace{L'\U0001F913'}; // довольное лицо
 constexpr wchar_t queMark{L'\U00002753'}; // знак вопроса
 constexpr wchar_t cup{L'\U0001F3C6'}; // кубок
+constexpr wchar_t desktop{L'\U0001F5A5'}; // деспечер
+constexpr wchar_t disapFace{L'\U0001F61E'}; // грустное лицо
 }; // MyEmoji
 #endif // MYEMOJI_H

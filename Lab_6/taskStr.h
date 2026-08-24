@@ -3,30 +3,31 @@
 #include"constans.h"
 #include"myEmoji.h"
 
-// пространство имён строк заданий
+// пространство имён строк
 namespace TaskStr {
-const wstr seporStr{wstr(80, L'=')}; // разделитель '='
-const wstr seporEmoji{wstr(40, MyEmoji::fingBott)}; // эмодзи разделитель
+const wstr seporStr{wstr(80, L'=') + L'\n'}; // разделитель '='
+const wstr seporEmoji{wstr(40, MyEmoji::fingBott) + L'\n'}; // эмодзи разделитель палец в низ
+const wstr disapFace{wstr(40, MyEmoji::disapFace) + L'\n'}; // эмодзи разделитель грустное лицо
+const wstr satFace{wstr(40, MyEmoji::satFace) + L'\n'}; // эмодзи разделитель довольное лицо
 
 // сторока содержит информацию по лабораторной работе
-const wstr lab6{seporStr + L'\n'
-                + L'\t' + MyEmoji::computer + L" ЛАБОРАТОРНАЯ РАБОТА № 6 " + MyEmoji::computer + L'\n'
-                + seporEmoji + L'\n' + L'\v'
+const wstr lab6{seporStr
+                + L'\t' + MyEmoji::laptop + L" ЛАБОРАТОРНАЯ РАБОТА № 6 " + MyEmoji::laptop + L'\n'
+                + seporEmoji + L'\n'
                 + L"   " + MyEmoji::brain + L" Тема: “Исследование С++ классов в IDE Qt Creator”"
                 + L'\n' + L'\v'
                 + L"   " + MyEmoji::purpose + L" Цели работы:" + L'\n'
                 + L'\t' + L"1. Закрепить на практике представление о классах." + L'\n'
                 + L'\t' + L"2. Научиться инкапсулировать данные в классах языка С++." + L'\n' + L'\v'
                 + L"   " + MyEmoji::shadow + L" Разработчик: Давыдов Денис Владимирович." + L'\n' + L'\v'
-                + L"   " + MyEmoji::computer + L" OS: UNIX." + L'\n' + L'\v'
+                + L"   " + MyEmoji::desktop + L" OS: UNIX." + L'\n' + L'\v'
                 + L"   " + MyEmoji::local + L" locale (кодировка): UTF 8" + L'\n'
-                + seporStr + L'\n'};
+                + seporStr};
 
 // строка по заданию № 1
-const wstr strTask1{seporStr + L'\n'
+const wstr strTask1{seporStr
                     + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 1: КЛАСС Bruteforce " + MyEmoji::light + L'\n'
-                    + seporEmoji + L'\n'
-                    + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
+                    + seporEmoji + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
                     + L'\t' + L"- реализовать перебор пароля до гарантированного нахождения." + L'\n' + L'\v'
                     + L"   " + MyEmoji::listTasks + L" Ввод и ограничения:" + L'\n'
                     + L'\t' + L"- Пароль вводит пользователь." + L'\n'
@@ -38,9 +39,10 @@ const wstr strTask1{seporStr + L'\n'
                     + L'\t' + L"- Для разработки оптимально 2–3 символа.)" + L'\n'};
 
 // строка по заданию № 2
-const wstr strTask2{seporStr + L'\n'
-                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 2: ПРОВЕРКА НА ПАЛИНДРОМ "
-                    + MyEmoji::light + L'\n' + seporEmoji + L'\n'
+const wstr strTask2{seporStr + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 2: ПРОВЕРКА НА ПАЛИНДРОМ "
+                    + MyEmoji::light + L'\n' + seporEmoji
+                    + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
+                    + L'\t' + L"- реализовать проверку на палиндром." + L'\n'
                     + L'\n' + L"   " + MyEmoji::listTasks + L" Ввод:" + L'\n'
                     + L'\t' + L"- Числа или символы от пользователя." + L'\n'
                     + L'\t' + L"- Лимит: не более 17 символов." + L'\n' + L'\v'
@@ -54,30 +56,31 @@ const wstr strTask2{seporStr + L'\n'
                     + L'\t' + L"- При пустом вводе — ожидание строки.)" + L'\n'};
 
 // строка по заданию № 3
-const wstr strTask3{seporStr + L'\n'
+const wstr strTask3{seporStr
                     + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 3: СИСТЕМА «АВТОБАЗА» " + MyEmoji::light + L'\n'
-                    + seporEmoji + L'\n'
-                    + L'\n' + MyEmoji::shadow + L" Роли и функции:" + L'\n' + L'\v'
-                    + L"   " + MyEmoji::joystick + L" Диспетчер:" + L'\n'
-                    + L'\t' + L"- распределяет заявки на рейсы между водителями;" + L'\n'
-                    + L'\t' + L"- назначает автомобиль под рейс;" + L'\n'
-                    + L'\t' + L"- может отстранить водителя от работы." + L'\n' + L'\v'
-                    + L"   " + MyEmoji::car + L" Водитель:" + L'\n'
-                    + L'\t' + L"- подаёт заявку на ремонт автомобиля;" + L'\n'
-                    + L'\t' + L"- отмечает выполнение рейса;" + L'\n'
-                    + L'\t' + L"- фиксирует текущее состояние автомобиля." + L'\n' + L'\v'
-                    + L"   " + MyEmoji::chain + L" Требование:" + L'\n'
-                    + L'\t' + L"- реализовать взаимодействие между классами:" + L'\n'
-                    + L'\t' + L'\t' + L"* диспетчер управляет объектами (водителями и автомобилями);" + L'\n'
-                    + L'\t' + L'\t' + L"* водитель сообщает диспетчеру о событиях." + L'\n'};
+                    + seporEmoji + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
+                    + L'\t' + L"- реализовать систему \"АВТОБАЗА\"." + L'\n'
+                    + L'\n' + L'\t' + MyEmoji::shadow + L" Роли и функции:" + L'\n' + L'\v'
+                    + L'\t' + L"   " + MyEmoji::laptop + L" Диспетчер:" + L'\n'
+                    + L'\t' + L'\t' + L"- распределяет заявки на рейсы между водителями;" + L'\n'
+                    + L'\t' + L'\t' + L"- назначает автомобиль под рейс;" + L'\n'
+                    + L'\t' + L'\t' + L"- может отстранить водителя от работы." + L'\n' + L'\v'
+                    + L'\t' + L"   " + MyEmoji::joystick + L" Водитель:" + L'\n'
+                    + L'\t' + L'\t' + L"- подаёт заявку на ремонт автомобиля;" + L'\n'
+                    + L'\t' + L'\t' + L"- отмечает выполнение рейса;" + L'\n'
+                    + L'\t' + L'\t' + L"- фиксирует текущее состояние автомобиля." + L'\n' + L'\v'
+                    + L'\t' + MyEmoji::chain + L" Требование:" + L'\n' + L'\v'
+                    + L'\t' + L"   " +  MyEmoji::realiz + L" реализовать взаимодействие между классами:" + L'\n'
+                    + L'\t' + L'\t' + L"- диспетчер управляет объектами (водителями и автомобилями);" + L'\n'
+                    + L'\t' + L'\t' + L"- водитель сообщает диспетчеру о событиях." + L'\n'};
 
 // строка по заданию № 4
-const wstr strTask4{seporStr + L'\n'
+const wstr strTask4{seporStr
                     + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 4: КЛАСС ДЛЯ КОМПЛЕКСНЫХ ЧИСЕЛ "
-                    + MyEmoji::light + L'\n' + seporEmoji + L'\n'
+                    + MyEmoji::light + L'\n' + seporEmoji
                     + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
-                    + L'\t' + L"- реализовать класс для работы с комплексными числами." + L'\n' + L'\v'
-                    + L"   " + MyEmoji::realiz + L" Основные операции:" + L'\n'
+                    + L'\t' + L"- реализовать класс для работы с комплексными числами." + L'\n'
+                    + L'\n' + L"   " + MyEmoji::realiz + L" Основные операции:" + L'\n'
                     + L'\t' + L"- сложение, вычитание;" + L'\n'
                     + L'\t' + L"- умножение, деление;" + L'\n'
                     + L'\t' + L"- сопряжение;" + L'\n'
@@ -89,12 +92,14 @@ const wstr strTask4{seporStr + L'\n'
                     + L'\t' + L'\t' + L"* экспоненциальная." + L'\n'};
 
 // строка по заданию № 5
-const wstr strTask5{seporStr + L'\n'
+const wstr strTask5{seporStr
                     + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 5: ПРОВЕРКА ПРОХОЖДЕНИЯ КИРПИЧА В ОТВЕРСТИЕ "
-                    + MyEmoji::light + L'\n' + seporEmoji + L'\n'
+                    + MyEmoji::light + L'\n' + seporEmoji
+                    + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
+                    + L'\t' + L"- реализовать проверку прохождения кирпича в отверстие." + L'\n'
                     + L'\n' + L"   " + MyEmoji::listTasks + L" Ввод:" + L'\n'
-                    + L'\t' + L"- Размеры 3D‑отверстия (h, l, w) от пользователя, в мм." + L'\n' + L'\v'
-                    + L"   " + MyEmoji::realiz + L" Реализация:" + L'\n'
+                    + L'\t' + L"- Размеры 3D‑отверстия (h, l, w) от пользователя, в мм." + L'\n'
+                    + L'\n' + L"   " + MyEmoji::realiz + L" Реализация:" + L'\n'
                     + L'\t' + L"- Класс «Кирпич»." + L'\n'
                     + L'\t' + L"- Класс «Модель3д»." + L'\n'
                     + L'\t' + L"- Сравнение через дружественную функцию." + L'\n' + L'\v'
@@ -103,15 +108,10 @@ const wstr strTask5{seporStr + L'\n'
                     + L'\t' + L"- 3D‑проекция введённого отверстия." + L'\n' + L'\v'
                     + L"   " + MyEmoji::cup + L" Результат:" + L'\n'
                     + L'\t' + L"- Ответ: проходит кирпич или нет (зазором пренебречь)." + L'\n'
-                    + seporStr + L'\n'};
+                    + seporStr};
 
 // Собираем сообщение в отдельную строку — так проще и безопаснее
 const wstr msg{L"Введите число от " + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_2)) + L" до "
- + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_Max)) + L": "};
-
-// Собираем сообщение в отдельную строку — так проще и безопаснее
-const wstr passMsg{L"Введите пароль от " + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_3)) + L" до "
-+ std::to_wstring(static_cast<ushort>(ProgrEnum::Task_5)) + L" символов."};
-
+               + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_Max)) + L": "};
 };
 #endif // TASKSTR_H

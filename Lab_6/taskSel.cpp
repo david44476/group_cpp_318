@@ -7,8 +7,8 @@
 #include"checkInput.h"
 
 // функция выбора задания
-auto TaskSel() -> const ProgrEnum {
-    std::wcout << std::setw(9) << MyEmoji::brain << L" ЗАДАНИЕ К ЛАБОРАТОРНОЙ РАБОТЕ № 6 "
+auto TaskSel(PtrChec xPtrChec) -> ProgrEnum {
+    std::wcout << std::setw(9) << MyEmoji::brain << L" ЗАДАНИЯ К ЛАБОРАТОРНОЙ РАБОТЕ № 6 "
                << MyEmoji::brain << '\n';
     std::wcout << TaskStr::strTask1; // вывод задания № 1
     std::wcout << TaskStr::strTask2; // вывод задания № 2
@@ -19,34 +19,30 @@ auto TaskSel() -> const ProgrEnum {
                << MyEmoji::fingLeft << '\n';
 
     ushort choice; // переменная выбора задания
-    while (true){
+
+    // цикл проверки ввода
+    do {
         Errmess::Info(TaskStr::msg); // выводим условия ввода
-        if (PtrUshor(choice, static_cast<ushort>(ProgrEnum::Task_2), // проверяем ввод
-                       static_cast<ushort>(ProgrEnum::Task_Max), L"Данного задания не предусмотренно!!!")) {
-            break;
-        }
-    }
+        std::wcout << MyEmoji::fingRight << L' '; // приглашение к вводу
+    } while (xPtrChec(choice, static_cast<ushort>(ProgrEnum::Task_2),
+                      static_cast<ushort>(ProgrEnum::Task_Max),
+                      L"Данного задания не предусмотренно!!!", PtrNumStr) != Ret::Ok);
     switch (choice) {
     case 1: {
         return ProgrEnum::Task_1;
-        break;
     }
     case 2: {
         return ProgrEnum::Task_2;
-        break;
     }
     case 3: {
         return ProgrEnum::Task_3;
-        break;
     }
     case 4: {
         return ProgrEnum::Task_4;
-        break;
     }
     case 5: {
         return ProgrEnum::Task_5;
-        break;
     }
+    default: return ProgrEnum::Task_Max;
     }
-    return ProgrEnum::Task_Max;
 } // TaskSel функция выбора задания

@@ -31,7 +31,7 @@ int main() {
 
     do {
         // выбор задания через указатель на функцию
-        const ProgrEnum progrEnum{PtrTaskSel()};
+        const ProgrEnum progrEnum{TaskSel()};
 
         // задание № 1
         if (progrEnum == ProgrEnum::Task_1) {
@@ -68,7 +68,7 @@ int main() {
                           + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_Max)) + L" отсутствует!!!");
         }
         else Errmess::Warning(L"Задания закончились!!!\n");
-        std::wcout << TaskStr::seporStr + L'\n';
+        std::wcout << TaskStr::seporStr;
         std::wcout << MyEmoji::queMark << L" Хотите продолжить демонстрацию лабораторной работы?" << '\n';
     } while (PtrExit());
     return 0;
