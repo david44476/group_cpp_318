@@ -27,7 +27,8 @@ enum RetFunc: short {
     EmptyLine = -3, // пустая строка
     Overflow = -4, // переполнено
     OutRange = -5, // вне диапазона
-    NotFound = -6 // Не найден
+    NotFound = -6, // не найден
+    NullPointer = -7 // нулевой указатель
 };
 }
 #endif // CONSTANS_H

@@ -1,10 +1,10 @@
 #include<iostream>
 #include<vector>
-#include"C_Bruteforce.h"
-#include"checkInput.h"
-#include"errmess.h"
-#include"myEmoji.h"
-#include"taskStr.h"
+#include"C_Bruteforce.h" // содержит обьявление класса Bruteforce
+#include"checkInput.h" // содержит деклорации функций и указатели на них
+#include"errmess.h" // содержит сообщения о действиях
+#include"myEmoji.h" // содержит эмодзи
+#include"taskStr.h" // содержит строки вывода информации по заданиям
 
 // конструктор по умолчанию
 Bruteforce::Bruteforce(): m_alphaBet{nullptr}, m_combTried{nullptr} {
@@ -122,7 +122,7 @@ Bruteforce::~Bruteforce() {
 auto Bruteforce::SetAlpha(const wstr &xalphaBet) -> short {
     if (xalphaBet.empty()) {
         Errmess::Warning(L"Строка симловов для перебора комбинаций пароля пустая!!!");
-        return Ret::RetFunc::EmptyLine;
+        return Ret::EmptyLine;
     }
 
     if (!m_alphaBet) { // если указатель null
@@ -131,38 +131,40 @@ auto Bruteforce::SetAlpha(const wstr &xalphaBet) -> short {
         // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
         if (!m_alphaBet) {
             Errmess::Exeption(L"Память для строки символов \"m_alphaBet\" не выделена!!!");
-            return Ret::RetFunc::ErrMemory;
+            return Ret::ErrMemory;
         }
     }
     *m_alphaBet = xalphaBet; // присваеваем значение
-    return Ret::RetFunc::Ok;
+    return Ret::Ok;
 } // Bruteforce::SetAlphaBet
 
 // метод класса перебора комбинаций пароля
 auto Bruteforce::CharSearch(const wstr &xpass, const ushort &xmaxLen) -> short {
 
     // Проверка инициализацию алфавита
-    if (!m_alphaBet || m_alphaBet->empty()) {
-        Errmess::Exeption(L"Строка символов для перебора пароля пустая!!!");
-        return Ret::RetFunc::EmptyLine;
+    if (!m_alphaBet) {
+        Errmess::Exeption(L"Указатель на строку символов для перебора пароля null!!!");
+        return Ret::NullPointer;
     }
     if (xpass.empty()) {
         Errmess::Warning(L"Строка пароля не должна быть пустой!!!");
-        return Ret::RetFunc::EmptyLine;
+        return Ret::EmptyLine;
     } else if (xpass.length() > xmaxLen) {
         Errmess::Exeption(L"Длина пароля превышает допустимое значение " + std::to_wstring(xmaxLen)
                           + L" символов!!!");
-        return Ret::RetFunc::Overflow;
+        return Ret::Overflow;
     }
     if (m_alphaBet->empty() || xmaxLen == 0) {
         Errmess::Exeption(L"Строка символов для перебора пароля пустая!!!");
-        return Ret::RetFunc::EmptyLine;
+        return Ret::EmptyLine;
     }
     ushort len{static_cast<ushort>(xpass.length())};
     std::vector<size_t> ind(len, 0); // индексы символов
     size_t n{m_alphaBet->size()};
-
-    ResCombTri(); // обнуляем счётчик комбинаций перебора через приватный метод класса
+    if (!m_combTried) { // проверяем указатель счётчика на null
+        Errmess::Exeption(L"Указатель на счётчик null!!!");
+        return Ret::NullPointer;
+    } else ResCombTri(); // обнуляем счётчик комбинаций перебора через приватный метод класса
 
     // собираем текущую комбинацию
     while (true) {
@@ -176,7 +178,7 @@ auto Bruteforce::CharSearch(const wstr &xpass, const ushort &xmaxLen) -> short {
 
         // проверяем совпадение
         if (candidate == xpass) {
-            return Ret::RetFunc::Ok;
+            return Ret::Ok;
         }
 
         // переходим к следующей комбинации
@@ -194,7 +196,7 @@ auto Bruteforce::CharSearch(const wstr &xpass, const ushort &xmaxLen) -> short {
 
         // если вышли за начало - все комбинации перебраны
         if (pos < 0) {
-            return Ret::RetFunc::NotFound; // пароль не найден
+            return Ret::NotFound; // пароль не найден
         }
     }
 } // Bruteforce::CharSearch

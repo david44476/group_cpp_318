@@ -1,10 +1,10 @@
 #include<iostream>
 #include<iomanip>
-#include"constans.h"
-#include"errmess.h"
-#include"myEmoji.h"
-#include"taskStr.h"
-#include"checkInput.h"
+#include"constans.h" // содержит константы
+#include"errmess.h" // содержит сообщения о действиях
+#include"myEmoji.h" // содержит эмодзи
+#include"taskStr.h" // содержит строки вывода информации по заданиям
+#include"checkInput.h" // содержит деклорации функций и указатели на них
 
 // функция выбора задания
 auto TaskSel(PtrChec xPtrChec) -> ProgrEnum {

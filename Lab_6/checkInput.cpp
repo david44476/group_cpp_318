@@ -1,10 +1,10 @@
 #include<iostream>
 #include<limits>
-#include"constans.h"
-#include"errmess.h"
-#include"myEmoji.h"
-#include"taskStr.h"
-#include"checkInput.h"
+#include"constans.h" // содержит константы
+#include"errmess.h" // содержит сообщения о действиях
+#include"myEmoji.h" // содержит эмодзи
+#include"taskStr.h" // содержит строки вывода информации по заданиям
+#include"checkInput.h" // содержит деклорации функций и указатели на них
 
 // функция обработки ввода для std::wstring с диапазонами проверки
 auto CheckInput(wstr &xvalue, const ushort &xmin, const ushort &xmax, const wstr &xstr) -> bool {
@@ -109,8 +109,7 @@ auto CheckInput(ushort &xvalue, const ushort &xmin, const ushort &xmax,
             Errmess::Warning(L"Нельзя вводить нулевые и отрицательные значения!!!");
             return Ret::OutRange;
         }
-        xvalue = static_cast<ushort>(tmp);
-        if (xvalue < xmin || xvalue > xmax) {
+        if (tmp < xmin || tmp > xmax) {
             std::wcout << TaskStr::seporStr; // вывод разделителя =
             Errmess::Warning(xstr);
             return Ret::OutRange;

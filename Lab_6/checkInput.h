@@ -1,7 +1,7 @@
 #ifndef CHECKINPUT_H
 #define CHECKINPUT_H
 
-#include"errmess.h"
+#include"errmess.h" // содержит сообщения о действиях
 
 // деклорация функций***************************************************************************
 short StrNum(const wstr &xstr); // функция преобразования строки в число

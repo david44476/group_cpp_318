@@ -1,6 +1,6 @@
 #ifndef ERRMESS_H
 #define ERRMESS_H
-#include"constans.h"
+#include"constans.h" // содержит константы
 
 // пространство имён функций вывода ошибок
 namespace Errmess {

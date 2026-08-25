@@ -1,7 +1,7 @@
 #ifndef TASKSTR_H
 #define TASKSTR_H
-#include"constans.h"
-#include"myEmoji.h"
+#include"constans.h" // содержит константы
+#include"myEmoji.h" // содержит эмодзи
 
 // пространство имён строк
 namespace TaskStr {
@@ -26,7 +26,7 @@ const wstr lab6{seporStr
 
 // строка по заданию № 1
 const wstr strTask1{seporStr
-                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 1: КЛАСС Bruteforce " + MyEmoji::light + L'\n'
+                    + L'\t' + L' '+ MyEmoji::light + L" ЗАДАНИЕ № 1: КЛАСС Bruteforce " + MyEmoji::light + L'\n'
                     + seporEmoji + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
                     + L'\t' + L"- реализовать перебор пароля до гарантированного нахождения." + L'\n' + L'\v'
                     + L"   " + MyEmoji::listTasks + L" Ввод и ограничения:" + L'\n'
@@ -39,7 +39,7 @@ const wstr strTask1{seporStr
                     + L'\t' + L"- Для разработки оптимально 2–3 символа.)" + L'\n'};
 
 // строка по заданию № 2
-const wstr strTask2{seporStr + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 2: ПРОВЕРКА НА ПАЛИНДРОМ "
+const wstr strTask2{seporStr + L'\t' + L' ' + MyEmoji::light + L" ЗАДАНИЕ № 2: ПРОВЕРКА НА ПАЛИНДРОМ "
                     + MyEmoji::light + L'\n' + seporEmoji
                     + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
                     + L'\t' + L"- реализовать проверку на палиндром." + L'\n'
@@ -57,7 +57,7 @@ const wstr strTask2{seporStr + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 2:
 
 // строка по заданию № 3
 const wstr strTask3{seporStr
-                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 3: СИСТЕМА «АВТОБАЗА» " + MyEmoji::light + L'\n'
+                    + L'\t' + L' ' + MyEmoji::light + L" ЗАДАНИЕ № 3: СИСТЕМА «АВТОБАЗА» " + MyEmoji::light + L'\n'
                     + seporEmoji + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
                     + L'\t' + L"- реализовать систему \"АВТОБАЗА\"." + L'\n'
                     + L'\n' + L'\t' + MyEmoji::shadow + L" Роли и функции:" + L'\n' + L'\v'
@@ -76,7 +76,7 @@ const wstr strTask3{seporStr
 
 // строка по заданию № 4
 const wstr strTask4{seporStr
-                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 4: КЛАСС ДЛЯ КОМПЛЕКСНЫХ ЧИСЕЛ "
+                    + L'\t' + L' ' + MyEmoji::light + L" ЗАДАНИЕ № 4: КЛАСС ДЛЯ КОМПЛЕКСНЫХ ЧИСЕЛ "
                     + MyEmoji::light + L'\n' + seporEmoji
                     + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
                     + L'\t' + L"- реализовать класс для работы с комплексными числами." + L'\n'
@@ -93,7 +93,7 @@ const wstr strTask4{seporStr
 
 // строка по заданию № 5
 const wstr strTask5{seporStr
-                    + L'\t' + MyEmoji::light + L" ЗАДАНИЕ № 5: ПРОВЕРКА ПРОХОЖДЕНИЯ КИРПИЧА В ОТВЕРСТИЕ "
+                    + L'\t' + L' ' + MyEmoji::light + L" ЗАДАНИЕ № 5: ПРОВЕРКА ПРОХОЖДЕНИЯ КИРПИЧА В ОТВЕРСТИЕ "
                     + MyEmoji::light + L'\n' + seporEmoji
                     + L'\n' + L"   " + MyEmoji::purpose + L" Цель:" + L'\n'
                     + L'\t' + L"- реализовать проверку прохождения кирпича в отверстие." + L'\n'

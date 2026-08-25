@@ -19,6 +19,9 @@ add_executable(Lab_6 main.cpp
     checkInput.h
     checkInput.cpp
     exit.cpp
+    C_Palindrome.h
+    C_Palindrome.cpp
+    palindrome.cpp
 
 )
 

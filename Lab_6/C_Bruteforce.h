@@ -1,6 +1,7 @@
 #ifndef C_BRUTEFORCE_H
 #define C_BRUTEFORCE_H
-#include"constans.h"
+
+#include"constans.h" // содержит константы
 
 // обьявляем класс Bruteforce
 class Bruteforce {
@@ -44,8 +45,8 @@ public:
     // метод класса выводит информацию о переборе
     void PrintAlpha(const wstr &xpass);
 
-    // шаблонная функция выделенния памяти
-    template<typename T>
-    friend T MemAlloc(T *xobject, const wstr &);
+    // // шаблонная функция выделенния памяти
+    // template<typename T>
+    // friend T MemAlloc(T *xobject, const wstr &);
 };
 #endif // C_BRUTEFORCE_H
