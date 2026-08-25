@@ -16,7 +16,7 @@
 
 #include<iostream>
 #include"constans.h" // содержит константы
-#include"errmess.h" // содержит функции вывода ошибок
+#include"messout.h" // содержит функции вывода ошибок
 #include"taskStr.h" // содержит строки с информацией по заданиям
 #include"myEmoji.h" // содержит эмодзи
 #include"checkInput.h" // содержит деклорации функций
@@ -43,31 +43,31 @@ int main() {
         // задание № 2
         else if (progrEnum == ProgrEnum::Task_2) {
             PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
-            Errmess::Info(L"На данный момент реализация задания № "
+            MessOut::Info(L"На данный момент реализация задания № "
                           + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_3)) + L" отсутствует!!!");
         }
 
         // задание № 3
         else if (progrEnum == ProgrEnum::Task_3) {
             PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
-            Errmess::Info(L"На данный момент реализация задания № "
+            MessOut::Info(L"На данный момент реализация задания № "
                           + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_4)) + L" отсутствует!!!");
         }
 
         // задание № 4
         else if (progrEnum == ProgrEnum::Task_4) {
             PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
-            Errmess::Info(L"На данный момент реализация задания № "
+            MessOut::Info(L"На данный момент реализация задания № "
                           + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_5)) + L" отсутствует!!!");
         }
 
         // задание № 5
         else if (progrEnum == ProgrEnum::Task_5) {
             PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
-            Errmess::Info(L"На данный момент реализация задания № "
+            MessOut::Info(L"На данный момент реализация задания № "
                           + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_Max)) + L" отсутствует!!!");
         }
-        else Errmess::Warning(L"Задания закончились!!!\n");
+        else MessOut::Warning(L"Задания закончились!!!\n");
         std::wcout << TaskStr::seporStr;
         std::wcout << MyEmoji::queMark << L" Хотите продолжить демонстрацию лабораторной работы?" << '\n';
     } while (PtrExit());

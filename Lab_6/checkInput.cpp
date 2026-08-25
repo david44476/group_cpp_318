@@ -1,7 +1,7 @@
 #include<iostream>
 #include<limits>
 #include"constans.h" // содержит константы
-#include"errmess.h" // содержит сообщения о действиях
+#include"messout.h" // содержит сообщения о действиях
 #include"myEmoji.h" // содержит эмодзи
 #include"taskStr.h" // содержит строки вывода информации по заданиям
 #include"checkInput.h" // содержит деклорации функций и указатели на них
@@ -11,11 +11,11 @@ auto CheckInput(wstr &xvalue, const ushort &xmin, const ushort &xmax, const wstr
     while (true) {
         if (!std::getline(std::wcin, xvalue)) {
             std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Warning(L"Ошибка чтения ввода!");
+            MessOut::Warning(L"Ошибка чтения ввода!");
             return Ret::ErrData;
         } else if (xvalue.empty()) { // проверяем не пустая ли строка пароля
             std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Warning(L"Парол не должен быть пустой!!!");
+            MessOut::Warning(L"Парол не должен быть пустой!!!");
             return Ret::EmptyLine;
         }
         bool flag{false};
@@ -27,12 +27,12 @@ auto CheckInput(wstr &xvalue, const ushort &xmin, const ushort &xmax, const wstr
         }
         if (flag) {
             std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Warning(L"Пароль не должен содержать пробелов, символов табуляции!!!");
+            MessOut::Warning(L"Пароль не должен содержать пробелов, символов табуляции!!!");
             return Ret::OutRange;
         }
         if (xvalue.length() < xmin || xvalue.length() > xmax) {
             std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Exeption(xstr);
+            MessOut::Exeption(xstr);
             return Ret::OutRange;
         }
         return Ret::Ok;
@@ -44,11 +44,11 @@ auto CheckInput(wstr &xvalue) -> short {
     while (true) {
         if (!std::getline(std::wcin, xvalue)) {
             std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Warning(L"Ошибка чтения ввода!");
+            MessOut::Warning(L"Ошибка чтения ввода!");
             return Ret::ErrData;
         } else if (xvalue.empty()) {
             std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Warning(L"Строка не должна быть пустой!!!");
+            MessOut::Warning(L"Строка не должна быть пустой!!!");
             return Ret::EmptyLine;
         }
         bool flag{false};
@@ -60,7 +60,7 @@ auto CheckInput(wstr &xvalue) -> short {
         }
         if (flag) {
             std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Warning(L"Строка символов не должна содержать пробелов, символов табуляции!!!");
+            MessOut::Warning(L"Строка символов не должна содержать пробелов, символов табуляции!!!");
             return Ret::OutRange;
         }
         return Ret::Ok;
@@ -93,25 +93,26 @@ auto CheckInput(ushort &xvalue, const ushort &xmin, const ushort &xmax,
         wstr bufStr;
         if (!(std::getline(std::wcin, bufStr)) || bufStr.empty()) {
             std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Warning(L"Ошибка ввода!!!");
+            MessOut::Warning(L"Ошибка ввода!!!");
             return Ret::ErrData;
         }
         for (auto i: bufStr) {
             if (std::iswalpha(i) || std::iswspace(i)) {
                 std::wcout << TaskStr::seporStr; // вывод разделителя =
-                Errmess::Warning(L"Вы ввели не число!!!");
+                MessOut::Warning(L"Вы ввели не число!!!");
                 return Ret::OutRange;
             }
         }
         short tmp = fPtrStr(bufStr); // знаковый тип чтобы поймать минус
         if (tmp  <= 0) {
             std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Warning(L"Нельзя вводить нулевые и отрицательные значения!!!");
+            MessOut::Warning(L"Нельзя вводить нулевые и отрицательные значения!!!");
             return Ret::OutRange;
         }
-        if (tmp < xmin || tmp > xmax) {
+        xvalue = static_cast<ushort>(tmp);
+        if (xvalue< xmin || xvalue > xmax) {
             std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Warning(xstr);
+            MessOut::Warning(xstr);
             return Ret::OutRange;
         }
         return Ret::Ok;
@@ -124,7 +125,7 @@ auto CheckInput() -> bool {
     while (true) {
         std::wcout << MyEmoji::fingRight << L' ';
         if (!(std::wcin >> xchoice) || !(iswalpha(xchoice))) {
-            Errmess::Warning(L"Вы ввели не символ!!! Ведите \"Д\" или \"Н\"");
+            MessOut::Warning(L"Вы ввели не символ!!! Ведите \"Д\" или \"Н\"");
             std::wcin.clear();
             std::wcin.ignore(std::numeric_limits<std::streamsize>::max(), L'\n');
             continue;
@@ -133,7 +134,7 @@ auto CheckInput() -> bool {
         // переводим символ в верхний регист
         xchoice = std::towupper(xchoice);
         if (xchoice != L'Н' && xchoice != L'Д') {
-            Errmess::Exeption(L"Неверный ввод. Введите \"Д\" или \"Н\".");
+            MessOut::Exeption(L"Неверный ввод. Введите \"Д\" или \"Н\".");
         } else {
             PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
             break;

@@ -1,7 +1,7 @@
 #ifndef CHECKINPUT_H
 #define CHECKINPUT_H
 
-#include"errmess.h" // содержит сообщения о действиях
+#include"messout.h" // содержит сообщения о действиях
 
 // деклорация функций***************************************************************************
 short StrNum(const wstr &xstr); // функция преобразования строки в число
@@ -42,7 +42,7 @@ auto MemAlloc(T* &xobject, const wstr &xstr) -> short {
 
         // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
         if (!xobject) {
-        Errmess::Exeption(L"Для объекта: " + xstr + L" память не выделена!!!");
+        MessOut::Exeption(L"Для объекта: " + xstr + L" память не выделена!!!");
             return Ret::ErrMemory;
     }
         return Ret::Ok;

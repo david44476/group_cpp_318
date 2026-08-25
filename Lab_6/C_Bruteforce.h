@@ -44,9 +44,5 @@ public:
 
     // метод класса выводит информацию о переборе
     void PrintAlpha(const wstr &xpass);
-
-    // // шаблонная функция выделенния памяти
-    // template<typename T>
-    // friend T MemAlloc(T *xobject, const wstr &);
 };
 #endif // C_BRUTEFORCE_H

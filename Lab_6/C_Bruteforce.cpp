@@ -2,14 +2,13 @@
 #include<vector>
 #include"C_Bruteforce.h" // содержит обьявление класса Bruteforce
 #include"checkInput.h" // содержит деклорации функций и указатели на них
-#include"errmess.h" // содержит сообщения о действиях
+#include"messout.h" // содержит сообщения о действиях
 #include"myEmoji.h" // содержит эмодзи
 #include"taskStr.h" // содержит строки вывода информации по заданиям
 
 // конструктор по умолчанию
 Bruteforce::Bruteforce(): m_alphaBet{nullptr}, m_combTried{nullptr} {
-    std::wcout << TaskStr::seporStr; // вывод разделителя =
-    Errmess::Every(L"Конструктор по умолчанию вызвался!!!");
+    MessOut::Every(L"Конструктор по умолчанию вызвался!!!");
 
     // проверяем выделение памяти для набора символов
     if (MemAlloc(m_alphaBet, L"строка символов") == Ret::Ok) {
@@ -27,10 +26,9 @@ Bruteforce::Bruteforce(): m_alphaBet{nullptr}, m_combTried{nullptr} {
 
 // конструктор с параметрами
 Bruteforce::Bruteforce(const wstr &xalphaBet): m_alphaBet{nullptr}, m_combTried{nullptr} {
-    std::wcout << TaskStr::seporStr; // вывод разделителя =
-    Errmess::Every(L"Конструктор с параметрами вызвался!!!");
+    MessOut::Every(L"Конструктор с параметрами вызвался!!!");
     if (xalphaBet.empty()) {
-        Errmess::Warning(L"Строка симловов для перебора комбинаций пароля пустая!!!");
+        MessOut::Warning(L"Строка симловов для перебора комбинаций пароля пустая!!!");
         return;
     } else {
 
@@ -51,8 +49,7 @@ Bruteforce::Bruteforce(const wstr &xalphaBet): m_alphaBet{nullptr}, m_combTried{
 
 // конструктор копирования
 Bruteforce::Bruteforce(const Bruteforce &xbrutForc): m_alphaBet{nullptr}, m_combTried{nullptr} {
-    std::wcout << TaskStr::seporStr; // вывод разделителя =
-    Errmess::Every(L"Конструктор копирования  вызвался!!!");
+    MessOut::Every(L"Конструктор копирования  вызвался!!!");
 
     // проверяем выделение памяти для набора символов
     if (MemAlloc(m_alphaBet, L"строка символов") == Ret::Ok) {
@@ -73,8 +70,7 @@ Bruteforce::Bruteforce(const Bruteforce &xbrutForc): m_alphaBet{nullptr}, m_comb
 
 // оператор присваивания (глубокое копирование)
 Bruteforce& Bruteforce::operator =(const Bruteforce &xbrutForc) {
-    std::wcout << TaskStr::seporStr; // вывод разделителя =
-    Errmess::Every(L"Оператор присваивания отработал!!!");
+    MessOut::Every(L"Оператор присваивания отработал!!!");
     if (this == &xbrutForc) return *this;
 
     // готовим новый адрес для строки символов
@@ -109,7 +105,7 @@ Bruteforce& Bruteforce::operator =(const Bruteforce &xbrutForc) {
 
 // деструктор
 Bruteforce::~Bruteforce() {
-    Errmess::Every(L"Деструктор вызвался!!!");
+    MessOut::Every(L"Деструктор вызвался!!!");
     if (m_alphaBet) {
         DelMem(m_alphaBet); // освобождаем память строки символов
     }
@@ -121,7 +117,7 @@ Bruteforce::~Bruteforce() {
 // метод класса устанавливает значение поля класса m_alphaBet
 auto Bruteforce::SetAlpha(const wstr &xalphaBet) -> short {
     if (xalphaBet.empty()) {
-        Errmess::Warning(L"Строка симловов для перебора комбинаций пароля пустая!!!");
+        MessOut::Warning(L"Строка симловов для перебора комбинаций пароля пустая!!!");
         return Ret::EmptyLine;
     }
 
@@ -130,7 +126,7 @@ auto Bruteforce::SetAlpha(const wstr &xalphaBet) -> short {
 
         // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
         if (!m_alphaBet) {
-            Errmess::Exeption(L"Память для строки символов \"m_alphaBet\" не выделена!!!");
+            MessOut::Exeption(L"Память для строки символов \"m_alphaBet\" не выделена!!!");
             return Ret::ErrMemory;
         }
     }
@@ -143,26 +139,26 @@ auto Bruteforce::CharSearch(const wstr &xpass, const ushort &xmaxLen) -> short {
 
     // Проверка инициализацию алфавита
     if (!m_alphaBet) {
-        Errmess::Exeption(L"Указатель на строку символов для перебора пароля null!!!");
+        MessOut::Exeption(L"Указатель на строку символов для перебора пароля null!!!");
         return Ret::NullPointer;
     }
     if (xpass.empty()) {
-        Errmess::Warning(L"Строка пароля не должна быть пустой!!!");
+        MessOut::Warning(L"Строка пароля не должна быть пустой!!!");
         return Ret::EmptyLine;
     } else if (xpass.length() > xmaxLen) {
-        Errmess::Exeption(L"Длина пароля превышает допустимое значение " + std::to_wstring(xmaxLen)
+        MessOut::Exeption(L"Длина пароля превышает допустимое значение " + std::to_wstring(xmaxLen)
                           + L" символов!!!");
         return Ret::Overflow;
     }
     if (m_alphaBet->empty() || xmaxLen == 0) {
-        Errmess::Exeption(L"Строка символов для перебора пароля пустая!!!");
+        MessOut::Exeption(L"Строка символов для перебора пароля пустая!!!");
         return Ret::EmptyLine;
     }
     ushort len{static_cast<ushort>(xpass.length())};
     std::vector<size_t> ind(len, 0); // индексы символов
     size_t n{m_alphaBet->size()};
     if (!m_combTried) { // проверяем указатель счётчика на null
-        Errmess::Exeption(L"Указатель на счётчик null!!!");
+        MessOut::Exeption(L"Указатель на счётчик null!!!");
         return Ret::NullPointer;
     } else ResCombTri(); // обнуляем счётчик комбинаций перебора через приватный метод класса
 
@@ -204,14 +200,14 @@ auto Bruteforce::CharSearch(const wstr &xpass, const ushort &xmaxLen) -> short {
 // метод класса выводит информацию о переборе
 auto Bruteforce::PrintAlpha(const wstr &xpass) -> void {
     if (!m_alphaBet) {
-        Errmess::Exeption(L"Строка символов null!!!");
+        MessOut::Exeption(L"Строка символов null!!!");
         return;
     }
     if (!m_combTried) {
-        Errmess::Exeption(L"Счётчик null!!!");
+        MessOut::Exeption(L"Счётчик null!!!");
         return;
     }
-    Errmess::Every(L"Ваш пароль: " + xpass + L" принят!!!" );
-    Errmess::Info(L"Строка символов для перебора пароля: " + *m_alphaBet + L'\n' + MyEmoji::realiz
+    MessOut::Every(L"Ваш пароль: " + xpass + L" принят!!!" );
+    MessOut::Info(L"Строка символов для перебора пароля: " + *m_alphaBet + L'\n' + MyEmoji::realiz
                   + L"  Потребовалось перебрать " + std::to_wstring(*m_combTried) + L" комбинпций!!!");
 } // Bruteforce::PrintAlpBet

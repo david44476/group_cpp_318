@@ -1,7 +1,7 @@
 #include<iostream>
 #include<iomanip>
 #include"constans.h" // содержит константы
-#include"errmess.h" // содержит сообщения о действиях
+#include"messout.h" // содержит сообщения о действиях
 #include"myEmoji.h" // содержит эмодзи
 #include"taskStr.h" // содержит строки вывода информации по заданиям
 #include"checkInput.h" // содержит деклорации функций и указатели на них
@@ -18,11 +18,11 @@ auto TaskSel(PtrChec xPtrChec) -> ProgrEnum {
     std::wcout << std::setw(9) << MyEmoji::fingRight << L" ВЫБЕРИТЕ ЗАДАНИЕ ДЛЯ ДЕМОНСТРАЦИИ "
                << MyEmoji::fingLeft << '\n';
 
-    ushort choice; // переменная выбора задания
+    ushort choice{0}; // переменная выбора задания
 
     // цикл проверки ввода
     do {
-        Errmess::Info(TaskStr::msg); // выводим условия ввода
+        MessOut::Info(TaskStr::msg); // выводим условия ввода
         std::wcout << MyEmoji::fingRight << L' '; // приглашение к вводу
     } while (xPtrChec(choice, static_cast<ushort>(ProgrEnum::Task_2),
                       static_cast<ushort>(ProgrEnum::Task_Max),

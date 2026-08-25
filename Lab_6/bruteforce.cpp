@@ -1,6 +1,6 @@
 #include<iostream>
 #include"C_Bruteforce.h" // содержит обьявление класса Bruteforce
-#include"errmess.h" // содержит сообщения о действиях
+#include"messout.h" // содержит сообщения о действиях
 #include"myEmoji.h" // содержит эмодзи
 #include"taskStr.h" // содержит строки вывода информации по заданиям
 #include"checkInput.h" // содержит деклорации функций и указатели на них
@@ -35,65 +35,60 @@ auto BrutFor() -> void {
             constexpr ushort maxlen{8}; // максимальная длина пароля
 
 #if 1 // конструктор с параметрами: строку символов перебора вводит пользователь
-            std::wcout << TaskStr::seporStr;
             wstr alphaBet;
 
             // цикл проверки ввода
             do {
-                Errmess::Input(L"Введите желаемые символы для перебора пароля!!!");
-                Errmess::Info(L"Без пробелов и табуляций");
+                MessOut::Input(L"Введите желаемые символы для перебора пароля!!!");
+                MessOut::Info(L"Без пробелов и табуляций");
                 std::wcout << MyEmoji::fingRight << L' '; // приглашение к вводу
             } while ((PtrInStr(alphaBet))); // проверяем условия ввода
+            std::wcout << TaskStr::seporStr; // вывод разделителя =
             Bruteforce brutFors{alphaBet}; // создаём объект конструктором с параметрами
-            Errmess::Info(L"Вводим пароль!!!");
             auto pass{PtrEnterPass(maxlen, brutFors)}; // вводим и перебераем пароль копии
 
 #elif 0 // конструктор с параметрами: строка символов перебора инециализируется через функцию
             auto alphaBet{PtrCharSel()}; // вводим строку символов для перебора
             Bruteforce brtFrс{alphaBet}; // создаём объект конструктором с параметрами
-            Errmess::Info(L"Вводим пароль!!!");
             auto pass{PtrEnterPass(maxlen, brtFrс)}; // вводим и перебераем пароль копии
 
 #elif 0 // конструктор по умолчанию: строка символов перебора инециализируется через функцию
             Bruteforce brut; // создаём объект конструктором по умолчанию
-            Errmess::Info(L"Вводим строку символов для перебора!!!");
             (brut.*PtrSetAlpha)(PtrCharSel()); // записываем строку символов
             auto pass{PtrEnterPass(maxlen, brut)}; // вводим и перебераем пароль копии
 
 #elif 0 // конструктор копирования: строка символов перебора инециализируется через функцию
             Bruteforce brut; // создаём объект конструктором по умолчанию
-            Errmess::Info(L"Вводим пароль для оригинала!!!");
+            MessOut::Input(L"Вводим пароль для оригинала!!!");
             auto pass{PtrEnterPass(maxlen, brut)}; // вводим и перебераем пароль копии
             {
                 Bruteforce brtFrs{brut}; // создаём объект конструктором копирования
-                Errmess::Info(L"Выбираем строку символов для копии!!! ");
+                MessOut::Input(L"Выбираем строку символов для копии!!!");
                 (brtFrs.*PtrSetAlpha)(PtrCharSel()); // записываем строку символов в копию
                 std::wcout << TaskStr::seporStr; // вывод разделителя =
-                Errmess::Info(L"Вводим пароль для копии!!!");
+                MessOut::Input(L"Вводим пароль для копии!!!");
                 pass = {PtrEnterPass(maxlen, brtFrs)}; // вводим и перебераем пароль копии
-                std::wcout << TaskStr::seporStr; // вывод разделителя =
-                Errmess::Info(L"Строка символов копии: " + (brtFrs.*PtrGetAlpha)());
+                MessOut::Info(L"Строка символов копии: " + (brtFrs.*PtrGetAlpha)());
             }
             std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Info(L"Строка символов оригинала: " + (brut.*PtrGetAlpha)());
+            MessOut::Info(L"Строка символов оригинала: " + (brut.*PtrGetAlpha)());
 
 #elif 0 // оператор присваивания: строка символов перебора инециализируется через функцию
-
-            std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Info(L"Выбираем набор символов для оригинала!!!");
+            MessOut::Input(L"Выбираем набор символов для оригинала!!!");
             Bruteforce brut{PtrCharSel()}; // создаём объект конструктором с параметрами
-            Errmess::Info(L"Вводим пароль для оригинала!!!");
+            std::wcout << TaskStr::seporStr; // вывод разделителя =
+            MessOut::Info(L"Вводим пароль для оригинала!!!");
             auto pass{PtrEnterPass(maxlen, brut)}; // вводим и перебераем пароль оригинала
             {
                 Bruteforce brut2; // создаём объект конструктором по умолчанию
                 brut2 = brut;
-                Errmess::Info(L"Вводим пароль для копии!!!");
-                pass = PtrEnterPass(maxlen, brut); // вводим и перебераем пароль копии
                 std::wcout << TaskStr::seporStr; // вывод разделителя =
-                Errmess::Info(L"Строка символов копии: " + (brut2.*PtrGetAlpha)());
+                MessOut::Info(L"Вводим пароль для копии!!!");
+                pass = PtrEnterPass(maxlen, brut); // вводим и перебераем пароль копии
+                MessOut::Info(L"Строка символов копии: " + (brut2.*PtrGetAlpha)());
             }
             std::wcout << TaskStr::seporStr; // вывод разделителя =
-            Errmess::Info(L"Строка символов оригинала: " + (brut.*PtrGetAlpha)());
+            MessOut::Info(L"Строка символов оригинала: " + (brut.*PtrGetAlpha)());
 
 #endif
         }
@@ -105,8 +100,8 @@ auto BrutFor() -> void {
 
 // функция выбора набора символов
 auto CharSel() -> const wstr {
-    std::wcout << TaskStr::seporStr; // вывод разделителя =
-    Errmess::Info(L"Выберите набор символов для перебора комбинаций пароля:");
+    //std::wcout << TaskStr::seporEmoji; // вывод разделителя эмодзи
+    MessOut::Info(L"Выберите набор символов для перебора комбинаций пароля:");
     std::wcout << TaskStr::seporEmoji;
     std::wcout << L"1) 0 -> 9" << '\n'
                << L"2) a -> z" << '\n'
@@ -118,7 +113,7 @@ auto CharSel() -> const wstr {
 
     // цикл проверки ввода
     do {
-        Errmess::Input(TaskStr::msg); // выводим условия ввода
+        MessOut::Input(TaskStr::msg); // выводим условия ввода
         std::wcout << MyEmoji::fingRight << L' '; // прглашение к вводу
     } while (PtrCheInput(choice, static_cast<ushort>(ProgrEnum::Task_2), // проверяем условия ввода
                          static_cast<ushort>(ProgrEnum::Task_Max),
@@ -146,7 +141,7 @@ auto CharSel() -> const wstr {
 
 // функция ввода пароля
 auto EnterPass(const ushort &xmaxLen, Bruteforce &xbrutForce) -> const wstr {
-    std::wcout << TaskStr::seporStr; // вывод разделителя
+    std::wcout << TaskStr::seporEmoji; // вывод разделителя эмодзи
     wstr pass; // переменная ввода пароля
 
     // Собираем сообщение в отдельную строку — так проще и безопаснее
@@ -156,10 +151,10 @@ auto EnterPass(const ushort &xmaxLen, Bruteforce &xbrutForce) -> const wstr {
 
         // цикл проверки ввода
         do {
-            Errmess::Input(passMsg); // выводим условия ввода пароля
-            Errmess::Info(L"Длина пароля не должна превышать " + std::to_wstring(xmaxLen) + L" символа(ов).");
+            MessOut::Input(passMsg); // выводим условия ввода пароля
+            MessOut::Info(L"Длина пароля не должна превышать " + std::to_wstring(xmaxLen) + L" символа(ов).");
             std::wcout << TaskStr::seporEmoji; // вывод разделителя эмодзи
-            Errmess::Info(L"Пароль должен состоять только из выбранного набора символов: "
+            MessOut::Info(L"Пароль должен состоять только из выбранного набора символов: "
                           + (xbrutForce.*PtrGetAlpha)());
             std::wcout << MyEmoji::fingRight << L' '; // приглашение к вводу
         } while ((PtrWstr(pass, static_cast<ushort>(ProgrEnum::Task_3), // проверяем условия ввода
@@ -169,13 +164,14 @@ auto EnterPass(const ushort &xmaxLen, Bruteforce &xbrutForce) -> const wstr {
         // начинаем перебор
         if ((xbrutForce.*PtrCharSearch)(pass, xmaxLen) != Ret::Ok) {
             std::wcout << TaskStr::disapFace; // вывод разделителя эмодзи
-            Errmess::Exeption(L"Ведённый пароль не соответствует заданному набору символов: "
+            MessOut::Exeption(L"Ведённый пароль не соответствует заданному набору символов: "
                               + (xbrutForce.*PtrGetAlpha)());
             std::wcout << TaskStr::seporStr; // вывод разделителя =
             continue;
         } else { // если всё прошло успешно
             std::wcout << TaskStr::satFace; // вывод разделителя эмодзи
             (xbrutForce.*PtrPrintAlpha)(pass); // выводим информации о переборе
+            std::wcout << TaskStr::seporStr; // вывод разделителя =
             break;
         }
     }
