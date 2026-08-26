@@ -15,10 +15,10 @@ public:
     Palindrome();
 
     // конструктор с параметрами
-    Palindrome(const wchar_t* xpalin);
+    explicit Palindrome(const wchar_t* xpalin);
 
     // конструктор копирования
-    Palindrome(const Palindrome &xpalin);
+    explicit Palindrome(const Palindrome &xpalin);
 
     // оператор присваивания (глубокое копирование)
     Palindrome& operator =(const Palindrome &xpalin);
@@ -27,10 +27,10 @@ public:
     ~Palindrome();
 
     // медот класса записывает значение полю класса m_palin строка для проверки на полиндром
-    void SetPolin(const wchar_t* xpolin);
+    short SetPolin(const wchar_t* xpolin);
 
     // метод класса для проверки строки на полиндром
-    bool PalinWchar(wchar_t* xstr);
+    bool PalinWchar();
 };
 
 #endif // C_PALINDROME_H

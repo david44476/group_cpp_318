@@ -25,7 +25,7 @@ public:
     explicit Bruteforce(const Bruteforce &xbrutForc);
 
     // оператор присваивания (глубокое копирование)
-     Bruteforce& operator =(const Bruteforce &xbrutForc);
+    Bruteforce& operator =(const Bruteforce &xbrutForc);
 
     // деструктор
     ~Bruteforce();

@@ -1,10 +1,8 @@
-#include<iostream>
 #include<vector>
 #include"C_Bruteforce.h" // содержит обьявление класса Bruteforce
 #include"checkInput.h" // содержит деклорации функций и указатели на них
 #include"messout.h" // содержит сообщения о действиях
 #include"myEmoji.h" // содержит эмодзи
-#include"taskStr.h" // содержит строки вывода информации по заданиям
 
 // конструктор по умолчанию
 Bruteforce::Bruteforce(): m_alphaBet{nullptr}, m_combTried{nullptr} {

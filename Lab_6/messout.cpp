@@ -17,7 +17,7 @@ auto Info(const wstr &xstr) -> void {
 }
 
 auto Every(const wstr &xstr) -> void {
-    std::wcout << MyEmoji::satFace << L' ' << xstr << L'\n';
+    std::wcout << MyEmoji::ok << L' ' << xstr << L'\n';
 }
 
 auto Input(const wstr &xstr) -> void {

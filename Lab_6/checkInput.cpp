@@ -2,7 +2,6 @@
 #include<limits>
 #include"constans.h" // содержит константы
 #include"messout.h" // содержит сообщения о действиях
-#include"myEmoji.h" // содержит эмодзи
 #include"taskStr.h" // содержит строки вывода информации по заданиям
 #include"checkInput.h" // содержит деклорации функций и указатели на них
 
@@ -120,25 +119,32 @@ auto CheckInput(ushort &xvalue, const ushort &xmin, const ushort &xmax,
 } // CheckInput перегружкнная шаблонная функция обработки ввода
 
 // функция обработки ввода для wchar_t
-auto CheckInput() -> bool {
-    wchar_t xchoice;
+auto CheckInput(wchar_t* xstr, const size_t &xsize) -> short {
+
     while (true) {
-        std::wcout << MyEmoji::fingRight << L' ';
-        if (!(std::wcin >> xchoice) || !(iswalpha(xchoice))) {
-            MessOut::Warning(L"Вы ввели не символ!!! Ведите \"Д\" или \"Н\"");
+
+        // Защита от некорректного размера
+        if (xsize == 0) {
+            MessOut::Exeption(L"Ошибка: Некорректный буфер для ввода!!!");
+            return Ret::ErrData;
+        }
+        if (!std::wcin.getline(xstr, static_cast<std::streamsize>(xsize))) {
+            MessOut::Exeption(L"Ошибка ввода или достигнут конец потока!!!");
+
+            // Сброс флага ошибки, иначе цикл станет вечным при ошибке потока
             std::wcin.clear();
             std::wcin.ignore(std::numeric_limits<std::streamsize>::max(), L'\n');
-            continue;
+            return Ret::ErrData;
         }
 
-        // переводим символ в верхний регист
-        xchoice = std::towupper(xchoice);
-        if (xchoice != L'Н' && xchoice != L'Д') {
-            MessOut::Exeption(L"Неверный ввод. Введите \"Д\" или \"Н\".");
-        } else {
-            PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
-            break;
+        // Проверка на выход по "q" (учитываем регистр)
+        if (xstr[0] == L'q' || xstr[0] == L'Q') {
+            return Ret::Exit; // Специальный код "пользователь захотел выйти"
         }
+        if (xstr[0] == L'\0' || std::iswspace(xstr[0])) {
+            MessOut::Warning(L"Строка не должна быть пустой. Попробуйте ещё раз.");
+            return Ret::EmptyLine;
+        }
+        return Ret::Ok; // успешный ввод
     }
-    return (xchoice == L'Н') ? false : true;
 } // CheckInput перегружкнная функция обработки ввода для wchar_t

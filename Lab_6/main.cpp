@@ -43,8 +43,8 @@ int main() {
         // задание № 2
         else if (progrEnum == ProgrEnum::Task_2) {
             PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
-            MessOut::Info(L"На данный момент реализация задания № "
-                          + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_3)) + L" отсутствует!!!");
+            void PalDrom(); // деклорация функции задания № 2
+            PalDrom(); // вызов фукции задания № 2
         }
 
         // задание № 3

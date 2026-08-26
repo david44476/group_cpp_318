@@ -33,26 +33,58 @@ auto CheckInput(wstr &xvalue) -> short;
 
 // указатель на перегружкнную функцию обработки ввода
 short (*const PtrInStr)(wstr &xvalue) = CheckInput;
+
+// функция обработки ввода для wchar_t
+short CheckInput(wchar_t* xstr, const size_t &xsize);
 // *********************************************************************************************
 
 // шаблонная функция выделенния памяти
 template<typename T>
 auto MemAlloc(T* &xobject, const wstr &xstr) -> short {
-    xobject = new(std::nothrow) T;
+    if (!xobject) {
+        xobject = new(std::nothrow) T;
 
         // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
         if (!xobject) {
-        MessOut::Exeption(L"Для объекта: " + xstr + L" память не выделена!!!");
+            MessOut::Exeption(L"Для объекта: " + xstr + L" память не выделена!!!");
             return Ret::ErrMemory;
+        }
     }
-        return Ret::Ok;
+    return Ret::Ok;
 } // шаблонная функция выделенния памяти MemAlloc
+
+// шаблонная функция выделенния памяти для массива
+template<typename T>
+auto MemAlloc(T* &xobject, const wstr &xstr, const size_t &xsize) -> short {
+    if (xsize == 0) {
+        MessOut::Exeption(L"Для объекта: " + xstr + L" запрошен размер 0!!!");
+        return Ret::ErrMemory;
+    } else if (!xobject) {
+        xobject = new(std::nothrow) T[xsize];
+
+        // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+        if (!xobject) {
+            MessOut::Exeption(L"Для объекта: " + xstr + L" память не выделена!!!");
+            return Ret::ErrMemory;
+        }
+    }
+    return Ret::Ok;
+} // шаблонная функция выделенния памяти MemAlloc для массива
 
 // шаблонная функция удаления памяти
 template<typename T>
-auto DelMem(T &xobject) -> void {
+auto DelMem(T* &xobject) -> void {
     if (xobject) {
         delete xobject; // удаляем выделенную память
+        xobject = nullptr; // обнуляем указатель
+    }
+} // шаблонная функция удаления памяти delMem
+
+// шаблонная функция удаления памяти массива
+template<typename T>
+auto DelMemArr(T* &xobject) -> void {
+    if (xobject) {
+        delete[] xobject; // удаляем выделенную память
         xobject = nullptr; // обнуляем указатель
     }
 } // шаблонная функция удаления памяти delMem
