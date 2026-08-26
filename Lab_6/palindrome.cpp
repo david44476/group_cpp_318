@@ -38,7 +38,7 @@ auto PalDrom() -> void {
                     RemPunctChar(bufer); // удаляем символы пунктуации и пробелы
                     UpCasWchar(bufer); // преобразовываем в верхний регистр
                     RevWchar(bufer); // разворачиваем строку
-                    Palindrome object; // создаём объект конструктором с параметрами
+                    Palindrome object; // создаём объект конструктором по умолчанию
                     object.SetPolin(bufer);
                     if (object.PalinWchar()) { // проверка на палиндром через метод класса
                         std::wcout << TaskStr::satFace; // вывод разделителя эмодзи
@@ -64,7 +64,7 @@ auto PalDrom() -> void {
 // функция удаления не нужных символов
 auto RemPunctChar(wchar_t* xstr) -> void {
     if (!xstr) {
-       // MessOut::Warning(L"Строка не должна быть пустой!!!");
+        MessOut::Warning(L"Строка не должна быть пустой!!!");
         return;
     }
     size_t ind{0};
@@ -77,7 +77,7 @@ auto RemPunctChar(wchar_t* xstr) -> void {
 // функция преобразования в верний регистр
 auto UpCasWchar(wchar_t* xstr) -> void {
     if (!xstr) {
-        //MessOut::Warning(L"Строка не должна быть пустой!!!");
+        MessOut::Warning(L"Строка не должна быть пустой!!!");
         return;
     }
     for (auto i{0}; i < wcslen(xstr); ++i) {
@@ -88,9 +88,10 @@ auto UpCasWchar(wchar_t* xstr) -> void {
 // функция разворачивает строку
 auto RevWchar(wchar_t* xstr) -> void {
     if (!xstr) {
-        //MessOut::Warning(L"Строка не должна быть пустой!!!");
+        MessOut::Warning(L"Строка не должна быть пустой!!!");
         return;
     }
+    if (wcslen(xstr) <= 1) return;
     size_t i{0};
     size_t j(wcslen(xstr) - 1);
     while (i < j) {
