@@ -1,9 +1,10 @@
 #ifndef CHECKINPUT_H
 #define CHECKINPUT_H
 
+#include"constans.h"
 #include"messout.h" // содержит сообщения о действиях
 
-// деклорация функций***************************************************************************
+// деклорация функций и указателей**************************************************************
 short StrNum(const wstr &xstr); // функция преобразования строки в число
 using PtrStrNum = short (*const)(const wstr &xstr);
 PtrStrNum PtrNumStr = StrNum; // указатель на функцию преобразования строки в число
@@ -58,7 +59,7 @@ template<typename T>
 auto MemAlloc(T* &xobject, const wstr &xstr, const size_t &xsize) -> short {
     if (xsize == 0) {
         MessOut::Exeption(L"Для объекта: " + xstr + L" запрошен размер 0!!!");
-        return Ret::ErrMemory;
+        return Ret::OutRange;
     } else if (!xobject) {
         xobject = new(std::nothrow) T[xsize];
 
@@ -80,12 +81,12 @@ auto DelMem(T* &xobject) -> void {
     }
 } // шаблонная функция удаления памяти delMem
 
-// шаблонная функция удаления памяти массива
+// шаблонная функция удаления памяти для массива
 template<typename T>
 auto DelMemArr(T* &xobject) -> void {
     if (xobject) {
         delete[] xobject; // удаляем выделенную память
         xobject = nullptr; // обнуляем указатель
     }
-} // шаблонная функция удаления памяти delMem
+} // шаблонная функция удаления памяти delMemArr для массива
 #endif // CHECKINPUT_H

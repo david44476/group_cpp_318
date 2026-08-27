@@ -31,5 +31,5 @@ constexpr wchar_t queMark{L'\U00002753'}; // знак вопроса
 constexpr wchar_t cup{L'\U0001F3C6'}; // кубок
 constexpr wchar_t desktop{L'\U0001F5A5'}; // деспечер
 constexpr wchar_t disapFace{L'\U0001F61E'}; // грустное лицо
-}; // MyEmoji
+}; // MyEmoji пространство имён эмодзи
 #endif // MYEMOJI_H

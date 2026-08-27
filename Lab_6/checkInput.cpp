@@ -116,7 +116,7 @@ auto CheckInput(ushort &xvalue, const ushort &xmin, const ushort &xmax,
         }
         return Ret::Ok;
     }
-} // CheckInput перегружкнная шаблонная функция обработки ввода
+} // CheckInput функция обработки ввода для unsigned short
 
 // функция обработки ввода для wchar_t
 auto CheckInput(wchar_t* xstr, const size_t &xsize) -> short {
@@ -147,4 +147,4 @@ auto CheckInput(wchar_t* xstr, const size_t &xsize) -> short {
         }
         return Ret::Ok; // успешный ввод
     }
-} // CheckInput перегружкнная функция обработки ввода для wchar_t
+} // CheckInput функция обработки ввода для wchar_t

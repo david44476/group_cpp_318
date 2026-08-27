@@ -110,9 +110,9 @@ Bruteforce::~Bruteforce() {
     if (m_combTried) {
         DelMem(m_combTried); // освобождаем память счётчика комбинаций
     }
-}
+} // Bruteforce::~Bruteforce деструктор
 
-// метод класса устанавливает значение поля класса m_alphaBet
+// метод класса устанавливает значение полю класса "m_alphaBet" строка символов
 auto Bruteforce::SetAlpha(const wstr &xalphaBet) -> short {
     if (xalphaBet.empty()) {
         MessOut::Warning(L"Строка симловов для перебора комбинаций пароля пустая!!!");
@@ -130,7 +130,7 @@ auto Bruteforce::SetAlpha(const wstr &xalphaBet) -> short {
     }
     *m_alphaBet = xalphaBet; // присваеваем значение
     return Ret::Ok;
-} // Bruteforce::SetAlphaBet
+} // Bruteforce::SetAlphaBet метод класса устанавливает значение поля класса "m_alphaBet" строка символов
 
 // метод класса перебора комбинаций пароля
 auto Bruteforce::CharSearch(const wstr &xpass, const ushort &xmaxLen) -> short {
@@ -193,7 +193,7 @@ auto Bruteforce::CharSearch(const wstr &xpass, const ushort &xmaxLen) -> short {
             return Ret::NotFound; // пароль не найден
         }
     }
-} // Bruteforce::CharSearch
+} // Bruteforce::CharSearch метод класса перебора комбинаций пароля
 
 // метод класса выводит информацию о переборе
 auto Bruteforce::PrintAlpha(const wstr &xpass) -> void {
@@ -208,4 +208,4 @@ auto Bruteforce::PrintAlpha(const wstr &xpass) -> void {
     MessOut::Every(L"Ваш пароль: " + xpass + L" принят!!!" );
     MessOut::Info(L"Строка символов для перебора пароля: " + *m_alphaBet + L'\n' + MyEmoji::realiz
                   + L"  Потребовалось перебрать " + std::to_wstring(*m_combTried) + L" комбинпций!!!");
-} // Bruteforce::PrintAlpBet
+} // Bruteforce::PrintAlpBet метод класса выводит информацию о переборе

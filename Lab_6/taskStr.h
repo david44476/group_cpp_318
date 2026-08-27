@@ -113,5 +113,5 @@ const wstr strTask5{seporStr
 // Собираем сообщение в отдельную строку — так проще и безопаснее
 const wstr msg{L"Введите число от " + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_2)) + L" до "
                + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_Max)) + L": "};
-};
+}; // TaskStr пространство имён строк
 #endif // TASKSTR_H

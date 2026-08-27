@@ -1,19 +1,20 @@
 #ifndef MESSOUT_H
 #define MESSOUT_H
-#include"constans.h" // содержит константы
 
-// пространство имён функций вывода ошибок
+#include <string>
+
+// пространство имён функций вывода сообщений
 namespace MessOut {
-void Exeption(const wstr &); // ошибка
+void Exeption(const std::wstring &); // ошибка
 
-void Warning(const wstr &); // внимание
+void Warning(const std::wstring &); // внимание
 
-void Info(const wstr &); // информация
+void Info(const std::wstring &); // информация
 
-void Every(const wstr &); // всё хорошо
+void Every(const std::wstring &); // всё хорошо
 
-void Input(const wstr &); // ввод
+void Input(const std::wstring &); // ввод
 
-void Create(const wstr &); // создаём
-}// errmess
+void Create(const std::wstring &); // создаём
+}; // MessOut пространство имён функций вывода сообщений
 #endif // MESSOUT_H

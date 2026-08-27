@@ -1,7 +1,7 @@
 #include<cstring>
-#include"C_Palindrome.h"
-#include"checkInput.h"
-#include"messout.h"
+#include"C_Palindrome.h" // содержит обьявление класса Palindrome
+#include"checkInput.h" // содержит деклорации функций и указатели на них
+#include"messout.h" // содержит сообщения о действиях
 
 // конструктор по умолчанию
 Palindrome::Palindrome(): m_palin{nullptr}, m_size{0} {}
@@ -32,7 +32,7 @@ Palindrome::Palindrome(const wchar_t* xpalin) {
 
     // ставим терминатор
     m_palin[len] = L'\0';
-}
+} // Palindrome::Palindrome конструктор с параметрами
 
 // конструктор копирования
 Palindrome::Palindrome(const Palindrome &xpalin): m_palin{nullptr}, m_size{xpalin.m_size} {
@@ -40,7 +40,7 @@ Palindrome::Palindrome(const Palindrome &xpalin): m_palin{nullptr}, m_size{xpali
         std::wcsncpy(m_palin, xpalin.m_palin, m_size);
         m_palin[m_size] = L'\0';
     } else m_size = 0;
-}
+} // Palindrome::Palindrome конструктор копирования
 
 // оператор присваивания (глубокое копирование)
 Palindrome& Palindrome::operator =(const Palindrome &xpalin) {
@@ -52,12 +52,12 @@ Palindrome& Palindrome::operator =(const Palindrome &xpalin) {
         m_palin[m_size] = L'\0';
     } else m_size = 0;
     return *this;
-}
+} // Palindrome& Palindrome::operator = оператор присваивания (глубокое копирование)
 
 // деструктор
 Palindrome::~Palindrome() {
     if (m_palin) DelMemArr(m_palin);
-}
+} // деструктор
 
 // медот класса записывает значение полю класса m_palin строка для проверки на полиндром
 auto Palindrome::SetPolin(const wchar_t* xpalin) -> short {
@@ -72,7 +72,7 @@ auto Palindrome::SetPolin(const wchar_t* xpalin) -> short {
         }
     }
     return Ret::Ok;
-}
+} // Palindrome::SetPolin медот класса записывает значение полю класса m_palin строка для проверки на полиндром
 
 // метод класса проверки на полиндром
 auto Palindrome::PalinWchar() -> bool {
@@ -90,4 +90,4 @@ auto Palindrome::PalinWchar() -> bool {
         --j;
     }
     return true;
-}
+} // Palindrome::PalinWchar метод класса проверки на полиндром
