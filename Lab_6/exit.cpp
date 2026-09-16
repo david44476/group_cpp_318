@@ -1,9 +1,9 @@
-#include<iostream>
-#include<cwctype>
-#include"checkInput.h" // содержит деклорации функций и указатели на них
-#include"messout.h" // содержит сообщения о действиях
-#include"myEmoji.h" // содержит эмодзи
-#include"taskStr.h" // содержит строки вывода информации по заданиям
+#include <iostream>
+#include <cwctype>
+#include "checkInput.h" // содержит деклорации функций и указатели на них
+#include "messout.h" // содержит сообщения о действиях
+#include "myEmoji.h" // содержит эмодзи
+#include "taskStr.h" // содержит строки вывода информации по заданиям
 
 // функция выхода
 auto Exit() -> bool {

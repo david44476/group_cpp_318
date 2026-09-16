@@ -1,7 +1,7 @@
-#include<iostream>
-#include"checkInput.h" // содержит деклорации функций и указатели на них
-#include"taskStr.h" // содержит строки вывода информации по заданиям
-#include"C_Palindrome.h" // содержит обьявление класса Palindrome
+#include <iostream>
+#include "checkInput.h" // содержит деклорации функций и указатели на них
+#include "taskStr.h" // содержит строки вывода информации по заданиям
+#include "C_Palindrome.h" // содержит обьявление класса Palindrome
 
 // деклорация функций и указателей**************************************************************
 void UpCasWchar(wchar_t* xstr); // функция преобразования в верний регистр
@@ -16,7 +16,7 @@ PalFunc PtrRemPunctChar = RemPunctChar; // указатель на функци�
 // функция по заданию № 2
 auto PalDrom() -> void {
     do {
-        std::wcout << TaskStr::strTask2; // выводим задание
+        std::wcout << TaskStr::strTask2 + TaskStr::seporStr; // выводим задание
         constexpr size_t maxLen{50};
         wchar_t enterStr[maxLen]{};
         while (true) {

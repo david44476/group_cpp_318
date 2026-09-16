@@ -1,7 +1,7 @@
 #ifndef C_BRUTEFORCE_H
 #define C_BRUTEFORCE_H
 
-#include"constans.h" // содержит константы
+#include "constans.h" // содержит константы
 
 // обьявляем класс Bruteforce
 class Bruteforce {

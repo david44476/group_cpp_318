@@ -14,12 +14,12 @@
 * locale (кодировка): UTF 8
 */
 
-#include<iostream>
-#include"constans.h" // содержит константы
-#include"messout.h" // содержит функции вывода ошибок
-#include"taskStr.h" // содержит строки с информацией по заданиям
-#include"myEmoji.h" // содержит эмодзи
-#include"checkInput.h" // содержит деклорации функций
+#include <iostream>
+#include "constans.h" // содержит константы
+#include "messout.h" // содержит функции вывода ошибок
+#include "taskStr.h" // содержит строки с информацией по заданиям
+#include "myEmoji.h" // содержит эмодзи
+#include "checkInput.h" // содержит деклорации функций
 
 int main() {
 
@@ -33,41 +33,48 @@ int main() {
         // выбор задания через указатель на функцию
         const ProgrEnum progrEnum{TaskSel()};
 
+        switch (progrEnum) {
         // задание № 1
-        if (progrEnum == ProgrEnum::Task_1) {
+        case ProgrEnum::Task_1: {
             PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
             void BrutFor(); // деклорация функции задания № 1
             BrutFor(); // вызов фукции задания № 1
+            break;
         }
 
         // задание № 2
-        else if (progrEnum == ProgrEnum::Task_2) {
+        case ProgrEnum::Task_2: {
             PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
             void PalDrom(); // деклорация функции задания № 2
             PalDrom(); // вызов фукции задания № 2
+            break;
         }
 
         // задание № 3
-        else if (progrEnum == ProgrEnum::Task_3) {
+        case ProgrEnum::Task_3: {
             PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
-            MessOut::Info(L"На данный момент реализация задания № "
-                          + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_4)) + L" отсутствует!!!");
+            void CarBase();
+            CarBase();
+            break;
         }
 
         // задание № 4
-        else if (progrEnum == ProgrEnum::Task_4) {
+        case ProgrEnum::Task_4: {
             PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
             MessOut::Info(L"На данный момент реализация задания № "
                           + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_5)) + L" отсутствует!!!");
+            break;
         }
 
         // задание № 5
-        else if (progrEnum == ProgrEnum::Task_5) {
+        case ProgrEnum::Task_5: {
             PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
             MessOut::Info(L"На данный момент реализация задания № "
                           + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_Max)) + L" отсутствует!!!");
+            break;
         }
-        else MessOut::Warning(L"Задания закончились!!!\n");
+        default: MessOut::Warning(L"Задания закончились!!!\n");
+        }
         std::wcout << TaskStr::seporStr;
         std::wcout << MyEmoji::queMark << L" Хотите продолжить демонстрацию лабораторной работы?" << '\n';
     } while (PtrExit());

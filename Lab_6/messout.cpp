@@ -1,6 +1,6 @@
-#include<iostream>
-#include"messout.h"
-#include"myEmoji.h"
+#include <iostream>
+#include "messout.h"
+#include "myEmoji.h"
 
 // пространство имён функций вывода сообщений
 namespace MessOut {

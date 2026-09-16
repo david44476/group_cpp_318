@@ -1,12 +1,13 @@
 #ifndef CONSTANS_H
 #define CONSTANS_H
 
-#include<string>
+#include <string>
 
 // псевдонимы типов
 using ushort = unsigned short; // на unsigned short
 using wstr = std::wstring; // на std::wstring
 using ullong = unsigned long long; // на unsigned long long
+using status_8 = unsigned char; // на unsigned char
 
 // Перечисление констант, используемых в качетве выбора заданий
 enum class ProgrEnum: ushort {
@@ -27,9 +28,10 @@ enum RetFunc: short {
     EmptyLine = -3, // пустая строка
     Overflow = -4, // переполнено
     OutRange = -5, // вне диапазона
-    NotFound = -6, // не найден
-    NullPointer = -7, // нулевой указатель
-    Exit = -8 // выход
+    AlExists = -6, // уже существует
+    NotFound = -7, // не найден
+    NullPtr = -8, // нулевой указатель
+    Exit = -9 // выход
 };
 }
 #endif // CONSTANS_H

@@ -1,9 +1,9 @@
-#include<iostream>
-#include<limits>
-#include"constans.h" // содержит константы
-#include"messout.h" // содержит сообщения о действиях
-#include"taskStr.h" // содержит строки вывода информации по заданиям
-#include"checkInput.h" // содержит деклорации функций и указатели на них
+#include <iostream>
+#include <limits>
+#include "constans.h" // содержит константы
+#include "messout.h" // содержит сообщения о действиях
+#include "taskStr.h" // содержит строки вывода информации по заданиям
+#include "checkInput.h" // содержит деклорации функций и указатели на них
 
 // функция обработки ввода для std::wstring с диапазонами проверки
 auto CheckInput(wstr &xvalue, const ushort &xmin, const ushort &xmax, const wstr &xstr) -> bool {

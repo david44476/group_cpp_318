@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 
 // функция очистки окна терминала
 auto ClearConsole() -> void {

@@ -1,9 +1,9 @@
-#include<iostream>
-#include"C_Bruteforce.h" // содержит обьявление класса Bruteforce
-#include"messout.h" // содержит сообщения о действиях
-#include"myEmoji.h" // содержит эмодзи
-#include"taskStr.h" // содержит строки вывода информации по заданиям
-#include"checkInput.h" // содержит деклорации функций и указатели на них
+#include <iostream>
+#include "C_Bruteforce.h" // содержит обьявление класса Bruteforce
+#include "messout.h" // содержит сообщения о действиях
+#include "myEmoji.h" // содержит эмодзи
+#include "taskStr.h" // содержит строки вывода информации по заданиям
+#include "checkInput.h" // содержит деклорации функций и указатели на них
 
 // деклорация функций и указателей**************************************************************
 
@@ -31,8 +31,8 @@ const wstr (*const PtrEnterPass)(const ushort&, Bruteforce&) = EnterPass;
 auto BrutFor() -> void {
     do {
         {
-            std::wcout << TaskStr::strTask1; // выводим задание
-            constexpr ushort maxlen{8}; // максимальная длина пароля
+            std::wcout << TaskStr::strTask1 + TaskStr::seporStr; // выводим задание
+            constexpr ushort maxlen{4}; // максимальная длина пароля
 
 #if 1 // конструктор с параметрами: строку символов перебора вводит пользователь
             wstr alphaBet;

@@ -1,8 +1,8 @@
 #ifndef CHECKINPUT_H
 #define CHECKINPUT_H
 
-#include"constans.h"
-#include"messout.h" // содержит сообщения о действиях
+#include "constans.h"
+#include "messout.h" // содержит сообщения о действиях
 
 // деклорация функций и указателей**************************************************************
 short StrNum(const wstr &xstr); // функция преобразования строки в число

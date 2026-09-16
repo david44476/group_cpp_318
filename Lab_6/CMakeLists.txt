@@ -22,6 +22,16 @@ add_executable(Lab_6 main.cpp
     C_Palindrome.h
     C_Palindrome.cpp
     palindrome.cpp
+    C_Car.h
+    carBase.cpp
+    C_Driver.h
+    C_Trip.h
+    C_Dispatcher.h
+
+
+
+
+
 
 )
 

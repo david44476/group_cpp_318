@@ -1,7 +1,7 @@
-#include<cstring>
-#include"C_Palindrome.h" // содержит обьявление класса Palindrome
-#include"checkInput.h" // содержит деклорации функций и указатели на них
-#include"messout.h" // содержит сообщения о действиях
+#include <cstring>
+#include "C_Palindrome.h" // содержит обьявление класса Palindrome
+#include "checkInput.h" // содержит деклорации функций и указатели на них
+#include "messout.h" // содержит сообщения о действиях
 
 // конструктор по умолчанию
 Palindrome::Palindrome(): m_palin{nullptr}, m_size{0} {}
@@ -63,7 +63,7 @@ Palindrome::~Palindrome() {
 auto Palindrome::SetPolin(const wchar_t* xpalin) -> short {
     if (!xpalin) {
         MessOut::Exeption(L"Указатель на строку равен null!!!");
-        return Ret::NullPointer;
+        return Ret::NullPtr;
     } else if (!m_palin) {
         m_size = std::wcslen(xpalin);
         if (m_size > 0 && MemAlloc(m_palin, L"строка проверки на полиндром", m_size + 1) == Ret::Ok) {

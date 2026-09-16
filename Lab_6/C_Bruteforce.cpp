@@ -1,8 +1,8 @@
-#include<vector>
-#include"C_Bruteforce.h" // содержит обьявление класса Bruteforce
-#include"checkInput.h" // содержит деклорации функций и указатели на них
-#include"messout.h" // содержит сообщения о действиях
-#include"myEmoji.h" // содержит эмодзи
+#include <vector>
+#include "C_Bruteforce.h" // содержит обьявление класса Bruteforce
+#include "checkInput.h" // содержит деклорации функций и указатели на них
+#include "messout.h" // содержит сообщения о действиях
+#include "myEmoji.h" // содержит эмодзи
 
 // конструктор по умолчанию
 Bruteforce::Bruteforce(): m_alphaBet{nullptr}, m_combTried{nullptr} {
@@ -138,7 +138,7 @@ auto Bruteforce::CharSearch(const wstr &xpass, const ushort &xmaxLen) -> short {
     // Проверка инициализацию алфавита
     if (!m_alphaBet) {
         MessOut::Exeption(L"Указатель на строку символов для перебора пароля null!!!");
-        return Ret::NullPointer;
+        return Ret::NullPtr;
     }
     if (xpass.empty()) {
         MessOut::Warning(L"Строка пароля не должна быть пустой!!!");
@@ -157,7 +157,7 @@ auto Bruteforce::CharSearch(const wstr &xpass, const ushort &xmaxLen) -> short {
     size_t n{m_alphaBet->size()};
     if (!m_combTried) { // проверяем указатель счётчика на null
         MessOut::Exeption(L"Указатель на счётчик null!!!");
-        return Ret::NullPointer;
+        return Ret::NullPtr;
     } else ResCombTri(); // обнуляем счётчик комбинаций перебора через приватный метод класса
 
     // собираем текущую комбинацию

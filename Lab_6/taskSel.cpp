@@ -1,10 +1,10 @@
-#include<iostream>
-#include<iomanip>
-#include"constans.h" // содержит константы
-#include"messout.h" // содержит сообщения о действиях
-#include"myEmoji.h" // содержит эмодзи
-#include"taskStr.h" // содержит строки вывода информации по заданиям
-#include"checkInput.h" // содержит деклорации функций и указатели на них
+#include <iostream>
+#include <iomanip>
+#include "constans.h" // содержит константы
+#include "messout.h" // содержит сообщения о действиях
+#include "myEmoji.h" // содержит эмодзи
+#include "taskStr.h" // содержит строки вывода информации по заданиям
+#include "checkInput.h" // содержит деклорации функций и указатели на них
 
 // функция выбора задания
 auto TaskSel(PtrChec xPtrChec) -> ProgrEnum {
@@ -15,7 +15,7 @@ auto TaskSel(PtrChec xPtrChec) -> ProgrEnum {
     std::wcout << TaskStr::strTask3; // вывод задания № 3
     std::wcout << TaskStr::strTask4; // вывод задания № 4
     std::wcout << TaskStr::strTask5; // вывод задания № 5
-    std::wcout << std::setw(9) << MyEmoji::fingRight << L" ВЫБЕРИТЕ ЗАДАНИЕ ДЛЯ ДЕМОНСТРАЦИИ "
+    std::wcout << TaskStr::seporStr << std::setw(9) << MyEmoji::fingRight << L" ВЫБЕРИТЕ ЗАДАНИЕ ДЛЯ ДЕМОНСТРАЦИИ "
                << MyEmoji::fingLeft << '\n';
 
     ushort choice{0}; // переменная выбора задания

@@ -29,7 +29,11 @@ constexpr wchar_t brain{L'\U0001F9E0'}; // мозг
 constexpr wchar_t satFace{L'\U0001F913'}; // довольное лицо
 constexpr wchar_t queMark{L'\U00002753'}; // знак вопроса
 constexpr wchar_t cup{L'\U0001F3C6'}; // кубок
-constexpr wchar_t desktop{L'\U0001F5A5'}; // деспечер
+constexpr wchar_t desktop{L'\U0001F5A5'}; // диспечер
 constexpr wchar_t disapFace{L'\U0001F61E'}; // грустное лицо
+constexpr wchar_t box{L'\U0001F9F3'}; // коробка
+constexpr wchar_t fuel{L'\U000026FD'}; // заправка
+constexpr wchar_t truck{L'\U0001F69A'}; // грузовик
+constexpr wchar_t process{L'\U0001F3C3'}; // бегущий человек
 }; // MyEmoji пространство имён эмодзи
 #endif // MYEMOJI_H
