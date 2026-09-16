@@ -33,7 +33,7 @@ public:
 
     // конструктор с параметрами
     explicit Trip(const wstr &xfrom, const wstr xto, const ushort &xcargoWeight)
-        : m_status{TripStat::TriDone}, // статус по умолчанию завешена
+        : m_status{TripStat::TriWork}, // статус по умолчанию в работе
         m_id{++s_id}, // номер поездки
         m_from{xfrom}, // от куда поездка
         m_to{xto}, // куда поездка

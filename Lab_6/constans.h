@@ -31,7 +31,8 @@ enum RetFunc: short {
     AlExists = -6, // уже существует
     NotFound = -7, // не найден
     NullPtr = -8, // нулевой указатель
-    Exit = -9 // выход
+    NotCorres = -9, // не соответствует
+    Exit = -10 // выход
 };
 }
 #endif // CONSTANS_H

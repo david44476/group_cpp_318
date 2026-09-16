@@ -8,18 +8,18 @@
 #include "C_Trip.h"
 
 // настройки лимитов
-constexpr ushort maxCars{50}; // максимум автомобилей
-constexpr ushort maxDrivers{100}; // максимум водителей
-constexpr ushort maxTrips{200}; // максимум поездок
+static constexpr ushort maxCars{50}; // максимум автомобилей
+static constexpr ushort maxDrivers{100}; // максимум водителей
+static constexpr ushort maxTrips{200}; // максимум поездок
 
 // обьявляем класс диспечер
 class Dispatcher {
 private:
 
-    // статические массивы объектов
+    // статические массивы указателей на объекты
     Car* m_cars[maxCars]; // автомобили
     Driver* m_drivers[maxDrivers]; // водителя
-    Trip* m_trips[maxTrips]; // поездки
+    Trip m_trips[maxTrips]; // статический массив поездок
 
     // счётчики количества элементов
     ushort m_carsCount{0};
@@ -58,10 +58,12 @@ public:
     // создание рейса и назначения водителя и автомобиля
     Ret::RetFunc CreatTrip(const wstr &xfrom, const wstr &xto, const ushort &xcargoWeight,
                    const wstr &xfio, const wstr &xplate) {
+
+        // назначения водителя
         Driver* driver{nullptr};
         for (auto i{0}; i < m_driCount; ++i) {
             if (m_drivers[i]->GetFio() == xfio && m_drivers[i]->HasStatus(DriverStat::DriFree)) {
-                driver = m_drivers[i]; // берём адрес элемента массива
+                driver = m_drivers[i]; // берём адрес элемента массива водителей
                 break;
             }
         }
@@ -70,6 +72,7 @@ public:
             return Ret::NotFound;
         }
 
+        // назначения автомобиля
         Car* car{nullptr};
         for (auto &cr: m_cars) {
             if (cr->GetPlate() == xplate && cr->HasStatus(CarStat::CarFree)) {
@@ -79,7 +82,7 @@ public:
                 MessOut::Warning(L"Вес груза не соответствует грузоподъёмности автомобиля!!!");
                 return Ret::OutRange;
             } else {
-                car = cr;
+                car = cr; // берём адрес элемента массива автомобилей
                 break;
             }
         }
@@ -88,12 +91,12 @@ public:
             return Ret::NotFound;
         }
 
-        // Добавляем поездку
+        // добавляем поездку
         if (m_triCount >= maxTrips) {
             MessOut::Exeption(L"Превышен лимит в " + std::to_wstring(maxTrips) + L" рейсов!!!");
             return Ret::Overflow;
         }
-        m_trips[m_triCount] = Trip(xfrom, xto, xcargoWeight);
+        if (xcargoWeight > car->GetCapacity())
     }
 };
 
