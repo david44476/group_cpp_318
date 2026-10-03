@@ -115,27 +115,23 @@ Bruteforce::~Bruteforce() {
 // метод класса устанавливает значение полю класса "m_alphaBet" строка символов
 auto Bruteforce::SetAlpha(const wstr &xalphaBet) -> short {
     if (xalphaBet.empty()) {
-        MessOut::Warning(L"Строка симловов для перебора комбинаций пароля пустая!!!");
+        MessOut::Warning(L"Строка символов для перебора комбинаций пароля пустая!!!");
         return Ret::EmptyLine;
     }
-
-    if (!m_alphaBet) { // если указатель null
-        m_alphaBet = new(std::nothrow) wstr; // выделяем динамическую память
-
-        // обрабатываем случай, когда new возвращает null (т.е. память не выделяется)
+    if (!m_alphaBet) {
+        m_alphaBet = new(std::nothrow) wstr;
         if (!m_alphaBet) {
             MessOut::Exeption(L"Память для строки символов \"m_alphaBet\" не выделена!!!");
             return Ret::ErrMemory;
         }
     }
-    *m_alphaBet = xalphaBet; // присваеваем значение
+    *m_alphaBet = xalphaBet;
     return Ret::Ok;
-} // Bruteforce::SetAlphaBet метод класса устанавливает значение поля класса "m_alphaBet" строка символов
+}// Bruteforce::SetAlphaBet метод класса устанавливает значение поля класса "m_alphaBet" строка символов
 
 // метод класса перебора комбинаций пароля
 auto Bruteforce::CharSearch(const wstr &xpass, const ushort &xmaxLen) -> short {
 
-    // Проверка инициализацию алфавита
     if (!m_alphaBet) {
         MessOut::Exeption(L"Указатель на строку символов для перебора пароля null!!!");
         return Ret::NullPtr;
@@ -143,57 +139,56 @@ auto Bruteforce::CharSearch(const wstr &xpass, const ushort &xmaxLen) -> short {
     if (xpass.empty()) {
         MessOut::Warning(L"Строка пароля не должна быть пустой!!!");
         return Ret::EmptyLine;
-    } else if (xpass.length() > xmaxLen) {
-        MessOut::Exeption(L"Длина пароля превышает допустимое значение " + std::to_wstring(xmaxLen)
-                          + L" символов!!!");
+    }
+    if (xpass.length() > xmaxLen) {
+        MessOut::Exeption(L"Длина пароля превышает допустимое значение "
+                          + std::to_wstring(xmaxLen) + L" символов!!!");
         return Ret::Overflow;
     }
     if (m_alphaBet->empty() || xmaxLen == 0) {
         MessOut::Exeption(L"Строка символов для перебора пароля пустая!!!");
         return Ret::EmptyLine;
     }
-    ushort len{static_cast<ushort>(xpass.length())};
-    std::vector<size_t> ind(len, 0); // индексы символов
-    size_t n{m_alphaBet->size()};
-    if (!m_combTried) { // проверяем указатель счётчика на null
+    if (!m_combTried) {
         MessOut::Exeption(L"Указатель на счётчик null!!!");
         return Ret::NullPtr;
-    } else ResCombTri(); // обнуляем счётчик комбинаций перебора через приватный метод класса
+    }
+    ResCombTri();
 
-    // собираем текущую комбинацию
-    while (true) {
-        wstr candidate(len, L' ');
-        for (auto i{0}; i < len; ++i) {
-            candidate[i] = (*m_alphaBet)[ind[i]];
-        }
-        if (m_combTried != nullptr) { // если указатель на счётчик не null
-            ++(*m_combTried); // инкркментируем счётчик
-        }
+    const size_t  n{m_alphaBet->size()};
+    const ushort  targetLen{static_cast<ushort>(xpass.length())};
 
-        // проверяем совпадение
-        if (candidate == xpass) {
-            return Ret::Ok;
-        }
+    // перебираем все длины от 1 до xmaxLen
+    for (ushort len = 1; len <= xmaxLen; ++len) {
+        std::vector<size_t> ind(len, 0);
 
-        // переходим к следующей комбинации
-        auto pos = static_cast<ushort>(len) - 1;
-        while (pos >= 0) {
-            ++ind[pos];
-            if (ind[pos] < n) {
-                break; // нет переноса - следующая комбинация готова
+        while (true) {
+            // собираем кандидата текущей длины
+            wstr candidate(len, L' ');
+            for (ushort i = 0; i < len; ++i) {
+                candidate[i] = (*m_alphaBet)[ind[i]];
+            }
+            ++(*m_combTried);
+
+            // сравниваем только если длины совпадают — оптимизация
+            if (len == targetLen && candidate == xpass) {
+                return Ret::Ok;
             }
 
-            // перенос в следующий разряд
-            ind[pos] = 0;
-            --pos;
-        }
-
-        // если вышли за начало - все комбинации перебраны
-        if (pos < 0) {
-            return Ret::NotFound; // пароль не найден
+            // инкремент индексов с переносом (счётчик)
+            // pos — signed short, иначе проверка < 0 не сработает
+            short pos = static_cast<short>(len) - 1;
+            while (pos >= 0) {
+                ++ind[pos];
+                if (ind[pos] < n) break;
+                ind[pos] = 0;
+                --pos;
+            }
+            if (pos < 0) break;  // все комбинации текущей длины перебраны
         }
     }
-} // Bruteforce::CharSearch метод класса перебора комбинаций пароля
+    return Ret::NotFound;
+}// Bruteforce::CharSearch метод класса перебора комбинаций пароля
 
 // метод класса выводит информацию о переборе
 auto Bruteforce::PrintAlpha(const wstr &xpass) -> void {
@@ -205,7 +200,10 @@ auto Bruteforce::PrintAlpha(const wstr &xpass) -> void {
         MessOut::Exeption(L"Счётчик null!!!");
         return;
     }
-    MessOut::Every(L"Ваш пароль: " + xpass + L" принят!!!" );
-    MessOut::Info(L"Строка символов для перебора пароля: " + *m_alphaBet + L'\n' + MyEmoji::realiz
-                  + L"  Потребовалось перебрать " + std::to_wstring(*m_combTried) + L" комбинпций!!!");
-} // Bruteforce::PrintAlpBet метод класса выводит информацию о переборе
+    MessOut::Every(L"Ваш пароль: " + xpass + L" принят!!!");
+    MessOut::Info(L"Строка символов для перебора пароля: " + *m_alphaBet + L'\n'
+                  + MyEmoji::realiz
+                  + L"  Потребовалось перебрать "
+                  + std::to_wstring(*m_combTried)
+                  + L" комбинаций!!!");
+}// Bruteforce::PrintAlpBet метод класса выводит информацию о переборе
