@@ -200,7 +200,7 @@ auto Bruteforce::PrintAlpha(const wstr &xpass) -> void {
         MessOut::Exeption(L"Счётчик null!!!");
         return;
     }
-    MessOut::Every(L"Ваш пароль: " + xpass + L" принят!!!");
+    MessOut::Every(L"Ваш пароль: " + xpass + L" подобран!!!");
     MessOut::Info(L"Строка символов для перебора пароля: " + *m_alphaBet + L'\n'
                   + MyEmoji::realiz
                   + L"  Потребовалось перебрать "

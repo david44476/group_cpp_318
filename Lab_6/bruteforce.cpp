@@ -21,10 +21,10 @@ const wstr& (Bruteforce::*const PtrGetAlpha)() const = &Bruteforce::GetAlpha;
 
 const wstr CharSel(); // функция выбора набора символов
 const wstr (*const PtrCharSel)() = CharSel; // указатель на функцию выбора набора символов
-const wstr EnterPass(const ushort&, Bruteforce&); // функция ввода пароля
+const wstr EnterPass(const wstr&, const ushort&, Bruteforce&); // функция ввода пароля
 
 // указатель на функцию ввода пароля
-const wstr (*const PtrEnterPass)(const ushort&, Bruteforce&) = EnterPass;
+const wstr (*const PtrEnterPass)(const wstr&, const ushort&, Bruteforce&) = EnterPass;
 // *********************************************************************************************
 
 // функция по заданию № 1
@@ -34,7 +34,7 @@ auto BrutFor() -> void {
             std::wcout << TaskStr::strTask1 + TaskStr::seporStr;
             constexpr ushort maxlen{4};
 
-#if 1   // конструктор с параметрами: строку символов вводит пользователь
+#if 0   // конструктор с параметрами: строку символов вводит пользователь
             wstr alphaBet;
             do {
                 MessOut::Input(L"Введите желаемые символы для ввода пароля!!!");
@@ -44,19 +44,20 @@ auto BrutFor() -> void {
             std::wcout << TaskStr::seporStr;
 
             Bruteforce brutFors{alphaBet};
-            // добавлен вызов EnterPass — без него перебор не запускался
             auto pass{PtrEnterPass(maxlen, brutFors)};
-            MessOut::Info(L"Ваш пароль подобран: " + pass);
+            brtFrs.PrintAlpha(pass);
 
-#elif 0  // конструктор с параметрами через функцию выбора
+#elif 1  // конструктор с параметрами через функцию выбора
             auto alphaBet{PtrCharSel()};
             Bruteforce brtFrs{alphaBet};
-            auto pass{PtrEnterPass(maxlen, brtFrs)};
+            auto pass{PtrEnterPass(alphaBet,maxlen, brtFrs)};
+            brtFrs.PrintAlpha(pass);
 
 #elif 0  // конструктор по умолчанию
             Bruteforce brut;
             (brut.*PtrSetAlpha)(PtrCharSel());
             auto pass{PtrEnterPass(maxlen, brut)};
+            brtFrs.PrintAlpha(pass);
 
 #elif 0  // конструктор копирования
             Bruteforce brut;
@@ -101,7 +102,7 @@ auto BrutFor() -> void {
 
 // функция выбора набора символов
 auto CharSel() -> const wstr {
-    MessOut::Info(L"Выберите набор символов для перебора комбинаций пароля:");
+    MessOut::Info(L"Выберите набор символов для ввода пароля:");
     std::wcout << TaskStr::seporEmoji;
     std::wcout << L"1) 0 -> 9" << '\n'
                << L"2) a -> z" << '\n'
@@ -130,7 +131,7 @@ auto CharSel() -> const wstr {
 }// CharSel функция выбора набора символов
 
 // функция ввода пароля
-auto EnterPass(const ushort &xmaxLen, Bruteforce &xbrutForce) -> const wstr {
+auto EnterPass(const wstr &xalphaBet, const ushort &xmaxLen, Bruteforce &xbrutForce) -> const wstr {
     std::wcout << TaskStr::seporEmoji;
     wstr pass;
 
@@ -142,7 +143,8 @@ auto EnterPass(const ushort &xmaxLen, Bruteforce &xbrutForce) -> const wstr {
         do {
             MessOut::Input(passMsg);
             MessOut::Info(L"Длина пароля не должна превышать "
-                          + std::to_wstring(xmaxLen) + L" символа(ов).");
+                          + std::to_wstring(xmaxLen) + L" символа(ов) и содержать выбронные символы: "
+                          + xalphaBet);
             std::wcout << TaskStr::seporEmoji;
             std::wcout << MyEmoji::fingRight << L' ';
         } while (PtrWstr(pass,
@@ -160,11 +162,6 @@ auto EnterPass(const ushort &xmaxLen, Bruteforce &xbrutForce) -> const wstr {
             std::wcout << TaskStr::seporStr;
             continue;   // пусть введёт заново
         }
-
-        // успех
-        std::wcout << TaskStr::satFace;
-        (xbrutForce.*PtrPrintAlpha)(pass);
-        std::wcout << TaskStr::seporStr;
         break;
     }
     return pass;
