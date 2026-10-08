@@ -61,8 +61,8 @@ int main() {
         // задание № 4
         case ProgrEnum::Task_4: {
             PtrClearConsole(); // вызов функции для очистки окна терминала через указатель
-            MessOut::Info(L"На данный момент реализация задания № "
-                          + std::to_wstring(static_cast<ushort>(ProgrEnum::Task_5)) + L" отсутствует!!!");
+            void ComlexNum();
+            ComlexNum();
             break;
         }
 

@@ -30,7 +30,7 @@ auto PalDrom() -> void {
                 continue;
             }else if (res == Ret::Ok) {
                 size_t bufLen; // длина строки временного буфера
-                for (auto i{0}; enterStr[i] != L'\0'; ++i) bufLen = i + 1;
+                for (auto i{0}; enterStr[i] != L'\0'; ++i) bufLen = i + 1;               
                 wchar_t bufer[bufLen]; // временный буфер
 
                     // Копируем исходную строку во временный буфер

@@ -27,6 +27,9 @@ add_executable(Lab_6 main.cpp
     c_car_driver.h
     c_trip.h
     c_dispatcher.h
+    c_complexNum.h
+    complexNum.cpp
+    c_comlexNum.cpp
 
 
 
