@@ -15,10 +15,10 @@ public:
     Complex();
     Complex(double real, double imag = 0.0);
 
-    double real() const;
-    double imag() const;
-    void setReal(double value);
-    void setImag(double value);
+    double GetReal() const;
+    double GetImag() const;
+    void SetReal(double value);
+    void SetImag(double value);
 
     double modulus() const;
     double argument() const;

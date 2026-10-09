@@ -19,10 +19,10 @@ Complex::Complex() : re(0.0), im(0.0) {}
 Complex::Complex(double real, double imag) : re(real), im(imag) {}
 
 // --- Геттеры / сеттеры ---
-double Complex::real() const { return re; }
-double Complex::imag() const { return im; }
-void Complex::setReal(double value) { re = value; }
-void Complex::setImag(double value) { im = value; }
+double Complex::GetReal() const { return re; }
+double Complex::GetImag() const { return im; }
+void Complex::SetReal(double value) { re = value; }
+void Complex::SetImag(double value) { im = value; }
 
 // --- Модуль и аргумент ---
 double Complex::modulus() const {
