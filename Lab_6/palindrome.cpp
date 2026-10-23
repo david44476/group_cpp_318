@@ -29,10 +29,10 @@ auto PalDrom() -> void {
             }else if (res == Ret::EmptyLine) {
                 continue;
             }else if (res == Ret::Ok) {
-                const size_t bufLen = std::wcslen(enterStr); // длина строки временного буфера
+                const size_t bufLen = std::wcslen(enterStr + 1); // длина строки временного буфера
                 //for (auto i{0}; enterStr[i] != L'\0'; ++i) bufLen = i + 1;
                 wchar_t *bufer{nullptr}; // временный буфер
-                if (MemAlloc(bufer, L"временный буфер", bufLen + 1) == Ret::Ok) {
+                if (MemAlloc(bufer, L"временный буфер", bufLen) == Ret::Ok) {
 
                     // Копируем исходную строку во временный буфер
                     std::wcsncpy(bufer, enterStr, bufLen);
